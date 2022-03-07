@@ -12,11 +12,12 @@ import ProfessionalSignUp from './Components/Professional/ProfessionalSignUp/Pro
 function App() {
   return (
     <div className="App">
-       {/* <Header /> */}
-      {/* <Login /> */}
-      <SignUp />
+
+       <Header />
+      <Login />
+      {/* <SignUp />
       <ProfessionalLogin></ProfessionalLogin>
-      <ProfessionalSignUp />
+      <ProfessionalSignUp /> */}
 
       {/* <Footer/> */}
     </div>

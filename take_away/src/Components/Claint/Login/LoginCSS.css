@@ -1,0 +1,17 @@
+.input{
+    border-color: black;
+    width: 30px;
+    height: 7px;
+
+}
+.border{
+    border-color: rgb(245, 181, 61);
+    width: 450px;
+    border-width: 3px;
+    height: 500px;
+
+}
+.btn {
+    color: #fff;
+    background-coclor: #ffc107;
+    border-color: rgb(245, 181, 61);}
