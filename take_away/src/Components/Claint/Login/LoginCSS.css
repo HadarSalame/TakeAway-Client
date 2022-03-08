@@ -5,13 +5,19 @@
 
 }
 .border{
-    border-color: rgb(245, 181, 61);
+    border-color: #fce304;
     width: 450px;
-    border-width: 3px;
+    border-width: 15px;
     height: 500px;
+    margin-left:35.5%;
+    box-shadow: 2px 2px 2px #918f85;
+    border-radius: 5%;
+    
 
 }
 .btn {
     color: #fff;
-    background-coclor: #ffc107;
-    border-color: rgb(245, 181, 61);}
+    background-color: #fce304;
+    border-color: #fce304;
+    color: black;
+}
