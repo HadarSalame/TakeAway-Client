@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap';
 export default function Login(props) {
     return (
         <>
-        <div >
+        <div>
             {/* //התחברות למשתמשים עם שם סיסמא כפתור שיחזור סיסמה עי שליחת 
             //קישור למייל 
             // וכפתור התחברות */}
@@ -14,16 +14,17 @@ export default function Login(props) {
             <br></br>
             <br></br>
             <div className="border">
-                {/* <input type="email" value="LogInEmail" className="input">E-mail</input>
+               
+                <input type="text" placeholder="LogInEmail@" value="LogInEmail" className="input"></input>
+                 E-Mail<br></br>
+                <input type="password" value="LogInPass"></input>
+                <br></br> 
                 <br></br>
-                <input type="password" value="LogInPass">סיסמה</input>
-                <br></br>  */}
-                <br></br>
-
+ 
 
                <Button value="logInBtn" variant="outline" className="btn">התחברות</Button>
             </div>
         </div>
         </>
-    )
+    ) 
 }

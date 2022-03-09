@@ -21,3 +21,6 @@
     border-color: #fce304;
     color: black;
 }
+.btn:hover{
+    color: #fff;
+}
