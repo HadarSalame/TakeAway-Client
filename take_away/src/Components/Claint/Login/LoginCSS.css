@@ -9,9 +9,14 @@
     width: 450px;
     border-width: 15px;
     height: 500px;
-    margin-left:35.5%;
     box-shadow: 2px 2px 2px #918f85;
     border-radius: 5%;
+    padding-top: 50px;
+    padding-right: 40px;
+    padding-left: 40px;
+    margin-right: 439px;
+    margin-left: 36%;
+    margin-right: 33%;
     
 
 }
@@ -20,7 +25,19 @@
     background-color: #fce304;
     border-color: #fce304;
     color: black;
+    margin: 20px;
 }
 .btn:hover{
     color: #fff;
+}
+
+.a{
+    width: 200px;
+    direction: rtl;
+    
+
+}
+.ForgetPassword{
+    font-size:15px;
+    text-align: left;
 }
