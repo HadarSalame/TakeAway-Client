@@ -16,6 +16,8 @@ export default function Header(props) {
             <div style={{ 'direction': 'rtl' }}>
               <Nav className="me-auto" >
                 <Nav.Link href="#home">בית</Nav.Link>
+                <Nav.Link href="#Menus">תפריטים</Nav.Link>
+
                 <Nav.Link href="#aboutUs">עלינו</Nav.Link>
                 <Nav.Link href="#signIn">הרשמה</Nav.Link>
                 <Nav.Link href="#logIn">התחברות</Nav.Link>
