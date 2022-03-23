@@ -1,6 +1,6 @@
 import React from 'react';
 import './SignUpCss.css'
-import { Button } from 'react-bootstrap';
+import { Button, InputGroup, FormControl, FloatingLabel, Form } from 'react-bootstrap';
 
 export default function SignUp(props) {
     return (

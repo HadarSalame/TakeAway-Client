@@ -10,11 +10,12 @@ export default function Login(props) {
             //קישור למייל 
             // וכפתור התחברות */}
                 <br></br>
+                <div></div>
                 <h1>התחברות</h1>
                 <br></br>
                 <br></br>
-                <div className="border row" >
-                    <div className='col-xl-12 col-sm-12 col-xs-10'>
+                <div className=" row" >
+                    <div className='border col-xl-6 col-sm-10 col-8'>
                         {/* mail for login */}
                         {/* <div style={{'marginBottom':'30px'}}>
                         <InputGroup className="mb-3">
@@ -40,7 +41,7 @@ export default function Login(props) {
                         {/* </InputGroup> */}
                         <div>
                             <FloatingLabel
-                                className="mb-3"
+                                className="mb-3 "
                                 style={{ 'direction': 'rtl' }}
                                 controlId="floatingInput"
                                 label="Email" >

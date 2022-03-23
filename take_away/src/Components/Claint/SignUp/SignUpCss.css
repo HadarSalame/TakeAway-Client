@@ -1,0 +1,21 @@
+.border{
+    border-color: #fce304;
+    /* width: 40%; */
+    border-width: 15px;
+    height: auto;
+    /* box-shadow: 2px 2px 2px #918f85; */
+    border-radius: 5%;
+    /*
+    padding-right: 40px;
+    padding-left: 40px; */
+    margin-right: auto;
+    margin-left: auto;
+    padding: 20px;
+}
+
+.custom-control-label{
+    text-align: right;
+}
+.mb-3{
+    direction: rtl;
+}
