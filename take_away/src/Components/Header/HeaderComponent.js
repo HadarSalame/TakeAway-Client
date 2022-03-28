@@ -10,7 +10,7 @@ export default function Header(props) {
     <>
       <br />
       <br /><br />
-      <div className="headerCss">
+      <div className="headerCss row">
         <Navbar bg="#e9ab01" variant="dark" >
           <Container >
             <div style={{ 'direction': 'rtl' }}>
