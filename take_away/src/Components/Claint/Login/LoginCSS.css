@@ -26,6 +26,7 @@
     border-color: #fce304;
     color: black;
     margin: 20px;
+   height: fit-content;
 }
 
 .btn:hover{

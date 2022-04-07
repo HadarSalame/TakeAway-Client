@@ -1,47 +1,69 @@
 import React from 'react';
 import './PrivateAreaCSS.css'
-import { Button, InputGroup, FormControl, FloatingLabel, Form } from 'react-bootstrap';
+import { Button, InputGroup, FormControl, FloatingLabel, Form, Nav } from 'react-bootstrap';
 
-export default  function PAComponent(props){
-    return(
+export default function PAComponent(props) {
+    return (
         <>
-        <div className='row'>
-            <h1>אזור אישי</h1>
-            <div className="border col-xl-6 col-sm-10 col-8">
-{/* כפתורים:
+            <div className='row'>
+                <h1>אזור אישי</h1>
+                <div className="border col-xl-6 col-sm-10 col-8 PA">
+                    {/* כפתורים:
 1. עדכון פרטים אישים
  2. עדכון התפריט שמכיל הוספה והסרה מהתפריט
  3. הצעות שהתקבלו שכולל כפתורים של השוואה בין ההצעות ואפשרות להזמין את ההצעות
   4ץדואר נכנס      */}
-<div>
-    <h3>התפריט שלי</h3>
-<br></br>
-    <div>
-        <h3>מנה ראשונה</h3>
-        <h3>מנה שניה</h3>
-        <h3>מנה שלשית</h3>
-        <h3>אפשרויות</h3>
+                    <div className='menu'>
+                        <h3>התפריט שלי</h3>
+                        <br></br>
+                        <div>
+                            <h3>מנה ראשונה</h3>
+                            <h3>מנה שניה</h3>
+                            <h3>מנה שלשית</h3>
+                            <h3>אפשרויות</h3>
 
-    </div>
-    <div>
-        <Button>הסרה מהתפריט</Button>
-        <Button>שלח הצעה</Button>
-        {/* יפתח חלון ויהיה ניתן לבחור בו למי לשלוח את ההצעה */}
-    </div>
-</div>
-<div>
+                        </div>
+                        <div  >
+                            <Button variant="outline" className='btn'>הסרה מהתפריט</Button>
+                            <Button variant="outline" className='btn'>שלח הצעה</Button>
+                            {/* יפתח חלון ויהיה ניתן לבחור בו למי לשלוח את ההצעה */}
+                        </div>
+                    </div>
+                    <div className='option'>
 
-<Button>עדכון פרטים אישיים</Button>
-<Button>הצעות שהתקבלו</Button>
-<Button>הזמנות</Button>
-<Button>הצעות שנשלחו</Button>
+                        <Button variant="outline" className='btn' >עדכון פרטים אישיים</Button>
+                        <div>
 
 
+                            {/* <Button>הצעות שהתקבלו</Button>
+                        <Button>הזמנות</Button>
+                        <Button>הצעות שנשלחו</Button> */}
+                            {/* <Nav variant='tabs' defaultActiveKey='#' className='nav nav-tabs' >
+                                <Nav.Item>
+                                    <Nav.Link eventKey='get' href='#' >הזמנות שהתקבלו</Nav.Link>
+                                </Nav.Item>
+                                <Nav.Item>
+                                    <Nav.Link eventKey='out' href='#'>הזמנות שנשלחו</Nav.Link>
+                                </Nav.Item>
+                            </Nav> */}
 
-</div>
 
+
+                            <Nav variant="tabs" defaultActiveKey="/home">
+                                <Nav.Item>
+                                    <Nav.Link href="/home">הצעות שנשלחו</Nav.Link>
+                                </Nav.Item>
+                                <Nav.Item>
+                                    <Nav.Link eventKey="get">הצעות שהתקבלו</Nav.Link>
+                                </Nav.Item>
+                                
+                            </Nav>
+                        </div>
+
+                    </div>
+
+                </div>
             </div>
-        </div>
         </>
     )
 }

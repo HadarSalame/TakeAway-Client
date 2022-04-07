@@ -12,7 +12,7 @@ function App() {
   return (
     <div className="App">
        <Header />
-      {/* <Login /> */}
+      <Login />
       {/* <SignUp /> */}
       <PAComponent></PAComponent>
       {/* <ProfessionalLogin></ProfessionalLogin> */}

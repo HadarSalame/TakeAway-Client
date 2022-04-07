@@ -1,0 +1,23 @@
+.menu{
+    display:inline-block;
+    margin: 5%;
+}
+.option{
+    /* display: inline-grid; */
+    margin: 5%;
+}
+.PA{
+    display: inline-flex;
+    margin-left: 26%;
+}
+.btn {
+    color: #fff;
+    background-color: #fce304;
+    border-color: #fce304;
+    color: black;
+    margin: 20px;
+   height: fit-content;
+}
+.btn:hover{
+    color: #fff;
+}
