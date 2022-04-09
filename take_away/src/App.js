@@ -12,12 +12,15 @@ function App() {
   return (
     <div className="App">
        <Header />
-      <Login />
+      {/* <Login /> */}
       {/* <SignUp /> */}
-      <PAComponent></PAComponent>
+      {/* <PAComponent></PAComponent> */}
       {/* <ProfessionalLogin></ProfessionalLogin> */}
-      {/* <ProfessionalSignUp />  */}
-      
+      <ProfessionalSignUp /> 
+
+
+      <br></br>
+      <h4>כל הזכויות שמורות</h4>
     </div>
   );
 } 

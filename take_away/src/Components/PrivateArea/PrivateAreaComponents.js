@@ -49,12 +49,12 @@ export default function PAComponent(props) {
 
 
 
-                            <Nav variant="tabs" defaultActiveKey="/home">
+                            <Nav variant="tabs"  className='navs1'>
                                 <Nav.Item>
-                                    <Nav.Link href="/home">הצעות שנשלחו</Nav.Link>
+                                    <Nav.Link eventKey="link-1" className='navs'>הצעות שנשלחו</Nav.Link>
                                 </Nav.Item>
                                 <Nav.Item>
-                                    <Nav.Link eventKey="get">הצעות שהתקבלו</Nav.Link>
+                                    <Nav.Link eventKey="get" className='navs'>הצעות שהתקבלו</Nav.Link>
                                 </Nav.Item>
                                 
                             </Nav>
