@@ -1,6 +1,7 @@
 import React from 'react';
 import './ProfessionalSignUpCSS.css'
 import { Button, InputGroup, FormControl, FloatingLabel, Form,Select } from 'react-bootstrap';
+
 export default function ProfessionalSignUp(props) {
 
     return (
@@ -31,6 +32,29 @@ export default function ProfessionalSignUp(props) {
                             <Form.Control
                                 type="Text"
                                 placeholder="BusinessOwnerName" />
+                        </FloatingLabel>
+
+                        <FloatingLabel
+                            className="mb-3 "
+                            style={{ 'direction': 'rtl' }}
+                            controlId="floatingInputId"
+                            label="מספר העסק" >
+
+                            <Form.Control
+                                type="Text"
+                                placeholder="BusinessID" />
+                        </FloatingLabel>
+
+                        
+                        <FloatingLabel
+                            className="mb-3 "
+                            style={{ 'direction': 'rtl' }}
+                            controlId="floatingInputId"
+                            label=" כתובת העסק" >
+
+                            <Form.Control
+                                type="Text"
+                                placeholder="BusinessAddress" />
                         </FloatingLabel>
 
                         {/* phone */}
@@ -86,7 +110,7 @@ export default function ProfessionalSignUp(props) {
                         <Form.Group controlId="formFile">
                             {/* <Form.Label>Default file input example</Form.Label> */}
                             <FloatingLabel
-                                className="mb-3" ף
+                                className="mb-3" 
                                 ystle={{ 'direction': 'rtl' }}
                                 controlId="floatingInputFile"
                                 label="לוגו" >
@@ -96,7 +120,20 @@ export default function ProfessionalSignUp(props) {
                             </FloatingLabel>
                         </Form.Group>
 
+                        <Form.Group controlId="formFile">
+                            {/* <Form.Label>Default file input example</Form.Label> */}
+                            <FloatingLabel
+                                className="mb-3" 
+                                ystle={{ 'direction': 'rtl' }}
+                                controlId="floatingInputFile"
+                                label="אישור משרד הבריאות" >
+                                <Form.Control
+                                    type="file"
+                                    placeholder="name@example.com" />
+                            </FloatingLabel>
+                        </Form.Group>
 
+                        <Button value="ProfessionalSignUpPart1" variant="outline" className="btn">המשך</Button>
 
                     </div>
                 </div>

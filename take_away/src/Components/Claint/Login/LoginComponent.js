@@ -1,8 +1,17 @@
 import React from 'react';
 import './LoginCSS.css'
 import { Button, InputGroup, FormControl, FloatingLabel, Form } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login(props) {
+
+    let navigate = useNavigate();
+
+    function BackToHomePage() {
+        //to change it!!!
+        navigate("/ProfessionalLogin")
+    }
+    
     return (
         <>
             <div>
@@ -65,7 +74,7 @@ export default function Login(props) {
                         </div>
                         <h1 className='ForgetPassword'>שכחתי סיסמה</h1>
 
-                        <Button value="logInBtn" variant="outline" className="btn">התחבר/י</Button>
+                        <Button value="logInBtn" variant="outline" className="btn" onClick={BackToHomePage}>התחבר/י</Button>
                     </div>
                 </div>
             </div>
