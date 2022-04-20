@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import{BrowserRouter,Link,Route,Routes} from 'react-router-dom'
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
 import { Provider } from 'react';
 import Index from './Components/Index/IndexComponents'
 import Header from './Components/Header/HeaderComponent'
@@ -8,15 +8,15 @@ import Login from './Components/Claint/Login/LoginComponent'
 import SignUp from './Components/Claint/SignUp/SignUPComponent'
 import ProfessionalLogin from './Components/Professional/ProfessionalLogin/ProfessionalLoginComponent'
 import ProfessionalSignUp from './Components/Professional/ProfessionalSignUp/ProfessionalSignUpComponent'
-import PAComponent from './Components/PrivateArea/PrivateAreaComponents'
+import PAComponent from './Components/Claint/PrivateArea/PrivateAreaComponents'
 import ForgetPass from './Components/ForgetPassWord/ForgetPassComponent'
-
+import ProfessionalPA from './Components/Professional/ProfessionalPrivateArea/ProfessionalPAComponent'
 
 function App() {
   return (
     <div className="App">
-{/* <Provider store={store}> */}
-  {/* <BrowserRouter>
+      {/* <Provider store={store}> */}
+      {/* <BrowserRouter>
   <Link to='/Login'>page1</Link>
   <Link to='/Page2'>page2</Link>
 
@@ -24,21 +24,22 @@ function App() {
   <Route path='/Header' element={<Header/>}></Route>
 </Routes>
   </BrowserRouter> */}
-{/* </Provider> */}
+      {/* </Provider> */}
 
 
-       {/* <Header />  */}
+      {/* <Header />  */}
       {/* <Login /> */}
       {/* <SignUp /> */}
       {/* <PAComponent></PAComponent> */}
-      <ProfessionalLogin></ProfessionalLogin>
+      {/* <ProfessionalLogin></ProfessionalLogin> */}
       {/* <ProfessionalSignUp />  */}
+      <ProfessionalPA/>
 
 
       <br></br>
-      <h4>כל הזכויות שמורות</h4>
+      <h6>כל הזכויות שמורות</h6>
     </div>
   );
-} 
+}
 
 export default App;

@@ -1,20 +1,27 @@
 import React from 'react';
 import './ProfessionalLoginCSS.css'
-import { Button, InputGroup, FormControl, FloatingLabel, Form,Select } from 'react-bootstrap';
-import{BrowserRouter,Link,Route,Routes} from 'react-router-dom'
+import { Button, InputGroup, FormControl, FloatingLabel, Form, Select } from 'react-bootstrap';
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
+import ForgetPass from '../../ForgetPassWord/ForgetPassComponent';
+import { useNavigate } from 'react-router-dom';
 
 //למצוא את הניתוב של ForgetPass
 //import Forgetpass from '.././'
 
 
 
-export default function ProfessionalLogin(props){
+export default function ProfessionalLogin(props) {
 
-    return(
+    //   let navigate = useNavigate();
+
+    //   function gotoForgrtPassWord(){
+    //     navigate('/ForgetPass')
+    //   }
+    return (
         //to copy the login and add businessId
         <>
-        <div>
-        <div className=" row" >
+            <div>
+                <div className=" row" >
                     <div className='border col-xl-6 col-sm-10 col-8'>
                         {/* mail for login */}
                         {/* <div style={{'marginBottom':'30px'}}>
@@ -75,19 +82,20 @@ export default function ProfessionalLogin(props){
                                     placeholder="Password" />
 
                             </FloatingLabel>
-                        </div>
-                        {/* <h1 className='ForgetPassword'>שכחתי סיסמה</h1> */}
-                        {/* <BrowserRouter>
-                        <Link to='/ForgetPass'>שכחתי סיסמה</Link>
-                        <Routes>
-                            <Route path='/ForgetPass'element={<Forgetpass/>}/>
-                        </Routes>
-                        </BrowserRouter> */}
 
+                            <div className="FP">
+                                <BrowserRouter >
+                                    <Link to='/ForgetPass'>שכחתי סיסמה</Link>
+                                    <Routes>
+                                        <Route path='/ForgetPass' element={<ForgetPass />} />
+                                    </Routes>
+                                </BrowserRouter>
+                            </div>
+                        </div>
                         <Button value="logInBtn" variant="outline" className="btn" >התחבר/י</Button>
                     </div>
                 </div>
-        </div>
+            </div>
         </>
     )
 }

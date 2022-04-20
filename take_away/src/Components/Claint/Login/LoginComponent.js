@@ -2,16 +2,19 @@ import React from 'react';
 import './LoginCSS.css'
 import { Button, InputGroup, FormControl, FloatingLabel, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import ForgetPass from '../../ForgetPassWord/ForgetPassComponent';
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
+
 
 export default function Login(props) {
 
-    let navigate = useNavigate();
+    // let navigate = useNavigate();
 
-    function BackToHomePage() {
-        //to change it!!!
-        navigate("/ProfessionalLogin")
-    }
-    
+    // function BackToHomePage() {
+    //     //to change it!!!
+    //     navigate("/ProfessionalLogin")
+    // };
+
     return (
         <>
             <div>
@@ -71,13 +74,21 @@ export default function Login(props) {
                                     placeholder="Password" />
 
                             </FloatingLabel>
-                        </div>
-                        <h1 className='ForgetPassword'>שכחתי סיסמה</h1>
 
-                        <Button value="logInBtn" variant="outline" className="btn" onClick={BackToHomePage}>התחבר/י</Button>
+                            <div className="FP">
+                                <BrowserRouter >
+                                    <Link to='/ForgetPass'>שכחתי סיסמה</Link>
+                                    <Routes>
+                                        <Route path='/ForgetPass' element={<ForgetPass />} />
+                                    </Routes>
+                                </BrowserRouter>
+                            </div>
+                        </div>
+                        <Button value="logInBtn" variant="outline" className="btn">התחבר/י</Button>
                     </div>
                 </div>
             </div>
         </>
     )
 }
+//   onClick={BackToHomePage}

@@ -1,0 +1,7 @@
+.FP{
+    direction: ltr;
+    text-align: left;
+    
+}.FP:hover{
+    text-decoration: none;
+}

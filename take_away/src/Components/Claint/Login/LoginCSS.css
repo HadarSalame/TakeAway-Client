@@ -44,3 +44,10 @@
     text-align: left;
     margin-top: 5px;
 }
+.FP{
+    direction: ltr;
+    text-align: left;
+    
+}.FP:hover{
+    text-decoration: none;
+}
