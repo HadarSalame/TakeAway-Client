@@ -11,12 +11,18 @@ export default function ProfessionalPA() {
         <>
             <div className='row border col-xl-6 col-sm-10 col-8'>
                 <div>
-                   
-                            <Form.Group controlId="datePicker">
-                                <Form.Label>Select Date</Form.Label>
-                                <Form.Control type="date" name="datePicker" placeholder="Date of Birth" />
-                            </Form.Group>
-                       
+                    <Button>עדכון פרטי העסק</Button>
+                    <br/>
+                    <Button>עדכון התפריט</Button>
+                    <br/>
+                    
+
+                    {/* <div>  schaduller
+                        <Form.Group controlId="datePicker">
+                            <Form.Label>Select Date</Form.Label>
+                            <Form.Control type="date" name="datePicker" placeholder="Date of Birth" />
+                        </Form.Group>
+                    </div> */}
                 </div>
             </div>
         </>

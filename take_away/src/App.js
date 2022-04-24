@@ -11,6 +11,10 @@ import ProfessionalSignUp from './Components/Professional/ProfessionalSignUp/Pro
 import PAComponent from './Components/Claint/PrivateArea/PrivateAreaComponents'
 import ForgetPass from './Components/ForgetPassWord/ForgetPassComponent'
 import ProfessionalPA from './Components/Professional/ProfessionalPrivateArea/ProfessionalPAComponent'
+import BusinessPage from './Components/Professional/Business/BusinessComponent';
+// import Big_Bite from './Images/Logos'
+
+
 
 function App() {
   return (
@@ -33,8 +37,9 @@ function App() {
       {/* <PAComponent></PAComponent> */}
       {/* <ProfessionalLogin></ProfessionalLogin> */}
       {/* <ProfessionalSignUp />  */}
-      <ProfessionalPA/>
-
+      {/* <ProfessionalPA/> */}
+      <BusinessPage></BusinessPage>
+{/* <img src={Big_Bite}></img> */}
 
       <br></br>
       <h6>כל הזכויות שמורות</h6>

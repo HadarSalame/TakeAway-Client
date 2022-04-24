@@ -1,0 +1,9 @@
+.Logos{
+    width:30%;
+    height: auto;
+    border-color: black;
+    
+}
+.B_logos{
+    display: inline-flex;
+}
