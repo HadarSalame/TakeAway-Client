@@ -2,6 +2,8 @@ import React from 'react';
 import { Navbar, Container, Nav,NavDropdown } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom';
 import './HeaderCss.css'
+import Logo from '../../Images/Logos/Logo.jpg'
+
 
 
 export default function Header(props) {
@@ -46,6 +48,8 @@ function gotoPrivateArae(){
       <br />
       <br /><br />
       <div className="headerCss row">
+      <img src={Logo} className='Logo'></img>
+
         <Navbar bg="#e9ab01" variant="dark" >
           <Container >
             <div style={{ 'direction': 'rtl' }}>
@@ -65,8 +69,8 @@ function gotoPrivateArae(){
                   <NavDropdown.Item href="#ProfessionalLogin">התחברות לבעל עסק</NavDropdown.Item>
                 </NavDropdown>
 
-
-{/* onClick={gotoIndex}
+{/* 
+onClick={gotoIndex}
 onClick={gotoMenu}
  onClick={gotoInfoPage}
 onClick={gotoUserSignUp}

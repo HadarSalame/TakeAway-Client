@@ -13,12 +13,13 @@ import ForgetPass from './Components/ForgetPassWord/ForgetPassComponent'
 import ProfessionalPA from './Components/Professional/ProfessionalPrivateArea/ProfessionalPAComponent'
 import BusinessPage from './Components/Professional/Business/BusinessComponent';
 // import Big_Bite from './Images/Logos'
-
+import Logo from './Images/Logos/Logo.jpg'
 
 
 function App() {
   return (
     <div className="App">
+      <img src={Logo} className='Logo'></img>
       {/* <Provider store={store}> */}
       {/* <BrowserRouter>
   <Link to='/Login'>page1</Link>
@@ -31,7 +32,7 @@ function App() {
       {/* </Provider> */}
 
 
-      {/* <Header />  */}
+      <Header /> 
       {/* <Login /> */}
       {/* <SignUp /> */}
       {/* <PAComponent></PAComponent> */}
