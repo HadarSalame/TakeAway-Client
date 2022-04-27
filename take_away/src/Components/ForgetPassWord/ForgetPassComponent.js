@@ -10,7 +10,7 @@ export default function ForgetPass(props){
     return(
         
         <>
-        
+        איפוס סיסמה
         </>
     )
 }

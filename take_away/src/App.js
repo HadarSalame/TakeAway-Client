@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Provider } from 'react';
 import Index from './Components/Index/IndexComponents'
 import Header from './Components/Header/HeaderComponent'
@@ -12,38 +12,33 @@ import PAComponent from './Components/Claint/PrivateArea/PrivateAreaComponents'
 import ForgetPass from './Components/ForgetPassWord/ForgetPassComponent'
 import ProfessionalPA from './Components/Professional/ProfessionalPrivateArea/ProfessionalPAComponent'
 import BusinessPage from './Components/Professional/Business/BusinessComponent';
-// import Big_Bite from './Images/Logos'
-import Logo from './Images/Logos/Logo.jpg'
+
 
 
 function App() {
   return (
     <div className="App">
-      <img src={Logo} className='Logo'></img>
+      
       {/* <Provider store={store}> */}
-      {/* <BrowserRouter>
-  <Link to='/Login'>page1</Link>
-  <Link to='/Page2'>page2</Link>
+{/* 
+        <Link to='/Login'>page1</Link>
+        <Link to='/Page2'>page2</Link> */}
 
-<Routes>
-  <Route path='/Header' element={<Header/>}></Route>
-</Routes>
-  </BrowserRouter> */}
+ 
+       
       {/* </Provider> */}
-
-
-      <Header /> 
+ 
       {/* <Login /> */}
       {/* <SignUp /> */}
       {/* <PAComponent></PAComponent> */}
       {/* <ProfessionalLogin></ProfessionalLogin> */}
       {/* <ProfessionalSignUp />  */}
       {/* <ProfessionalPA/> */}
-      <BusinessPage></BusinessPage>
-{/* <img src={Big_Bite}></img> */}
+      {/* <BusinessPage></BusinessPage> */}
+      {/* <img src={Big_Bite}></img> */}
 
       <br></br>
-      <h6>כל הזכויות שמורות</h6>
+    
     </div>
   );
 }

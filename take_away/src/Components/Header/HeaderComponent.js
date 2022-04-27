@@ -41,42 +41,39 @@ function gotoProfessionalSignUp(){
 }
 
 function gotoPrivateArae(){
+  
   navigate('/PAComponent')
+}
+
+function gotoBusinessPage(){
+  navigate('/BusinessPage')
 }
   return (
     <>
       <br />
       <br /><br />
+      {/* <img src={Logo} className='Logo'></img> */}
       <div className="headerCss row">
-      <img src={Logo} className='Logo'></img>
+      
 
         <Navbar bg="#e9ab01" variant="dark" >
           <Container >
             <div style={{ 'direction': 'rtl' }}>
               <Nav className="me-auto" >
 
-                <Nav.Link href="#home" >בית</Nav.Link>
-                <Nav.Link href="#privateArea" >אזור אישי</Nav.Link>
-                <Nav.Link href="#Menus" >תפריטים</Nav.Link>
-                <Nav.Link href="#businesses">בתי עסק</Nav.Link>
-                <Nav.Link href="#aboutUs">עלינו</Nav.Link>
+                <Nav.Link onClick={gotoIndex}>בית</Nav.Link>
+                <Nav.Link onClick={gotoPrivateArae}>אזור אישי</Nav.Link>
+                <Nav.Link onClick={gotoMenu}>תפריטים</Nav.Link>
+                <Nav.Link onClick={gotoBusinessPage}>בתי עסק</Nav.Link>
+                <Nav.Link  onClick={gotoInfoPage}>עלינו</Nav.Link>
                 <NavDropdown title="הרשמה" id="navbarScrollingDropdownSignUp">
-                  <NavDropdown.Item href="#UserSignUp" >הרשמה למשתמש</NavDropdown.Item>
-                  <NavDropdown.Item href="#ProfessionalSignUp">הרשמה לבעל עסק</NavDropdown.Item>
+                  <NavDropdown.Item onClick={gotoUserSignUp} >הרשמה למשתמש</NavDropdown.Item>
+                  <NavDropdown.Item onClick={gotoProfessionalSignUp}>הרשמה לבעל עסק</NavDropdown.Item>
                 </NavDropdown>
                 <NavDropdown title="התחברות" id="navbarScrollingDropdownLogin">
-                  <NavDropdown.Item href="#UserLogin" >התחברות למשתמש</NavDropdown.Item>
-                  <NavDropdown.Item href="#ProfessionalLogin">התחברות לבעל עסק</NavDropdown.Item>
+                  <NavDropdown.Item onClick={gotoUserLogin} >התחברות למשתמש</NavDropdown.Item>
+                  <NavDropdown.Item onClick={gotoProfessionalLogin}>התחברות לבעל עסק</NavDropdown.Item>
                 </NavDropdown>
-
-{/* 
-onClick={gotoIndex}
-onClick={gotoMenu}
- onClick={gotoInfoPage}
-onClick={gotoUserSignUp}
-onClick={gotoProfessionalSignUp}
-onClick={gotoPrivateArae} */}
-
               </Nav>
             </div>
           </Container>

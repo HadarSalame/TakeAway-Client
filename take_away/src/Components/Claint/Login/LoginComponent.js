@@ -2,7 +2,6 @@ import React from 'react';
 import './LoginCSS.css'
 import { Button, InputGroup, FormControl, FloatingLabel, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import ForgetPass from '../../ForgetPassWord/ForgetPassComponent';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
 
 
@@ -23,7 +22,7 @@ export default function Login(props) {
             // וכפתור התחברות */}
                 <br></br>
                 <div></div>
-                <h1>התחברות</h1>
+                <h1  style={{ textAlign: 'center' }}>התחברות</h1>
                 <br></br>
                 <br></br>
                 <div className=" row" >
@@ -76,12 +75,11 @@ export default function Login(props) {
                             </FloatingLabel>
 
                             <div className="FP">
-                                <BrowserRouter >
+                              
                                     <Link to='/ForgetPass'>שכחתי סיסמה</Link>
-                                    <Routes>
-                                        <Route path='/ForgetPass' element={<ForgetPass />} />
-                                    </Routes>
-                                </BrowserRouter>
+                                   
+                                    
+                                   
                             </div>
                         </div>
                         <Button value="logInBtn" variant="outline" className="btn">התחבר/י</Button>

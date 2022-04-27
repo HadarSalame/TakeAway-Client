@@ -3,6 +3,11 @@ import './SignUpCss.css'
 import { Button, InputGroup, FormControl, FloatingLabel, Form } from 'react-bootstrap';
 
 export default function SignUp(props) {
+    let navigate = useNavigate();
+    function gotoIndex() {
+      
+      navigate("/Index")
+    }
     return (
         <>
             <div >
@@ -11,7 +16,7 @@ export default function SignUp(props) {
                     {/* //הרשמה למשתמשים מכילה
                     //שם, שם משפחה, נייד, מייל, סיסמה, אימות סיסמה
                     //אישור תנאי האתר וכפתור הרשמה */}
-                    <h1>הרשמה למשתמשים</h1>
+                    <h1  style={{ textAlign: 'center' }}>הרשמה למשתמשים</h1>
                     <br></br>
                     <div className=" row" >
                         <div className='border col-xl-6 col-sm-10 col-8'>
@@ -99,7 +104,7 @@ export default function SignUp(props) {
                                 </div>
                             </form>
 
-                            <Button value="SignUpBtn" variant="outline" className="btn">הרשמ/י</Button>
+                            <Button value="SignUpBtn" variant="outline" className="btn" onClick={gotoIndex} >הרשמ/י</Button>
                         </div>
                     </div>
 

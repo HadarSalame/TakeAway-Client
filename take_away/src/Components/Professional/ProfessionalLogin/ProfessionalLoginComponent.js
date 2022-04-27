@@ -2,7 +2,7 @@ import React from 'react';
 import './ProfessionalLoginCSS.css'
 import { Button, InputGroup, FormControl, FloatingLabel, Form, Select } from 'react-bootstrap';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
-import ForgetPass from '../../ForgetPassWord/ForgetPassComponent';
+// import ForgetPass from '../../ForgetPassWord/ForgetPassComponent';
 import { useNavigate } from 'react-router-dom';
 
 //למצוא את הניתוב של ForgetPass
@@ -84,12 +84,10 @@ export default function ProfessionalLogin(props) {
                             </FloatingLabel>
 
                             <div className="FP">
-                                <BrowserRouter >
+                             
                                     <Link to='/ForgetPass'>שכחתי סיסמה</Link>
-                                    <Routes>
-                                        <Route path='/ForgetPass' element={<ForgetPass />} />
-                                    </Routes>
-                                </BrowserRouter>
+                                    
+                             
                             </div>
                         </div>
                         <Button value="logInBtn" variant="outline" className="btn" >התחבר/י</Button>
