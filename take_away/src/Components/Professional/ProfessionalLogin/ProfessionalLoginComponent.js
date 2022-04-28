@@ -12,40 +12,20 @@ import { useNavigate } from 'react-router-dom';
 
 export default function ProfessionalLogin(props) {
 
-    //   let navigate = useNavigate();
+      let navigate = useNavigate();
 
-    //   function gotoForgrtPassWord(){
-    //     navigate('/ForgetPass')
-    //   }
+      function gotoIndex(){
+        navigate('/Index')
+      }
     return (
-        //to copy the login and add businessId
+        
         <>
             <div>
+               
                 <div className=" row" >
+                     <h1 style={{textAlign:'center'}}>התחברות לעסקים</h1>
                     <div className='border col-xl-6 col-sm-10 col-8'>
-                        {/* mail for login */}
-                        {/* <div style={{'marginBottom':'30px'}}>
-                        <InputGroup className="mb-3">
-                            <FormControl
-                                placeholder="E-mail"
-                                aria-label="E-mail"
-                                aria-describedby="basic-addon1"
-                                className='a'
-                            />
-                            <InputGroup.Text id="basic-addon1" >@</InputGroup.Text>
-                        </InputGroup>
-                    </div>
-                    {/* PassWord for login */}
-                        {/* <InputGroup className="mb-3">
-
-                        <FormControl
-                            placeholder="Password"
-                            aria-label="Password"
-                            aria-describedby="basic-addon1"
-                            className='a'
-                        />
-                        <InputGroup.Text id="basic-addon1" >@</InputGroup.Text> */}
-                        {/* </InputGroup> */}
+                    
                         <div>
                             <FloatingLabel
                                 className="mb-3 "
@@ -90,7 +70,7 @@ export default function ProfessionalLogin(props) {
                              
                             </div>
                         </div>
-                        <Button value="logInBtn" variant="outline" className="btn" >התחבר/י</Button>
+                        <Button value="logInBtn" variant="outline" className="btn" onClick={gotoIndex} >התחבר/י</Button>
                     </div>
                 </div>
             </div>

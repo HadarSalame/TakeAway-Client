@@ -7,12 +7,12 @@ import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
 
 export default function Login(props) {
 
-    // let navigate = useNavigate();
+    let navigate = useNavigate();
 
-    // function BackToHomePage() {
-    //     //to change it!!!
-    //     navigate("/ProfessionalLogin")
-    // };
+    function gotoIndex() {
+       
+        navigate("/Index")
+    };
 
     return (
         <>
@@ -82,7 +82,7 @@ export default function Login(props) {
                                    
                             </div>
                         </div>
-                        <Button value="logInBtn" variant="outline" className="btn">התחבר/י</Button>
+                        <Button value="logInBtn" variant="outline" className="btn" onClick={gotoIndex}>התחבר/י</Button>
                     </div>
                 </div>
             </div>

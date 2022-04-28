@@ -1,9 +1,18 @@
 .Logos{
-    width:30%;
+    width:170px;
     height: auto;
     border-color: black;
+    text-align: center;
+    margin: 5px;
+    
     
 }
 .B_logos{
     display: inline-flex;
+}
+.B_border {
+width: 215px;
+height: 300px;
+margin: 20px;
+text-align: center;
 }
