@@ -5,7 +5,8 @@
 
 }
 .border{
-    border-color: #fce304;
+    border-color: #f7d520
+;
     /* width: 40%; */
     border-width: 15px;
     height: auto;
@@ -22,11 +23,16 @@
 }
 .btn {
     color: #fff;
-    background-color: #fce304;
-    border-color: #fce304;
+    background-color: #f7d520
+;
+    border-color: #f7d520
+;
     color: black;
-    margin: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
    height: fit-content;
+   text-align: center;
+   margin-left: 45%;
 }
 
 .btn:hover{

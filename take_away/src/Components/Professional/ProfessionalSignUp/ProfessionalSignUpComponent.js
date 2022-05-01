@@ -1,14 +1,22 @@
 import React from 'react';
 import './ProfessionalSignUpCSS.css'
-import { Button, InputGroup, FormControl, FloatingLabel, Form,Select } from 'react-bootstrap';
+import { Button, InputGroup, FormControl, FloatingLabel, Form, Select } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+
+
 
 export default function ProfessionalSignUp(props) {
+
+    let navigate = useNavigate();
+    function gotoIndex() {
+      navigate("/Index")
+    }
 
     return (
         <>
             <div>
                 <div>
-                    <h1>הרשמה לעסקים</h1>
+                    <h1 style={{ textAlign: 'center' }}>הרשמה לעסקים</h1>
                 </div>
                 <div className=" row border col-xl-6 col-sm-10 col-8">
                     <div>
@@ -45,22 +53,36 @@ export default function ProfessionalSignUp(props) {
                                 placeholder="BusinessID" />
                         </FloatingLabel>
 
-                        
-                        <FloatingLabel
-                            className="mb-3 "
-                            style={{ 'direction': 'rtl' }}
-                            controlId="floatingInputId"
-                            label=" כתובת העסק" >
+                        <div style={{ display: 'flex' }}>
+                            <FloatingLabel
+                                className="mb-3 form "
+                                style={{ width: '590px' }}
+                                controlId="floatingInputId"
+                                label=" כתובת העסק" >
 
-                            <Form.Control
-                                type="Text"
-                                placeholder="BusinessAddress" />
-                        </FloatingLabel>
+                                <Form.Control
+                                    type="Text"
+                                    placeholder="BusinessAddress" />
+                            </FloatingLabel>
 
+                               
+                            <Form.Select aria-label="Default select example" className='form'  style={{ width: '300px',marginLeft:'15px' }}>
+                                <option disabled>בחר עיר</option>
+                                {/* <option value="1">העדה החרדית</option>
+                            <option value="2">הרב לנדא</option>
+                            <option value="3">בד''צ בית יוסף</option>
+                            <option value="4">הרב אברהם רובין</option>
+                            <option value="5">יורה דעה-הרב שלמה מחפוד</option>
+                            <option value="6">בד''צ מחזיקי הדת</option>
+                            <option value="7">בד''צ שארית ישראל</option>
+                            <option value="8">רבנות פתח תקווה</option>
+                            <option value="9">רבני צהר</option> */}
+                            </Form.Select>
+
+                        </div>
                         {/* phone */}
                         <FloatingLabel
                             className="mb-3"
-                            style={{ 'direction': 'rtl' }}
                             controlId="floatingInputPhone"
                             label="טלפון" >
 
@@ -80,7 +102,7 @@ export default function ProfessionalSignUp(props) {
                                 placeholder="name@example.com" />
                         </FloatingLabel>
 
-                        <Form.Select aria-label="Default select example">
+                        <Form.Select aria-label="Default select example" style={{ height: '58px' }} >
                             <option disabled>כשרות העסק</option>
                             <option value="1">העדה החרדית</option>
                             <option value="2">הרב לנדא</option>
@@ -97,7 +119,7 @@ export default function ProfessionalSignUp(props) {
                         <Form.Group controlId="formFile">
                             {/* <Form.Label>Default file input example</Form.Label> */}
                             <FloatingLabel
-                                className="mb-3" ף
+                                className="mb-3" 
                                 ystle={{ 'direction': 'rtl' }}
                                 controlId="floatingInputFile"
                                 label="תעודת כשרות" >
@@ -110,7 +132,7 @@ export default function ProfessionalSignUp(props) {
                         <Form.Group controlId="formFile">
                             {/* <Form.Label>Default file input example</Form.Label> */}
                             <FloatingLabel
-                                className="mb-3" 
+                                className="mb-3"
                                 ystle={{ 'direction': 'rtl' }}
                                 controlId="floatingInputFile"
                                 label="לוגו" >
@@ -123,7 +145,7 @@ export default function ProfessionalSignUp(props) {
                         <Form.Group controlId="formFile">
                             {/* <Form.Label>Default file input example</Form.Label> */}
                             <FloatingLabel
-                                className="mb-3" 
+                                className="mb-3"
                                 ystle={{ 'direction': 'rtl' }}
                                 controlId="floatingInputFile"
                                 label="אישור משרד הבריאות" >
@@ -133,7 +155,7 @@ export default function ProfessionalSignUp(props) {
                             </FloatingLabel>
                         </Form.Group>
 
-                        <Button value="ProfessionalSignUpPart1" variant="outline" className="btn">המשך</Button>
+                        <Button value="ProfessionalSignUpPart1" variant="outline" onClick={gotoIndex} className="btn">המשך</Button>
 
                     </div>
                 </div>
