@@ -17,12 +17,12 @@ export default function ProfessionalPA() {
                     <br/>
                     
 
-                    {/* <div>  schaduller
+                    <div>  schaduller
                         <Form.Group controlId="datePicker">
                             <Form.Label>Select Date</Form.Label>
                             <Form.Control type="date" name="datePicker" placeholder="Date of Birth" />
                         </Form.Group>
-                    </div> */}
+                    </div>
                 </div>
             </div>
         </>

@@ -16,6 +16,7 @@ import ProfessionalLogin from './Components/Professional/ProfessionalLogin/Profe
 import ProfessionalSignUp from './Components/Professional/ProfessionalSignUp/ProfessionalSignUpComponent'
 import PAComponent from './Components/Claint/PrivateArea/PrivateAreaComponents'
 import BusinessPage from './Components/Professional/Business/BusinessComponent';
+import InfoPage from './Components/Infromation/InfoPageComponent';
 
 
 
@@ -25,9 +26,10 @@ import ForgetPass from './Components/ForgetPassWord/ForgetPassComponent';
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      {/* <App /> */}
          <Header />
       <Routes>
+        <Route path='/' element={<App/>} ></Route>
         <Route path='/Header' element={<Header />}></Route>
         <Route path='/Index' element={<Index />}></Route>
         <Route path='/ProfessionalLogin' element={<ProfessionalLogin />}></Route>
@@ -36,6 +38,7 @@ ReactDOM.render(
         <Route path='/ProfessionalSignUp' element={<ProfessionalSignUp />}></Route>
         <Route path='/PAComponent' element={<PAComponent />}></Route>
         <Route path='/BusinessPage' element={<BusinessPage />}></Route>
+        <Route path='/Infopage' element={<InfoPage/>}></Route>
 
 
 

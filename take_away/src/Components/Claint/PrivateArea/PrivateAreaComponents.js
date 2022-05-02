@@ -14,15 +14,7 @@ export default function PAComponent(props) {
  3. הצעות שהתקבלו שכולל כפתורים של השוואה בין ההצעות ואפשרות להזמין את ההצעות
   4ץדואר נכנס      */}
                     <div className='menu'>
-                        <h3>התפריט שלי</h3>
-                        <br></br>
-                        <div>
-                            <h3>מנה ראשונה</h3>
-                            <h3>מנה שניה</h3>
-                            <h3>מנה שלשית</h3>
-                            <h3>אפשרויות</h3>
-
-                        </div>
+                       
                         <div  >
                             <Button variant="outline" className='btn'>הסרה מהתפריט</Button>
                             <Button variant="outline" className='btn'>שלח הצעה</Button>

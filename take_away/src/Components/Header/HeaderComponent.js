@@ -20,7 +20,7 @@ export default function Header(props) {
   }
 
   function gotoInfoPage() {
-    //to add infopage
+
     navigate('/InfoPage')
   }
 
@@ -50,12 +50,12 @@ export default function Header(props) {
   }
   return (
     <>
-      <div>
-        <img src={Logo} className='Logo ' onClick={gotoIndex}></img>
-      </div>
+
 
       <div className=" row">
-
+        <div>
+          <img src={Logo} className='Logo ' onClick={gotoIndex}></img>
+        </div>
         <Navbar bg="#e9ab01" variant="dark" className='headerCss' >
           <Container >
 
