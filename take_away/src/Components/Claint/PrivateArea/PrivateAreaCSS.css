@@ -40,3 +40,9 @@
 .navs:hover{
     color: #ffffff;
 }
+
+.details{
+    text-align: right;
+    direction: rtl;
+    font-size: 10px;
+}

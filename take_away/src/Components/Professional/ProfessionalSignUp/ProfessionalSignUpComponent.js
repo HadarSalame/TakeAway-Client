@@ -120,10 +120,12 @@ export default function ProfessionalSignUp(props) {
                             {/* <Form.Label>Default file input example</Form.Label> */}
                             <FloatingLabel
                                 className="mb-3" 
-                                ystle={{ 'direction': 'rtl' }}
+                                style={{ 'direction': 'rtl' }}
                                 controlId="floatingInputFile"
                                 label="תעודת כשרות" >
                                 <Form.Control
+                                style={{ 'hight': '40px' }}
+
                                     type="file"
                                     placeholder="name@example.com" />
                             </FloatingLabel>
@@ -133,7 +135,7 @@ export default function ProfessionalSignUp(props) {
                             {/* <Form.Label>Default file input example</Form.Label> */}
                             <FloatingLabel
                                 className="mb-3"
-                                ystle={{ 'direction': 'rtl' }}
+                                style={{ 'direction': 'rtl' }}
                                 controlId="floatingInputFile"
                                 label="לוגו" >
                                 <Form.Control
@@ -146,7 +148,7 @@ export default function ProfessionalSignUp(props) {
                             {/* <Form.Label>Default file input example</Form.Label> */}
                             <FloatingLabel
                                 className="mb-3"
-                                ystle={{ 'direction': 'rtl' }}
+                                style={{ 'direction': 'rtl' }}
                                 controlId="floatingInputFile"
                                 label="אישור משרד הבריאות" >
                                 <Form.Control

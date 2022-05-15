@@ -17,6 +17,10 @@ import ProfessionalSignUp from './Components/Professional/ProfessionalSignUp/Pro
 import PAComponent from './Components/Claint/PrivateArea/PrivateAreaComponents'
 import BusinessPage from './Components/Professional/Business/BusinessComponent';
 import InfoPage from './Components/Infromation/InfoPageComponent';
+import PPAComponent from './Components/Professional/ProfessionalPrivateArea/ProfessionalPAComponent';
+
+//לא לשכוח למחוקק
+import tryPage from './Components/Actions/ActionsComp';
 
 
 
@@ -37,10 +41,13 @@ ReactDOM.render(
         <Route path='/SignUp' element={<SignUp />}></Route>
         <Route path='/ProfessionalSignUp' element={<ProfessionalSignUp />}></Route>
         <Route path='/PAComponent' element={<PAComponent />}></Route>
+        <Route path='/PPAComponent' element={<PPAComponent />}></Route>
+
         <Route path='/BusinessPage' element={<BusinessPage />}></Route>
         <Route path='/Infopage' element={<InfoPage/>}></Route>
 
-
+{/* למחוקקקקקק */}
+        <Route path='/tryPage' element={<tryPage />} />
 
         <Route path='/ForgetPass' element={<ForgetPass />} />
       </Routes>
