@@ -101,6 +101,31 @@ export default function ProfessionalSignUp(props) {
                                 type="email"
                                 placeholder="name@example.com" />
                         </FloatingLabel>
+                         {/* password */}
+                         <FloatingLabel
+                                    className="mb-3"
+                                    style={{ 'direction': 'rtl' }}
+                                    controlId="floatingPassword"
+                                    label="סיסמה">
+
+                                    <Form.Control
+                                        type="password"
+                                        placeholder="Password" />
+
+                                </FloatingLabel>
+
+                                {/* Password Authentication */}
+                                <FloatingLabel
+                                    className="mb-3"
+                                    // style={{ 'direction': 'rtl' }}
+                                    controlId="floatingPasswordAuthentication"
+                                    label=" אימות סיסמה">
+
+                                    <Form.Control
+                                        type="password"
+                                        placeholder="Password Authentication" />
+
+                                </FloatingLabel>
 
                         <Form.Select aria-label="Default select example" style={{ height: '58px' }} >
                             <option disabled>כשרות העסק</option>
@@ -144,8 +169,8 @@ export default function ProfessionalSignUp(props) {
                             </FloatingLabel>
                         </Form.Group>
 
-                        <Form.Group controlId="formFile">
-                            {/* <Form.Label>Default file input example</Form.Label> */}
+                        {/* <Form.Group controlId="formFile">
+                            {/* <Form.Label>Default file input example</Form.Label> 
                             <FloatingLabel
                                 className="mb-3"
                                 style={{ 'direction': 'rtl' }}
@@ -155,7 +180,7 @@ export default function ProfessionalSignUp(props) {
                                     type="file"
                                     placeholder="name@example.com" />
                             </FloatingLabel>
-                        </Form.Group>
+                        </Form.Group> */}
 
                         <Button value="ProfessionalSignUpPart1" variant="outline" onClick={gotoIndex} className="btn">המשך</Button>
 

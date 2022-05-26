@@ -71,13 +71,13 @@ export default function Header(props) {
 
               <div style={{ marginRight: "10%" }}>
                 <Nav className="me-auto " >
-                <Nav.Link onClick={gototryPage} className='opt'>ניסיונות</Nav.Link>
+                {/* <Nav.Link onClick={gototryPage} className='opt'>ניסיונות</Nav.Link> */}
 
                   <Nav.Link onClick={gotoPrivateArae} className='opt'>אזור אישי</Nav.Link>
-                  <Nav.Link onClick={gotoProPrivateArae} className='opt'> אזור אישי לעסקים</Nav.Link>
+                  <Nav.Link onClick={gotoProPrivateArae} className='opt'style={{width:'13%'}}> אזור אישי לעסקים</Nav.Link>
 
                   <Nav.Link onClick={gotoMenu} className='opt'>תפריטים</Nav.Link>
-                  <Nav.Link onClick={gotoBusinessPage} className='opt'>בתי עסק</Nav.Link>
+                  <Nav.Link onClick={gotoBusinessPage} className='opt' >בתי עסק</Nav.Link>
                   <Nav.Link onClick={gotoInfoPage} className='opt'>עלינו</Nav.Link>
                   <NavDropdown title="הרשמה" id="navbarScrollingDropdownSignUp" className='opt'>
                     <NavDropdown.Item onClick={gotoUserSignUp} >הרשמה למשתמש</NavDropdown.Item>
