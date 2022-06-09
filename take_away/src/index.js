@@ -18,6 +18,8 @@ import PAComponent from './Components/Claint/PrivateArea/PrivateAreaComponents'
 import BusinessPage from './Components/Professional/Business/BusinessComponent';
 import InfoPage from './Components/Infromation/InfoPageComponent';
 import PPAComponent from './Components/Professional/ProfessionalPrivateArea/ProfessionalPAComponent';
+import Chat from './Components/Professional/ProfessionalPrivateArea/ProfessionalPAComponent'
+
 
 //לא לשכוח למחוקק
 import tryPage from './Components/Actions/ActionsComp';
@@ -45,6 +47,8 @@ ReactDOM.render(
 
         <Route path='/BusinessPage' element={<BusinessPage />}></Route>
         <Route path='/Infopage' element={<InfoPage/>}></Route>
+        <Route path='/Chat' element={<Chat/>}></Route>
+
 
 {/* למחוקקקקקק */}
         <Route path='/tryPage' element={<tryPage />} />
@@ -54,7 +58,7 @@ ReactDOM.render(
 
 
 
-     
+     <i></i>
       <h6 style={{ textAlign: 'center' }}>כל הזכויות שמורות</h6>
     </BrowserRouter>
   </React.StrictMode>,

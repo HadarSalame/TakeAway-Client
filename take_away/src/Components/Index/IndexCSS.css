@@ -2,4 +2,30 @@
     width: 300px;
     height: 300px;
     margin:10px;
+    
+}
+
+.opens{
+width:55%;
+margin: 2%;
+height: 450px;
+margin-left: 23%;
+box-shadow: 5px 3px 10px #2c2c2c91,5px 3px 10px #2c2c2c91;
+border-radius: 1%;
+
+
+}
+.btn:hover,.btn:active{
+    background-color: #f7d520 !important;
+    border-color: #f7d520 !important;
+    
+}
+
+.st{
+    position: absolute;
+    width: 15%;
+    top: 560px;
+    left: 41%;
+    font-family: 'Varela Round', sans-serif;
+    font-size: 25px;
 }

@@ -20,7 +20,7 @@ export default function ProfessionalLogin(props) {
     return (
         
         <>
-            <div>
+            <div style={{fontFamily:"'Varela Round', sans-serif"}}>
                
                 <div className=" row" >
                      <h1 style={{textAlign:'center'}}>התחברות לעסקים</h1>

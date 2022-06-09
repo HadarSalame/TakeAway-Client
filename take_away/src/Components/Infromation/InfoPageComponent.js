@@ -7,7 +7,7 @@ export default function InfoPage(Props) {
 
     return (
         <>
-            <div className='row '>
+            <div className='row ' style={{fontFamily:"'Varela Round', sans-serif"}}>
                 <h1 style={{ textAlign: 'center' }}> ... קצת עלינו</h1>
                 <div className="border col-xl-6 col-sm-10 col-8">
 

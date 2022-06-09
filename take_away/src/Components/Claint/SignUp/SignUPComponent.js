@@ -11,7 +11,7 @@ export default function SignUp(props) {
     }
     return (
         <>
-            <div >
+            <div style={{fontFamily:"'Varela Round', sans-serif"}}>
                 {/* for users */}
                 <div className='signUp' >
                     {/* //הרשמה למשתמשים מכילה

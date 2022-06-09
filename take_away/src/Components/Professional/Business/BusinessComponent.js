@@ -7,7 +7,7 @@ export default function BusinessPage(props) {
 
     return (
         <>
-            <div className="row">
+            <div className="row" style={{fontFamily:"'Varela Round', sans-serif"}}>
                 <h1  style={{ textAlign: 'center' }}>העסקים שלנו</h1>
                 <div className='border col-xl-6 col-sm-10 col-8' style={{ width:'fit-content'}}>
                     <br></br>

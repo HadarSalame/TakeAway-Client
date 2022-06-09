@@ -14,7 +14,7 @@ export default function ProfessionalSignUp(props) {
 
     return (
         <>
-            <div>
+            <div style={{fontFamily:"'Varela Round', sans-serif"}}>
                 <div>
                     <h1 style={{ textAlign: 'center' }}>הרשמה לעסקים</h1>
                 </div>

@@ -10,7 +10,9 @@ export default function ForgetPass(props){
     return(
         
         <>
+        <div style={{fontFamily:"'Varela Round', sans-serif"}}>
         איפוס סיסמה
+        </div>
         </>
     )
 }

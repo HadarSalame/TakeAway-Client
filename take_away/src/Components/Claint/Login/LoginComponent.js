@@ -16,7 +16,7 @@ export default function Login(props) {
 
     return (
         <>
-            <div>
+            <div style={{fontFamily:"'Varela Round', sans-serif"}}>
                 {/* //התחברות למשתמשים עם שם סיסמא כפתור שיחזור סיסמה עי שליחת 
             //קישור למייל 
             // וכפתור התחברות */}

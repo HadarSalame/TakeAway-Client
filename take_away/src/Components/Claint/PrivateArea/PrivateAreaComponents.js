@@ -3,7 +3,12 @@ import './PrivateAreaCSS.css'
 import { Button, InputGroup, FormControl, FloatingLabel, Form, Nav, Modal } from 'react-bootstrap';
 import NumericInput from 'react-numeric-input';
 import { useState } from 'react';
-import  { AccessAlarm, ThreeDRotation } from '@mui/icons-material';
+import { AccessAlarm, ThreeDRotation, MailIcon } from '@mui/icons-material';
+import { Badge } from '@mui/material';
+import Box from '@mui/material/Box';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+
 
 
 export default function PAComponent(props) {
@@ -29,11 +34,19 @@ export default function PAComponent(props) {
         }
     };
 
+    const [value, onChange] = useState(new Date());
+
+    const [valueTab, setValue] = React.useState(0);
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
+
     return (
         <>
-            <div className='row'>
+            <div className='row' style={{ fontFamily: "'Varela Round', sans-serif" }}>
                 <h1 style={{ textAlign: 'center' }}>אזור אישי</h1>
-                <div className="border col-xl-6 col-sm-10 col-8 PA">
+                <div className="border col-xl-6 col-sm-10 col-8 PA" style={{ display: "inline-flex" }}>
                     {/* כפתורים:
 1. עדכון פרטים אישים
  2. עדכון התפריט שמכיל הוספה והסרה מהתפריט
@@ -41,17 +54,35 @@ export default function PAComponent(props) {
   4ץדואר נכנס      */}
                     <div className='menu'>
 
-                        <div  >
+                        <div className='border' >
+                            מנות ראשונות<br />
+                            מנות עיקריות<br />
+                            קינוח<br />
+                            בופה<br />
+                            תוספות<br />
+                            אפשרויות נוספות<br />
+                            פרטים והערות<br />
 
-
-
+                            <Button className="more_vert">  <i class="material-icons">&#xe5d4; </i></Button>
 
                             {/* יפתח חלון ויהיה ניתן לבחור בו למי לשלוח את ההצעה */}
                         </div>
+                        <br></br>
+                        <div>
+                            <Box style={{ width: '100%', bgcolor: 'background.paper', color: 'black' }} >
+                                <Tabs value={valueTab} onChange={handleChange} className="tabs" centered>
+                                    <Tab label="נשלח" className="tab" ></Tab>
+                                    <Tab label="התקבל" className="tab" />
+                                    <Tab label="הצעות סגורות" className="tab" />
+                                </Tabs>
+                            </Box>
+                        </div>
                     </div>
                     <div className='option'>
-            
+
                         <div className='details'>
+
+
                             <h6>שם:</h6>
                             <h6>E-mail:</h6>
                             <h6>טלפון:</h6>
@@ -219,7 +250,7 @@ export default function PAComponent(props) {
 
 
 
-                            <Button variant="outline" className='btn btnPA' onClick={handleShow1} style={{  display: 'flex' }}> אפשרויות נוספות</Button>
+                            <Button variant="outline" className='btn btnPA' onClick={handleShow1} style={{ display: 'flex' }}> אפשרויות נוספות</Button>
 
                             {/* מילצור וחד פעמי */}
                             <Modal show={show1} onHide={handleClose1}>
@@ -271,6 +302,7 @@ export default function PAComponent(props) {
                         </div>
 
                     </div>
+
 
                 </div>
             </div>

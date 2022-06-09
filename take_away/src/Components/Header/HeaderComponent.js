@@ -61,7 +61,7 @@ export default function Header(props) {
     <>
 
 
-      <div className=" row">
+      <div className=" row" style={{fontFamily:"'Varela Round', sans-serif"}}>
         <div className='col-xl-12 col-sm-10 col-8'>
           <div>
             <img src={Logo} className='Logo ' onClick={gotoIndex}></img>
@@ -71,7 +71,7 @@ export default function Header(props) {
 
               <div style={{ marginRight: "10%" }}>
                 <Nav className="me-auto " >
-                {/* <Nav.Link onClick={gototryPage} className='opt'>ניסיונות</Nav.Link> */}
+                <Nav.Link onClick={gototryPage} className='opt'>ניסיונות</Nav.Link>
 
                   <Nav.Link onClick={gotoPrivateArae} className='opt'>אזור אישי</Nav.Link>
                   <Nav.Link onClick={gotoProPrivateArae} className='opt'style={{width:'13%'}}> אזור אישי לעסקים</Nav.Link>
