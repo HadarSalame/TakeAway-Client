@@ -60,6 +60,9 @@
    
 
 }
+.opt:hover{
+    color:#fff !important;
+}
 .nav-link{
     color: black !important;
 }
@@ -94,9 +97,13 @@
     width: 100px; 
 }
 i.material-icons {
-    color: #ffffff;
+    color: #000000 !important;
     background-color: #f7d520;
     border-radius: 0%;
     font-size: 44px;
     height: 15px;
+    left: 0% !important;
+}
+i.material-icons:hover{
+    color: #fff !important;
 }

@@ -9,9 +9,23 @@ import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 
+import RestaurantIcon from '@mui/icons-material/Restaurant';
+import RoomServiceIcon from '@mui/icons-material/RoomService';
+import SpeedDial from '@mui/material/SpeedDial';
+import SpeedDialIcon from '@mui/material/SpeedDialIcon';
+import SpeedDialAction from '@mui/material/SpeedDialAction';
+
 
 
 export default function PAComponent(props) {
+    //אפשרויות נוספות
+    const actions = [
+        { icon: <RestaurantIcon />, name: 'חד פעמי',func:'handleShow' },
+        { icon: <RoomServiceIcon />, name: 'מילצור' },
+
+
+    ];
+
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -31,6 +45,12 @@ export default function PAComponent(props) {
                 <option value="1">15-30 מוזמנים - 1 מלצרים</option>
                 <option value="2">30-60 מוזמנים - 2 מלצרים</option>
             </Form.Select>
+        }
+    };
+
+    const checkSwitchDisposable = (e) => {
+        if (console.log(e.target.checked) == true) {
+
         }
     };
 
@@ -55,15 +75,35 @@ export default function PAComponent(props) {
                     <div className='menu'>
 
                         <div className='border' >
-                            מנות ראשונות<br />
-                            מנות עיקריות<br />
-                            קינוח<br />
-                            בופה<br />
-                            תוספות<br />
-                            אפשרויות נוספות<br />
-                            פרטים והערות<br />
+                            <div style={{ direction: 'rtl' }}>
+                                מנות ראשונות<br />
+                                מנות עיקריות<br />
+                                קינוח<br />
+                                בופה<br />
+                                תוספות<br />
+                                אפשרויות נוספות<br />
+                                פרטים והערות<br />
+                            </div>
 
-                            <Button className="more_vert">  <i class="material-icons">&#xe5d4; </i></Button>
+                            <Box sx={{ height: 320, transform: 'translateZ(0px)', flexGrow: 1 }}>
+                                <SpeedDial
+                                    ariaLabel="SpeedDial basic example"
+                                    sx={{ position: 'absolute', bottom: 16, right: 16 }}
+                                    icon={<SpeedDialIcon />}
+                                >
+                                    {actions.map((action) => (
+                                        <SpeedDialAction
+                                            key={action.name}
+                                            icon={action.icon}
+                                            tooltipTitle={action.name}
+                                            onClick={action.func}//איך הפעיל פונקציה
+                                        />
+                                    ))}
+                                </SpeedDial>
+                            </Box>
+
+
+                            <Button variant="outline" className='btn btnPA' onClick={detailsShow} >סיכום תפריט</Button>
 
                             {/* יפתח חלון ויהיה ניתן לבחור בו למי לשלוח את ההצעה */}
                         </div>
@@ -181,7 +221,7 @@ export default function PAComponent(props) {
                                 </Modal.Footer>
                             </Modal>
 
-                            <Button variant="outline" className='btn btnPA' onClick={detailsShow} >סיכום תפריט</Button>
+
 
                             <Modal show={show2} onHide={CloseDetails}>
                                 <Modal.Header>
@@ -203,14 +243,14 @@ export default function PAComponent(props) {
                                             <Form>
                                                 {/* //כמות המוזמנים */}
                                                 <Form.Label>מספר מוזמנים</Form.Label>
-                                                <NumericInput min={15} step={1.000} value={15} max={500} inputmode="numeric" className="form-control forms " strict />
+                                                <NumericInput min={15} step={1.000} value={15} max={500} inputmode="numeric" className="form-control forms b " strict />
                                             </Form>
                                         </div>
 
                                         <div style={{ display: 'flex' }}>
                                             <Form>
                                                 {/* //מיקום הארוע */}
-                                                <Form.Label style={{ direction: 'rtl', textAlign: 'right' }}>מיקום האירוע</Form.Label>
+                                                <Form.Label style={{ direction: 'rtl', textAlign: 'right' }}>בחר עסק</Form.Label>
                                                 <Form.Select aria-label="Default select example" className='forms' rows={1}>
                                                     <option disabled>בחר עסק</option>
                                                 </Form.Select>
@@ -266,7 +306,7 @@ export default function PAComponent(props) {
                                             type="switch"
                                             id="custom-switch"
                                             label="הוסף מלצרים"
-
+                                            onChange={(e) => checkSwitch(e)}
                                         // במידה והכפתור דלוק אז יהיה ניתן לבחור מספר סועדים והוספת מלצרים בתוספת תשלום
                                         />
 
@@ -274,7 +314,7 @@ export default function PAComponent(props) {
                                             type="switch"
                                             id="custom-switch"
                                             label="הוסף כלים חד פעמיים"
-                                            onChange={(e) => checkSwitch(e)}
+                                            onChange={(e) => checkSwitchDisposable(e)}
 
 
                                         //פירות הכלים אפשרות לבחור דוגמא צבעים וכמות
@@ -285,11 +325,11 @@ export default function PAComponent(props) {
                                 <Modal.Footer>
 
 
-                                    <Button variant="secondary" onClick={handleClose}>
+                                    <Button variant="secondary" className='btn' onClick={handleClose}>
                                         Close
                                     </Button>
 
-                                    <Button variant="primary" onClick={handleClose}>
+                                    <Button variant="primary" className='btn' onClick={handleClose}>
                                         Save Changes
                                     </Button>
                                 </Modal.Footer>

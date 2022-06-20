@@ -26,6 +26,26 @@
 .btn:hover{
     color: #fff;
 }
+.btn-primary {
+    color: rgb(0, 0, 0);
+    background-color: #f7d520 !important;
+    border-color: #f7d520 !important;
+}
+.btn-secondary {
+    color: rgb(0, 0, 0);
+    background-color: #f7d520  !important;
+    border-color: #f7d520 !important;
+}
+.form-check-input:checked {
+    background-color: #f7d520  !important;
+    border-color:#f7d520  !important;
+}
+.form-check-input {
+    color: #f7d520 !important;
+    border: 1px solid  #f7d520 !important;
+}
+
+
 .navs{ 
     background-color: #f7d520
 ;
@@ -33,9 +53,6 @@
     border-color: #f7d520
 ;
    
-
-
- 
 }
 .navs1{
     display:inline;
@@ -95,3 +112,9 @@ i.material-icons{
     border-color: #ffffff !important;
     margin: 0 !important;
 }
+.css-1dyuqpd{
+    height: 80px !important;
+    direction: ltr !important;
+    width: 70px;
+}
+

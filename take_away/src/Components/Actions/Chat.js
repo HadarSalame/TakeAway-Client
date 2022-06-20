@@ -1,5 +1,5 @@
 // import React from 'react';
-import './ActionsCss.css'
+import './Chat.css'
 // import { Button, InputGroup, FormControl, FloatingLabel, Form, Nav,Modal } from 'react-bootstrap';
 // import {useState}from'react';
 
@@ -63,7 +63,7 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 
-export default function tryPage() {
+export default function Chat() {
   return (
     <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
       <ListItem alignItems="flex-start">

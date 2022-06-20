@@ -18,11 +18,11 @@ import PAComponent from './Components/Claint/PrivateArea/PrivateAreaComponents'
 import BusinessPage from './Components/Professional/Business/BusinessComponent';
 import InfoPage from './Components/Infromation/InfoPageComponent';
 import PPAComponent from './Components/Professional/ProfessionalPrivateArea/ProfessionalPAComponent';
-import Chat from './Components/Professional/ProfessionalPrivateArea/ProfessionalPAComponent'
+import Chat from './Components/Actions/Chat';
 
 
 //לא לשכוח למחוקק
-import tryPage from './Components/Actions/ActionsComp';
+// import tryPage from './Components/Actions/ActionsComp';
 
 
 
