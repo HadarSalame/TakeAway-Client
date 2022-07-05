@@ -19,6 +19,8 @@ import BusinessPage from './Components/Professional/Business/BusinessComponent';
 import InfoPage from './Components/Infromation/InfoPageComponent';
 import PPAComponent from './Components/Professional/ProfessionalPrivateArea/ProfessionalPAComponent';
 import Chat from './Components/Actions/Chat';
+import Disposable from './Components/Disposable/DisposableComponent';
+import Waitresses from './Components/Waitresses/WaitressesComponent';
 
 
 //לא לשכוח למחוקק
@@ -44,6 +46,9 @@ ReactDOM.render(
         <Route path='/ProfessionalSignUp' element={<ProfessionalSignUp />}></Route>
         <Route path='/PAComponent' element={<PAComponent />}></Route>
         <Route path='/PPAComponent' element={<PPAComponent />}></Route>
+
+        <Route path='/Disposable' element={<Disposable/>}></Route>
+        <Route path='./Waitresses' element={<Waitresses/>}></Route>
 
         <Route path='/BusinessPage' element={<BusinessPage />}></Route>
         <Route path='/Infopage' element={<InfoPage/>}></Route>

@@ -1,5 +1,6 @@
 import React from 'react';
 import './PrivateAreaCSS.css'
+import { useNavigate } from 'react-router-dom';
 import { Button, InputGroup, FormControl, FloatingLabel, Form, Nav, Modal } from 'react-bootstrap';
 import NumericInput from 'react-numeric-input';
 import { useState } from 'react';
@@ -14,17 +15,40 @@ import RoomServiceIcon from '@mui/icons-material/RoomService';
 import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
+import Disposable from '../../Disposable/DisposableComponent';
+import Waitresses from '../../Waitresses/WaitressesComponent';
 
 
 
 export default function PAComponent(props) {
+
+    let navigate = useNavigate();
+    const [isShow, setIsShow] = React.useState(false);
+
+    function DisposableFun() {
+        setIsShow(true)
+        //  navigate("/Disposable")
+    }
+    function closeModal() {
+        setIsShow(false)
+    }
+
+    const [isWaitrsShow, setIsWaitrsShow] = React.useState(false);
+    function WaitressesFun() {
+        setIsWaitrsShow(true)
+
+    }
+    function closeWaitressesModal() {
+        isWaitrsShow(false)
+    }
     //אפשרויות נוספות
     const actions = [
-        { icon: <RestaurantIcon />, name: 'חד פעמי',func:'handleShow' },
-        { icon: <RoomServiceIcon />, name: 'מילצור' },
+        { icon: <RestaurantIcon onClick={DisposableFun} />, name: 'חד פעמי' },
+        { icon: <RoomServiceIcon onClick={WaitressesFun} />, name: 'מלצרות' },
 
 
     ];
+
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -96,7 +120,7 @@ export default function PAComponent(props) {
                                             key={action.name}
                                             icon={action.icon}
                                             tooltipTitle={action.name}
-                                            onClick={action.func}//איך הפעיל פונקציה
+                                            
                                         />
                                     ))}
                                 </SpeedDial>
@@ -195,7 +219,9 @@ export default function PAComponent(props) {
                                             <Form.Control
                                                 type="password"
                                                 placeholder="Password" />
+
                                         </FloatingLabel>
+                                        
 
                                         {/* Password Authentication */}
                                         <FloatingLabel
@@ -288,52 +314,11 @@ export default function PAComponent(props) {
 
                             </Modal>
 
+                            {isShow && <Disposable show={isShow} setShow={closeModal} />}
+                            {isWaitrsShow && <Waitresses show={isWaitrsShow} setShow={closeWaitressesModal} />}
 
 
-                            <Button variant="outline" className='btn btnPA' onClick={handleShow1} style={{ display: 'flex' }}> אפשרויות נוספות</Button>
 
-                            {/* מילצור וחד פעמי */}
-                            <Modal show={show1} onHide={handleClose1}>
-                                <Modal.Header closeButton>
-                                    <Modal.Title>אפשרויות נוספות</Modal.Title>
-                                </Modal.Header>
-
-                                <Modal.Body>
-                                    <Form style={{ direction: 'rtl' }}>
-                                        <h3>מלצרים</h3>
-                                        *ניתן להזמין מלצרים לפי כמות הסועדים: לכל 30 סועדים ניתן להוסיף מלצר. כל מלצר נוסף הינו תוספת של 150 ש"ח*
-                                        <Form.Check
-                                            type="switch"
-                                            id="custom-switch"
-                                            label="הוסף מלצרים"
-                                            onChange={(e) => checkSwitch(e)}
-                                        // במידה והכפתור דלוק אז יהיה ניתן לבחור מספר סועדים והוספת מלצרים בתוספת תשלום
-                                        />
-
-                                        <Form.Check
-                                            type="switch"
-                                            id="custom-switch"
-                                            label="הוסף כלים חד פעמיים"
-                                            onChange={(e) => checkSwitchDisposable(e)}
-
-
-                                        //פירות הכלים אפשרות לבחור דוגמא צבעים וכמות
-                                        />
-
-                                    </Form>
-                                </Modal.Body>
-                                <Modal.Footer>
-
-
-                                    <Button variant="secondary" className='btn' onClick={handleClose}>
-                                        Close
-                                    </Button>
-
-                                    <Button variant="primary" className='btn' onClick={handleClose}>
-                                        Save Changes
-                                    </Button>
-                                </Modal.Footer>
-                            </Modal>
                         </div>
                         <div>
                             אימייל בוקס להצעות שנשלחו והצעות שהתקבלו
