@@ -1,60 +1,5 @@
-// import React from 'react';
+import React, { useState } from 'react';
 import './Chat.css'
-// import { Button, InputGroup, FormControl, FloatingLabel, Form, Nav,Modal } from 'react-bootstrap';
-// import {useState}from'react';
-
-// function Example() {
-//     const [show, setShow] = useState(false);
-  
-//     const handleClose = () => setShow(false);
-//     const handleShow = () => setShow(true);
-  
-//     return (
-//       <>
-//         <Button variant="primary" onClick={handleShow}>
-//           Launch demo modal
-//         </Button>
-  
-//         <Modal show={show} onHide={handleClose}>
-//           <Modal.Header closeButton>
-//             <Modal.Title>Modal heading</Modal.Title>
-//           </Modal.Header>
-//           <Modal.Body>
-//             <Form>
-//               <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-//                 <Form.Label>Email address</Form.Label>
-//                 <Form.Control
-//                   type="email"
-//                   placeholder="name@example.com"
-//                   autoFocus
-//                 />
-//               </Form.Group>
-//               <Form.Group
-//                 className="mb-3"
-//                 controlId="exampleForm.ControlTextarea1"
-//               >
-//                 <Form.Label>Example textarea</Form.Label>
-//                 <Form.Control as="textarea" rows={3} />
-//               </Form.Group>
-//             </Form>
-//           </Modal.Body>
-//           <Modal.Footer>
-//             <Button variant="secondary" onClick={handleClose}>
-//               Close
-//             </Button>
-//             <Button variant="primary" onClick={handleClose}>
-//               Save Changes
-//             </Button>
-//           </Modal.Footer>
-//         </Modal>
-//       </>
-//     );
-//   }
-  
-//   render(<Example />);
-  
-
-import * as React from 'react';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Divider from '@mui/material/Divider';
@@ -62,15 +7,20 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
+import { Button } from 'react-bootstrap';
 
-export default function Chat() {
+export default function Chat(props) {
+  const [show, setShow] = useState(props.show);
+  const handleClose = () => { setShow(false); props.setShow() };
+  const handleShow = () => setShow(true);
   return (
-    <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+    <List  show={show} onHide={handleClose} sx={{ width: '100%', maxWidth: 340, bgcolor: 'background.paper',direction:'rtl'}}>
       <ListItem alignItems="flex-start">
         <ListItemAvatar>
           <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
         </ListItemAvatar>
         <ListItemText
+        //שם השולח
           primary="Brunch this weekend?"
           secondary={
             <React.Fragment>
@@ -80,9 +30,9 @@ export default function Chat() {
                 variant="body2"
                 color="text.primary"
               >
-                Ali Connors
               </Typography>
-              {" — I'll be in your neighborhood doing errands this…"}
+              {/* כתפור שפותח את ההצעה */}
+              <Button>פתח הצעה</Button>
             </React.Fragment>
           }
         />

@@ -49,10 +49,16 @@
     border-radius: 10%;
     font-size: 12px;
     font-weight: 400;
+    margin: inherit;
     
 }
 
 /* כיתוה השנה */
 .react-calendar__navigation__label__labelText{
     font-size: 20px !important;
+}
+
+.css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected{
+    font-family:'Varela Round', sans-serif ;
+    font-size: small;
 }

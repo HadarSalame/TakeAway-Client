@@ -48,7 +48,7 @@ ReactDOM.render(
         <Route path='/PPAComponent' element={<PPAComponent />}></Route>
 
         <Route path='/Disposable' element={<Disposable/>}></Route>
-        <Route path='./Waitresses' element={<Waitresses/>}></Route>
+        <Route path='/Waitresses' element={<Waitresses/>}></Route>
 
         <Route path='/BusinessPage' element={<BusinessPage />}></Route>
         <Route path='/Infopage' element={<InfoPage/>}></Route>
