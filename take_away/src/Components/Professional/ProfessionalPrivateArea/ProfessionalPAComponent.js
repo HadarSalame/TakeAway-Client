@@ -42,12 +42,14 @@ export default function ProfessionalPA({ children }) {
     const [isChatShow, setIsChatShow] = React.useState(false);
     let navigate = useNavigate();
     function Chatfunc() {
-        setIsChatShow(true);
+        setIsChatShow('true');
     }
 
     function closeChatModal() {
         setIsChatShow(false)
     }
+
+
 
 
 
@@ -60,7 +62,7 @@ export default function ProfessionalPA({ children }) {
                 <h1 style={{ textAlign: "center" }}>אזור אישי לבעלי עסק</h1>
                 <div className='border col-xl-6 col-sm-10 col-8' style={{ display: 'flex' }}>
                     <div>
-                        <Calendar value={Datevalue} calenderType='' onChangeDate={console.log(value.getDay())} className='border react-calender'/>
+           <Calendar value={Datevalue} onChangeDate={onChangeDate} />
                     </div>
                     <div style={{ direction: 'rtl', marginLeft: 'auto' }}>
                         {/* <Calendar onChange={onChange} value={value} className='calender' /> */}

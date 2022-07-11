@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import './ProfessionalLoginCSS.css'
 import { Button, InputGroup, FormControl, FloatingLabel, Form, Select } from 'react-bootstrap';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
@@ -13,11 +13,27 @@ import axios from "axios";
 
 
 export default function ProfessionalLogin(props) {
+    let ProEmailRef=useRef()
+    let ProPassRef=useRef()
+    let ProIdRef=useRef()
+
 
       let navigate = useNavigate();
 
       function gotoIndex(){
+        
+        axios.get(`http://localhost:3030/business/BusinessLogin/${ProIdRef.current.value}/${ProEmailRef.current.value}/${ProPassRef.current.value}`).then((res)=>{
+        console.log(res.data);
+        if(res.data!=='true'){
+            console.log("not found")
+        }
+ 
         navigate('/Index')
+       
+      }).catch(err=>{
+
+      })
+
       }
     return (
         
@@ -36,6 +52,7 @@ export default function ProfessionalLogin(props) {
                                 label="Email" >
 
                                 <Form.Control
+                                    ref={ProEmailRef}
                                     type="email"
                                     placeholder="name@example.com" />
 
@@ -49,6 +66,7 @@ export default function ProfessionalLogin(props) {
                                 label="מספר העסק" >
 
                                 <Form.Control
+                                ref={ProIdRef}
                                     type="Text"
                                     placeholder="BusinessID" />
 
@@ -60,6 +78,7 @@ export default function ProfessionalLogin(props) {
                                 label="סיסמה">
 
                                 <Form.Control
+                                ref={ProPassRef}
                                     type="password"
                                     placeholder="Password" />
 

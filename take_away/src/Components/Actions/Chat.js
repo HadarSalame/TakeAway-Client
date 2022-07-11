@@ -54,7 +54,7 @@ export default function Chat(props) {
                 </Typography>
                 {/* כתפור שפותח את ההצעה */}
                 <Button onClick={OrderFunc}>פתח הצעה</Button>
-                {isOrderShow && <Order show={isOrderShow} setShow={closeOrderModal} />}
+                {isOrderShow && <Order showOrder={true} setShow={closeOrderModal} />}
               </React.Fragment>
             }
           />
