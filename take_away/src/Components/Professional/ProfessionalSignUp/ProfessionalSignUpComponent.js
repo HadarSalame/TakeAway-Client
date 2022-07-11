@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useRef } from 'react';
+
 import './ProfessionalSignUpCSS.css'
 import { Button, InputGroup, FormControl, FloatingLabel, Form, Select } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
@@ -7,7 +8,19 @@ import axios from "axios";
 
 
 
+
 export default function ProfessionalSignUp(props) {
+    let ProNameRef=useRef();
+    let OwnerProNameRef=useRef();
+    let ProAddressRef=useRef();
+    let ProPhoneRef=useRef();
+    let ProEmailRef=useRef()
+    let ProPassRef=useRef()
+    let ProIdRef=useRef()
+    //איך זה עובד עם קבצים??
+
+
+
 
     let navigate = useNavigate();
     function gotoIndex() {
@@ -29,6 +42,7 @@ export default function ProfessionalSignUp(props) {
                             label="שם העסק" >
 
                             <Form.Control
+                                ref={ProNameRef}
                                 type="Text"
                                 placeholder="businessName" />
                         </FloatingLabel>
@@ -40,6 +54,7 @@ export default function ProfessionalSignUp(props) {
                             label="שם בעל העסק" >
 
                             <Form.Control
+                                ref={OwnerProNameRef}
                                 type="Text"
                                 placeholder="BusinessOwnerName" />
                         </FloatingLabel>
@@ -51,6 +66,7 @@ export default function ProfessionalSignUp(props) {
                             label="מספר העסק" >
 
                             <Form.Control
+                            ref={ProIdRef}
                                 type="Text"
                                 placeholder="BusinessID" />
                         </FloatingLabel>
@@ -63,6 +79,7 @@ export default function ProfessionalSignUp(props) {
                                 label=" כתובת העסק" >
 
                                 <Form.Control
+                                ref={ProAddressRef}
                                     type="Text"
                                     placeholder="BusinessAddress" />
                             </FloatingLabel>
@@ -89,6 +106,7 @@ export default function ProfessionalSignUp(props) {
                             label="טלפון" >
 
                             <Form.Control
+                            ref={ProPhoneRef}
                                 type="phone"
                                 placeholder="businessPhone" />
                         </FloatingLabel>
@@ -100,9 +118,11 @@ export default function ProfessionalSignUp(props) {
                             label="E-mail" >
 
                             <Form.Control
+                            ref={ProEmailRef}
                                 type="email"
                                 placeholder="name@example.com" />
                         </FloatingLabel>
+
                          {/* password */}
                          <FloatingLabel
                                     className="mb-3"
@@ -111,6 +131,7 @@ export default function ProfessionalSignUp(props) {
                                     label="סיסמה">
 
                                     <Form.Control
+                                    ref={ProPassRef}
                                         type="password"
                                         placeholder="Password" />
 
