@@ -3,6 +3,7 @@ import './LoginCSS.css'
 import { Button, InputGroup, FormControl, FloatingLabel, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
+import axios from 'axios'
 
 
 export default function Login(props) {
@@ -10,8 +11,11 @@ export default function Login(props) {
     let navigate = useNavigate();
 
     function gotoIndex() {
-       
-        navigate("/Index")
+        //send to server 
+    //    axios.get(`http://localhost:3030/claint/claintLogin/${}/`).then(()=>{
+
+    //        navigate("/Index")
+    //    })
     };
 
     return (
@@ -56,10 +60,13 @@ export default function Login(props) {
                                 style={{ 'direction': 'rtl' }}
                                 controlId="floatingInput"
                                 label="Email" >
+                                    
 
                                 <Form.Control
                                     type="email"
-                                    placeholder="name@example.com" />
+                                    placeholder="name@example.com" 
+                                    />
+                                    
 
 
                             </FloatingLabel>

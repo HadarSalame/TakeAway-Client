@@ -6,6 +6,8 @@ import ForgetPass from '../../ForgetPassWord/ForgetPassComponent';
 import { useNavigate } from 'react-router-dom';
 import 'react-calendar/dist/Calendar.css';
 import Chat from '../../Actions/Chat';
+import axios from "axios";
+
 
 import { Calendar } from 'react-calendar';
 import List from '@mui/material/List';
@@ -23,8 +25,6 @@ import Tab from '@mui/material/Tab';
 export default function ProfessionalPA({ children }) {
 
     const [Datevalue, onChangeDate] = useState(new Date());
-
-
 
     const [value, onChange] = useState(new Date());
 
@@ -49,10 +49,10 @@ export default function ProfessionalPA({ children }) {
         setIsChatShow(false)
     }
 
-    function changaDate(e) {
-        onChangeDate(e);
-        console.log(Datevalue.getDay(e))
-    }
+
+
+
+   
 
     return (
         <>
@@ -60,7 +60,7 @@ export default function ProfessionalPA({ children }) {
                 <h1 style={{ textAlign: "center" }}>אזור אישי לבעלי עסק</h1>
                 <div className='border col-xl-6 col-sm-10 col-8' style={{ display: 'flex' }}>
                     <div>
-                        <Calendar minDate={value} calendarType='Hebrew' onChange={changaDate} value={Datevalue} className="border react-calendar" />
+                        <Calendar value={Datevalue} calenderType='' onChangeDate={console.log(value.getDay())} className='border react-calender'/>
                     </div>
                     <div style={{ direction: 'rtl', marginLeft: 'auto' }}>
                         {/* <Calendar onChange={onChange} value={value} className='calender' /> */}

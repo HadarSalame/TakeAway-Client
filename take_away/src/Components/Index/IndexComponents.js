@@ -6,6 +6,8 @@ import stake1 from '../../Images/Logos/stake1.jpg'
 import Page2 from '../../Images/Logos/Photos/Page2.jpg'
 import Page3 from '../../Images/Logos/Photos/Page3.jpg'
 import { useNavigate } from 'react-router-dom';
+import axios from "axios";
+
 
 
 export default function Index(props) {

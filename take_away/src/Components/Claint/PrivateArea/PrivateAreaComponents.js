@@ -9,6 +9,8 @@ import { Badge } from '@mui/material';
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import axios from "axios";
+
 
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import RoomServiceIcon from '@mui/icons-material/RoomService';
@@ -34,13 +36,16 @@ export default function PAComponent(props) {
     }
 
     const [isWaitrsShow, setIsWaitrsShow] = React.useState(false);
+
     function WaitressesFun() {
         setIsWaitrsShow(true)
 
     }
     function closeWaitressesModal() {
-        isWaitrsShow(false)
+        setIsWaitrsShow(false)
     }
+
+    
     //אפשרויות נוספות
     const actions = [
         { icon: <RestaurantIcon onClick={DisposableFun} />, name: 'חד פעמי' },

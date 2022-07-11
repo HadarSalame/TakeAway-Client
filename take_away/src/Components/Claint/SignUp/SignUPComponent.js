@@ -2,6 +2,8 @@ import React from 'react';
 import './SignUpCss.css'
 import { Button, InputGroup, FormControl, FloatingLabel, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios'
+
 
 export default function SignUp(props) {
     let navigate = useNavigate();

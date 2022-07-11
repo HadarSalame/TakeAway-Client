@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Chat.css'
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -8,79 +9,105 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { Button } from 'react-bootstrap';
+import Order from '../Order/OrderComponent';
+import axios from "axios";
+
 
 export default function Chat(props) {
+
+  let navigate = useNavigate();
+
   const [show, setShow] = useState(props.show);
   const handleClose = () => { setShow(false); props.setShow() };
   const handleShow = () => setShow(true);
+
+  //to open order
+  const [isOrderShow, setIsOrderShow] = React.useState(false);
+
+  function OrderFunc() {
+    setIsOrderShow(true)
+  }
+  function closeOrderModal() {
+    setIsOrderShow(false)
+  }
+
+
+
   return (
-    <List  show={show} onHide={handleClose} sx={{ width: '100%', maxWidth: 340, bgcolor: 'background.paper',direction:'rtl'}}>
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-        </ListItemAvatar>
-        <ListItemText
-        //שם השולח
-          primary="Brunch this weekend?"
-          secondary={
-            <React.Fragment>
-              <Typography
-                sx={{ display: 'inline' }}
-                component="span"
-                variant="body2"
-                color="text.primary"
-              >
-              </Typography>
-              {/* כתפור שפותח את ההצעה */}
-              <Button>פתח הצעה</Button>
-            </React.Fragment>
-          }
-        />
-      </ListItem>
-      <Divider variant="inset" component="li" />
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
-        </ListItemAvatar>
-        <ListItemText
-          primary="Summer BBQ"
-          secondary={
-            <React.Fragment>
-              <Typography
-                sx={{ display: 'inline' }}
-                component="span"
-                variant="body2"
-                color="text.primary"
-              >
-                to Scott, Alex, Jennifer
-              </Typography>
-              {" — Wish I could come, but I'm out of town this…"}
-            </React.Fragment>
-          }
-        />
-      </ListItem>
-      <Divider variant="inset" component="li" />
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
-        </ListItemAvatar>
-        <ListItemText
-          primary="Oui Oui"
-          secondary={
-            <React.Fragment>
-              <Typography
-                sx={{ display: 'inline' }}
-                component="span"
-                variant="body2"
-                color="text.primary"
-              >
-                Sandra Adams
-              </Typography>
-              {' — Do you have Paris recommendations? Have you ever…'}
-            </React.Fragment>
-          }
-        />
-      </ListItem>
-    </List>
+    <div>
+      <List show={show} onHide={handleClose} sx={{ width: '100%', maxWidth: 340, bgcolor: 'background.paper', direction: 'rtl' }}>
+        <ListItem alignItems="flex-start">
+          <ListItemAvatar>
+            <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+          </ListItemAvatar>
+          <ListItemText
+            //שם השולח
+            primary="Brunch this weekend?"
+            secondary={
+              <React.Fragment>
+                <Typography
+                  sx={{ display: 'inline' }}
+                  component="span"
+                  variant="body2"
+                  color="text.primary"
+                >
+                </Typography>
+                {/* כתפור שפותח את ההצעה */}
+                <Button onClick={OrderFunc}>פתח הצעה</Button>
+                {isOrderShow && <Order show={isOrderShow} setShow={closeOrderModal} />}
+              </React.Fragment>
+            }
+          />
+        </ListItem>
+        <Divider variant="inset" component="li" />
+        <ListItem alignItems="flex-start">
+          <ListItemAvatar>
+            <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
+          </ListItemAvatar>
+          <ListItemText
+            primary="Summer BBQ"
+            secondary={
+              <React.Fragment>
+                <Typography
+                  sx={{ display: 'inline' }}
+                  component="span"
+                  variant="body2"
+                  color="text.primary"
+                >
+                  to Scott, Alex, Jennifer
+                </Typography>
+                {" — Wish I could come, but I'm out of town this…"}
+              </React.Fragment>
+            }
+          />
+        </ListItem>
+        <Divider variant="inset" component="li" />
+        <ListItem alignItems="flex-start">
+          <ListItemAvatar>
+            <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
+          </ListItemAvatar>
+          <ListItemText
+            primary="Oui Oui"
+            secondary={
+              <React.Fragment>
+                <Typography
+                  sx={{ display: 'inline' }}
+                  component="span"
+                  variant="body2"
+                  color="text.primary"
+                >
+                  Sandra Adams
+                </Typography>
+                {' — Do you have Paris recommendations? Have you ever…'}
+              </React.Fragment>
+            }
+          />
+        </ListItem>
+        
+
+      </List>
+    </div>
+
+
   );
 }

@@ -21,6 +21,7 @@ import PPAComponent from './Components/Professional/ProfessionalPrivateArea/Prof
 import Chat from './Components/Actions/Chat';
 import Disposable from './Components/Disposable/DisposableComponent';
 import Waitresses from './Components/Waitresses/WaitressesComponent';
+import Order from './Components/Order/OrderComponent';
 
 
 //לא לשכוח למחוקק
@@ -49,6 +50,8 @@ ReactDOM.render(
 
         <Route path='/Disposable' element={<Disposable/>}></Route>
         <Route path='/Waitresses' element={<Waitresses/>}></Route>
+        <Route path='/Order' element={<Order/>}></Route>
+
 
         <Route path='/BusinessPage' element={<BusinessPage />}></Route>
         <Route path='/Infopage' element={<InfoPage/>}></Route>

@@ -3,6 +3,8 @@ import './BusinessCSS.css';
 import Big_Bite from '../../../Images/Logos/Big_Bite.jpg'
 import Timin from '../../../Images/Logos/Timin.jpg'
 import Cook from '../../../Images/Logos/Cook.jpeg'
+import axios from "axios";
+
 export default function BusinessPage(props) {
 
     const ListB=[{BID:1,Bname:"Cook",kosher:"בית יוסף",tel:"034587898",Blogo:Cook},
