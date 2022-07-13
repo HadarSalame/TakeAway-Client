@@ -275,30 +275,33 @@ export default function PAComponent(props) {
                                                 <Form.Group controlId="datePicker" className='forms'  >
                                                     <Form.Label>תאריך</Form.Label>
 
-                                                    <Form.Control type="date" name="datePicker" placeholder="Date of Birth" className='' />
+                                                    <Form.Control type="date" name="datePicker" placeholder="Date of Birth" className=''  />
                                                 </Form.Group>
                                             </Form>
                                             <Form>
                                                 {/* //כמות המוזמנים */}
                                                 <Form.Group className='forms'>
                                                     <Form.Label>שעת האירוע</Form.Label>
-                                                    <TimePicker defaultValue={moment('12:00', format)} format={format} style={{width:"230px",height:"38px"}} />
+                                                    <TimePicker defaultValue={moment('12:00', format)} format={format} style={{ width: "230px", height: "38px" }}  onChange={(console.log(value))}/>
                                                 </Form.Group>
                                             </Form>
                                         </div>
-<br></br>
+                                        <br></br>
                                         <div style={{ display: 'flex' }}>
                                             <Form>
                                                 {/* //מיקום הארוע */}
                                                 <Form.Label style={{ direction: 'rtl', textAlign: 'right' }}>בחר עסק</Form.Label>
-                                                <Form.Control ></Form.Control>
-                                            </Form>
-                                            <Form>
-                                                <Form.Label>מיקום האירוע</Form.Label>
-                                                <Form.Select aria-label="Default select example" className='forms' rows={1}>
-                                                    <option disabled>בחר עיר</option>
+                                                <Form.Select aria-label="Default select example" className='forms' rows={1} style={{width:'466px'}}>
+                                                    <option disabled>בחר עסק</option>
 
                                                 </Form.Select>
+                                            </Form>
+                                        </div>
+                                        <div style={{ display: 'flex' }}>
+
+                                        <Form>
+                                                <Form.Label>מיקום האירוע</Form.Label>
+                                                <Form.Control rows={1} style={{width:'466px'}} ></Form.Control>
                                             </Form>
                                         </div>
                                         {/* //העסקים שאליהם נשלחות ההצעות */}
