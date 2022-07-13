@@ -1,7 +1,7 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 
 import './ProfessionalSignUpCSS.css'
-import { Button, InputGroup, FormControl, FloatingLabel, Form, Select } from 'react-bootstrap';
+import { Button, InputGroup, FormControl, FloatingLabel, Form, Select, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
@@ -10,26 +10,40 @@ import axios from "axios";
 
 
 export default function ProfessionalSignUp(props) {
-    let ProNameRef=useRef();
-    let OwnerProNameRef=useRef();
-    let ProAddressRef=useRef();
-    let ProPhoneRef=useRef();
-    let ProEmailRef=useRef()
-    let ProPassRef=useRef()
-    let ProIdRef=useRef()
+    let ProNameRef = useRef();
+    let OwnerProNameRef = useRef();
+    let ProAddressRef = useRef();
+    let ProPhoneRef = useRef();
+    let ProEmailRef = useRef()
+    let ProPassRef = useRef()
+    let ProIdRef = useRef()
     //איך זה עובד עם קבצים??
-
+    const [selectedKosher, setSelectedKosher] = useState()
 
 
 
     let navigate = useNavigate();
     function gotoIndex() {
-      navigate("/Index")
+        let newBusiness = {
+            businessID: ProIdRef.current.value,
+            businessName: ProNameRef.current.value,
+            businessOwnerName: OwnerProNameRef.current.value,
+            businessPhone: ProPhoneRef.current.value,
+            businessEmail: ProEmailRef.current.value,
+            businessAddress: ProAddressRef.current.value,
+            businesspassword: ProPassRef.current.value,
+            businessKosher:selectedKosher,
+        }
+        axios.post('http://localhost:3030/business/CreateBusiness',newBusiness).then(res=>{
+            alert(res.data)
+            navigate("/Index")
+        }).catch(err=>console.log(err))
+        
     }
 
     return (
         <>
-            <div style={{fontFamily:"'Varela Round', sans-serif"}}>
+            <div style={{ fontFamily: "'Varela Round', sans-serif" }}>
                 <div>
                     <h1 style={{ textAlign: 'center' }}>הרשמה לעסקים</h1>
                 </div>
@@ -66,37 +80,26 @@ export default function ProfessionalSignUp(props) {
                             label="מספר העסק" >
 
                             <Form.Control
-                            ref={ProIdRef}
+                                ref={ProIdRef}
                                 type="Text"
                                 placeholder="BusinessID" />
                         </FloatingLabel>
 
                         <div style={{ display: 'flex' }}>
                             <FloatingLabel
-                                className="mb-3 form "
-                                style={{ width: '590px' }}
+                                className="mb-3"
+                                style={{ width: '686px' }}
                                 controlId="floatingInputId"
                                 label=" כתובת העסק" >
 
                                 <Form.Control
-                                ref={ProAddressRef}
+                                    ref={ProAddressRef}
                                     type="Text"
                                     placeholder="BusinessAddress" />
                             </FloatingLabel>
 
-                               
-                            <Form.Select aria-label="Default select example" className='form'  style={{ width: '300px',marginLeft:'15px' }}>
-                                <option disabled>בחר עיר</option>
-                                {/* <option value="1">העדה החרדית</option>
-                            <option value="2">הרב לנדא</option>
-                            <option value="3">בד''צ בית יוסף</option>
-                            <option value="4">הרב אברהם רובין</option>
-                            <option value="5">יורה דעה-הרב שלמה מחפוד</option>
-                            <option value="6">בד''צ מחזיקי הדת</option>
-                            <option value="7">בד''צ שארית ישראל</option>
-                            <option value="8">רבנות פתח תקווה</option>
-                            <option value="9">רבני צהר</option> */}
-                            </Form.Select>
+
+
 
                         </div>
                         {/* phone */}
@@ -106,7 +109,7 @@ export default function ProfessionalSignUp(props) {
                             label="טלפון" >
 
                             <Form.Control
-                            ref={ProPhoneRef}
+                                ref={ProPhoneRef}
                                 type="phone"
                                 placeholder="businessPhone" />
                         </FloatingLabel>
@@ -118,39 +121,39 @@ export default function ProfessionalSignUp(props) {
                             label="E-mail" >
 
                             <Form.Control
-                            ref={ProEmailRef}
+                                ref={ProEmailRef}
                                 type="email"
                                 placeholder="name@example.com" />
                         </FloatingLabel>
 
-                         {/* password */}
-                         <FloatingLabel
-                                    className="mb-3"
-                                    style={{ 'direction': 'rtl' }}
-                                    controlId="floatingPassword"
-                                    label="סיסמה">
+                        {/* password */}
+                        <FloatingLabel
+                            className="mb-3"
+                            style={{ 'direction': 'rtl' }}
+                            controlId="floatingPassword"
+                            label="סיסמה">
 
-                                    <Form.Control
-                                    ref={ProPassRef}
-                                        type="password"
-                                        placeholder="Password" />
+                            <Form.Control
+                                ref={ProPassRef}
+                                type="password"
+                                placeholder="Password" />
 
-                                </FloatingLabel>
+                        </FloatingLabel>
 
-                                {/* Password Authentication */}
-                                <FloatingLabel
-                                    className="mb-3"
-                                    // style={{ 'direction': 'rtl' }}
-                                    controlId="floatingPasswordAuthentication"
-                                    label=" אימות סיסמה">
+                        {/* Password Authentication */}
+                        <FloatingLabel
+                            className="mb-3"
+                            // style={{ 'direction': 'rtl' }}
+                            controlId="floatingPasswordAuthentication"
+                            label=" אימות סיסמה">
 
-                                    <Form.Control
-                                        type="password"
-                                        placeholder="Password Authentication" />
+                            <Form.Control
+                                type="password"
+                                placeholder="Password Authentication" />
 
-                                </FloatingLabel>
+                        </FloatingLabel>
 
-                        <Form.Select aria-label="Default select example" style={{ height: '58px' }} >
+                        <Form.Select aria-label="Default select example" style={{ height: '58px' }} onChange={(e) => setSelectedKosher(e.target.value)}>
                             <option disabled>כשרות העסק</option>
                             <option value="1">העדה החרדית</option>
                             <option value="2">הרב לנדא</option>
@@ -167,12 +170,12 @@ export default function ProfessionalSignUp(props) {
                         <Form.Group controlId="formFile">
                             {/* <Form.Label>Default file input example</Form.Label> */}
                             <FloatingLabel
-                                className="mb-3" 
+                                className="mb-3"
                                 style={{ 'direction': 'rtl' }}
                                 controlId="floatingInputFile"
                                 label="תעודת כשרות" >
                                 <Form.Control
-                                style={{ 'hight': '40px' }}
+                                    style={{ 'hight': '40px' }}
 
                                     type="file"
                                     placeholder="name@example.com" />

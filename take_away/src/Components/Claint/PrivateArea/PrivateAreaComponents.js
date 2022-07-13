@@ -9,6 +9,10 @@ import { Badge } from '@mui/material';
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import 'antd/dist/antd.css';
+import { TimePicker } from 'antd';
+import moment from 'moment'
+
 import axios from "axios";
 
 
@@ -45,7 +49,7 @@ export default function PAComponent(props) {
         setIsWaitrsShow(false)
     }
 
-    
+
     //אפשרויות נוספות
     const actions = [
         { icon: <RestaurantIcon onClick={DisposableFun} />, name: 'חד פעמי' },
@@ -83,6 +87,9 @@ export default function PAComponent(props) {
         }
     };
 
+    const format = 'HH:mm';
+
+
     const [value, onChange] = useState(new Date());
 
     const [valueTab, setValue] = React.useState(0);
@@ -104,7 +111,7 @@ export default function PAComponent(props) {
                     <div className='menu'>
 
                         <div className='border' >
-                            <div style={{ direction: 'rtl' }}>
+                            <div style={{ direction: 'rtl', fontSize: 'small' }}>
                                 מנות ראשונות<br />
                                 מנות עיקריות<br />
                                 קינוח<br />
@@ -125,7 +132,7 @@ export default function PAComponent(props) {
                                             key={action.name}
                                             icon={action.icon}
                                             tooltipTitle={action.name}
-                                            
+
                                         />
                                     ))}
                                 </SpeedDial>
@@ -226,7 +233,7 @@ export default function PAComponent(props) {
                                                 placeholder="Password" />
 
                                         </FloatingLabel>
-                                        
+
 
                                         {/* Password Authentication */}
                                         <FloatingLabel
@@ -273,18 +280,18 @@ export default function PAComponent(props) {
                                             </Form>
                                             <Form>
                                                 {/* //כמות המוזמנים */}
-                                                <Form.Label>מספר מוזמנים</Form.Label>
-                                                <NumericInput min={15} step={1.000} value={15} max={500} inputmode="numeric" className="form-control forms b " strict />
+                                                <Form.Group className='forms'>
+                                                    <Form.Label>שעת האירוע</Form.Label>
+                                                    <TimePicker defaultValue={moment('12:00', format)} format={format} style={{width:"230px",height:"38px"}} />
+                                                </Form.Group>
                                             </Form>
                                         </div>
-
+<br></br>
                                         <div style={{ display: 'flex' }}>
                                             <Form>
                                                 {/* //מיקום הארוע */}
                                                 <Form.Label style={{ direction: 'rtl', textAlign: 'right' }}>בחר עסק</Form.Label>
-                                                <Form.Select aria-label="Default select example" className='forms' rows={1}>
-                                                    <option disabled>בחר עסק</option>
-                                                </Form.Select>
+                                                <Form.Control ></Form.Control>
                                             </Form>
                                             <Form>
                                                 <Form.Label>מיקום האירוע</Form.Label>

@@ -8,6 +8,7 @@ import 'react-calendar/dist/Calendar.css';
 import Chat from '../../Actions/Chat';
 import axios from "axios";
 
+import moment from 'moment';
 
 import { Calendar } from 'react-calendar';
 import List from '@mui/material/List';
@@ -24,7 +25,12 @@ import Tab from '@mui/material/Tab';
 
 export default function ProfessionalPA({ children }) {
 
-    const [Datevalue, onChangeDate] = useState(new Date());
+    //פונקצית לוח שנה
+    const [dateState, setDateState] = useState(new Date())
+    const changeDate = (e) => {
+        setDateState(e)
+
+    }
 
     const [value, onChange] = useState(new Date());
 
@@ -54,7 +60,7 @@ export default function ProfessionalPA({ children }) {
 
 
 
-   
+
 
     return (
         <>
@@ -62,9 +68,25 @@ export default function ProfessionalPA({ children }) {
                 <h1 style={{ textAlign: "center" }}>אזור אישי לבעלי עסק</h1>
                 <div className='border col-xl-6 col-sm-10 col-8' style={{ display: 'flex' }}>
                     <div>
-           <Calendar value={Datevalue} onChangeDate={onChangeDate} />
+                        <Calendar
+                            value={dateState}
+                            onChange={changeDate}
+                            className='calender'
+
+                        />
+                        <p>Current selected date is <b>{moment(dateState).format('MMMM Do YYYY')}</b></p>
+
                     </div>
                     <div style={{ direction: 'rtl', marginLeft: 'auto' }}>
+                        <div>
+                            שם העסק:<br />
+                            שם בעל העסק<br />
+                            מספר העסק<br />
+                            כתובת העסק<br />
+                            טלפון<br />
+                            מייל<br />
+                        </div>
+
                         {/* <Calendar onChange={onChange} value={value} className='calender' /> */}
                         <Button onClick={handleShow} style={{ marginRight: 0 }}>עדכון פרטי העסק</Button>
 
@@ -118,20 +140,6 @@ export default function ProfessionalPA({ children }) {
                                                 type="Text"
                                                 placeholder="BusinessAddress" />
                                         </FloatingLabel>
-
-
-                                        <Form.Select aria-label="Default select example" className='form' style={{ width: '300px', marginLeft: '15px' }}>
-                                            <option disabled>בחר עיר</option>
-                                            {/* <option value="1">העדה החרדית</option>
-                            <option value="2">הרב לנדא</option>
-                            <option value="3">בד''צ בית יוסף</option>
-                            <option value="4">הרב אברהם רובין</option>
-                            <option value="5">יורה דעה-הרב שלמה מחפוד</option>
-                            <option value="6">בד''צ מחזיקי הדת</option>
-                            <option value="7">בד''צ שארית ישראל</option>
-                            <option value="8">רבנות פתח תקווה</option>
-                            <option value="9">רבני צהר</option> */}
-                                        </Form.Select>
 
                                     </div>
                                     {/* phone */}
@@ -193,9 +201,9 @@ export default function ProfessionalPA({ children }) {
                             </Modal.Footer>
 
                         </Modal>
-                        <br />
+                        {/* <br />
                         <Button style={{ marginRight: 0 }}>עדכון התפריט</Button>
-                        <br />
+                        <br /> */}
 
 
 

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import './ProfessionalLoginCSS.css'
 import { Button, InputGroup, FormControl, FloatingLabel, Form, Select } from 'react-bootstrap';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
@@ -19,7 +19,7 @@ export default function ProfessionalLogin(props) {
     let ProEmailRef = useRef()
     let ProPassRef = useRef()
     let ProIdRef = useRef()
-
+    const [showAlert, setShowAlert] = useState(true)
 
     let navigate = useNavigate();
 
@@ -27,18 +27,14 @@ export default function ProfessionalLogin(props) {
 
         axios.get(`http://localhost:3030/business/BusinessLogin/${ProIdRef.current.value}/${ProEmailRef.current.value}/${ProPassRef.current.value}`).then((res) => {
             console.log(res.data);
-            if (res.data !== 'true') {
-                function Eror() {
-                    <Stack sx={{ width: '100%' }} spacing={2}>
-                        <Alert severity="error">
-                            <AlertTitle>!שגיאה</AlertTitle>
-                            אחד מהפרטים שהוזנו אינו תקין
-                        </Alert>
-                    </Stack>
-                }
+            if (res.data == "not found") {
+                setShowAlert(false)
+            }
+            else {
+                setShowAlert(true)
+                navigate('/Index')
             }
 
-            navigate('/Index')
 
         }).catch(err => {
 
@@ -53,7 +49,13 @@ export default function ProfessionalLogin(props) {
                 <div className=" row" >
                     <h1 style={{ textAlign: 'center' }}>התחברות לעסקים</h1>
                     <div className='border col-xl-6 col-sm-10 col-8'>
-                 {/* //איך להפעיל את השגיאה כאן */}
+                        {/* //איך להפעיל את השגיאה כאן */}
+                        <Stack sx={{ width: '100%' }} spacing={2} >
+                            <Alert severity="error" hidden={showAlert}>
+                                <AlertTitle>!שגיאה</AlertTitle>
+                                אחד מהפרטים שהוזנו אינו תקין
+                            </Alert>
+                        </Stack>
                         <div>
                             <FloatingLabel
                                 className="mb-3 "
