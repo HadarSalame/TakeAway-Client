@@ -71,15 +71,6 @@ export default function PAComponent(props) {
     const handleClose1 = () => setShow1(false);
     const handleShow1 = () => setShow1(true);
 
-    const checkSwitch = (e) => {
-        if (console.log(e.target.checked) == true) {
-            <Form.Select aria-label="Default select example" className='form' style={{ width: '300px', marginLeft: '15px' }}>
-                <option disabled>בחר כמות מוזמנים</option>
-                <option value="1">15-30 מוזמנים - 1 מלצרים</option>
-                <option value="2">30-60 מוזמנים - 2 מלצרים</option>
-            </Form.Select>
-        }
-    };
 
     const checkSwitchDisposable = (e) => {
         if (console.log(e.target.checked) == true) {
@@ -156,13 +147,13 @@ export default function PAComponent(props) {
                     </div>
                     <div className='option'>
 
-                        <div className='details'>
+                        <div className='details' style={{fontSize:'13px'}}>
 
 
-                            <h6>שם:</h6>
-                            <h6>E-mail:</h6>
-                            <h6>טלפון:</h6>
-                            <h6>כתובת:</h6>
+                            <p>שם:</p>
+                            <p>E-mail:</p>
+                            <p>טלפון:</p>
+                            <p>כתובת:</p>
                         </div>
                         <div>
                             <Button variant="outline" className='btn btnPA' style={{ width: '170px' }} onClick={handleShow}>עדכון פרטים אישיים</Button>

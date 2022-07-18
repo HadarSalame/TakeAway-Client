@@ -64,7 +64,7 @@ export default function ProfessionalSignUp(props) {
                         <FloatingLabel
                             className="mb-3 "
                             style={{ 'direction': 'rtl' }}
-                            controlId="floatingInputName"
+                            controlId="floatingInputOwnerName"
                             label="שם בעל העסק" >
 
                             <Form.Control
@@ -89,7 +89,7 @@ export default function ProfessionalSignUp(props) {
                             <FloatingLabel
                                 className="mb-3"
                                 style={{ width: '686px' }}
-                                controlId="floatingInputId"
+                                controlId="floatingInputAddress"
                                 label=" כתובת העסק" >
 
                                 <Form.Control
