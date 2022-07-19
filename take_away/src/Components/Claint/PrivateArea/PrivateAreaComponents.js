@@ -99,7 +99,7 @@ export default function PAComponent(props) {
  2. עדכון התפריט שמכיל הוספה והסרה מהתפריט
  3. הצעות שהתקבלו שכולל כפתורים של השוואה בין ההצעות ואפשרות להזמין את ההצעות
   4ץדואר נכנס      */}
-                    <div className='menu'>
+                    <div className='menu' style={{ width: "50%" }}>
 
                         <div className='border' >
                             <div style={{ direction: 'rtl', fontSize: 'small' }}>
@@ -111,43 +111,35 @@ export default function PAComponent(props) {
                                 אפשרויות נוספות<br />
                                 פרטים והערות<br />
                             </div>
+                            <div style={{display:'flex', marginRight:"29%"}}>
+                                <Box sx={{ height: 320, transform: 'translateZ(0px)', flexGrow: 1 }}>
+                                    <SpeedDial
+                                        ariaLabel="SpeedDial basic example"
+                                        sx={{ position: 'absolute', bottom: 16, right: 16 }}
+                                        icon={<SpeedDialIcon />}
+                                    >
+                                        {actions.map((action) => (
+                                            <SpeedDialAction
+                                                key={action.name}
+                                                icon={action.icon}
+                                                tooltipTitle={action.name}
 
-                            <Box sx={{ height: 320, transform: 'translateZ(0px)', flexGrow: 1 }}>
-                                <SpeedDial
-                                    ariaLabel="SpeedDial basic example"
-                                    sx={{ position: 'absolute', bottom: 16, right: 16 }}
-                                    icon={<SpeedDialIcon />}
-                                >
-                                    {actions.map((action) => (
-                                        <SpeedDialAction
-                                            key={action.name}
-                                            icon={action.icon}
-                                            tooltipTitle={action.name}
-
-                                        />
-                                    ))}
-                                </SpeedDial>
-                            </Box>
+                                            />
+                                        ))}
+                                    </SpeedDial>
+                                </Box>
 
 
-                            <Button variant="outline" className='btn btnPA' onClick={detailsShow} >סיכום תפריט</Button>
-
+                                <Button variant="outline" className='btn btnPA' onClick={detailsShow} >סיכום ושליחה</Button>
+                            </div>
                             {/* יפתח חלון ויהיה ניתן לבחור בו למי לשלוח את ההצעה */}
                         </div>
                         <br></br>
-                        <div>
-                            <Box style={{ width: '100%', bgcolor: 'background.paper', color: 'black' }} >
-                                <Tabs value={valueTab} onChange={handleChange} className="tabs" centered>
-                                    <Tab label="נשלח" className="tab" ></Tab>
-                                    <Tab label="התקבל" className="tab" />
-                                    <Tab label="הצעות סגורות" className="tab" />
-                                </Tabs>
-                            </Box>
-                        </div>
-                    </div>
-                    <div className='option'>
 
-                        <div className='details' style={{fontSize:'13px'}}>
+                    </div>
+                    <div className='option' style={{ width: "50%" }}>
+
+                        <div className='details' style={{ fontSize: '13px' }}>
 
 
                             <p>שם:</p>
@@ -266,14 +258,14 @@ export default function PAComponent(props) {
                                                 <Form.Group controlId="datePicker" className='forms'  >
                                                     <Form.Label>תאריך</Form.Label>
 
-                                                    <Form.Control type="date" name="datePicker" placeholder="Date of Birth" className=''  />
+                                                    <Form.Control type="date" name="datePicker" placeholder="Date of Birth" className='' />
                                                 </Form.Group>
                                             </Form>
                                             <Form>
                                                 {/* //כמות המוזמנים */}
                                                 <Form.Group className='forms'>
                                                     <Form.Label>שעת האירוע</Form.Label>
-                                                    <TimePicker defaultValue={moment('12:00', format)} format={format} style={{ width: "230px", height: "38px" }}  onChange={(console.log(value))}/>
+                                                    <TimePicker defaultValue={moment('12:00', format)} format={format} style={{ width: "230px", height: "38px" }} onChange={(console.log(value))} />
                                                 </Form.Group>
                                             </Form>
                                         </div>
@@ -282,7 +274,7 @@ export default function PAComponent(props) {
                                             <Form>
                                                 {/* //מיקום הארוע */}
                                                 <Form.Label style={{ direction: 'rtl', textAlign: 'right' }}>בחר עסק</Form.Label>
-                                                <Form.Select aria-label="Default select example" className='forms' rows={1} style={{width:'466px'}}>
+                                                <Form.Select aria-label="Default select example" className='forms' rows={1} style={{ width: '466px' }}>
                                                     <option disabled>בחר עסק</option>
 
                                                 </Form.Select>
@@ -290,9 +282,9 @@ export default function PAComponent(props) {
                                         </div>
                                         <div style={{ display: 'flex' }}>
 
-                                        <Form>
+                                            <Form>
                                                 <Form.Label>מיקום האירוע</Form.Label>
-                                                <Form.Control rows={1} style={{width:'466px'}} ></Form.Control>
+                                                <Form.Control rows={1} style={{ width: '466px' }} ></Form.Control>
                                             </Form>
                                         </div>
                                         {/* //העסקים שאליהם נשלחות ההצעות */}
@@ -327,9 +319,13 @@ export default function PAComponent(props) {
 
                         </div>
                         <div>
-                            אימייל בוקס להצעות שנשלחו והצעות שהתקבלו
-
-
+                            <Box style={{ width: '100%', bgcolor: 'background.paper', color: 'black' }} >
+                                <Tabs value={valueTab} onChange={handleChange} className="tabs" centered>
+                                    <Tab label="נשלח" className="tab" ></Tab>
+                                    <Tab label="התקבל" className="tab" />
+                                    <Tab label="הצעות סגורות" className="tab" />
+                                </Tabs>
+                            </Box>
                         </div>
 
                     </div>
