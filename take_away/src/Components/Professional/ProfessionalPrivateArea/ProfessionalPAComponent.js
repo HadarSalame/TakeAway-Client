@@ -29,6 +29,10 @@ export default function ProfessionalPA({ children }) {
     const [dateState, setDateState] = useState(new Date())
     const changeDate = (e) => {
         setDateState(e)
+        console.log(moment(e).format('DD MMMM yyyy'))
+      
+
+
 
     }
 
@@ -70,11 +74,12 @@ export default function ProfessionalPA({ children }) {
                     <div>
                         <Calendar
                             value={dateState}
+                            
                             onChange={changeDate}
                             className='calender'
 
                         />
-                        <p>Current selected date is <b>{moment(dateState).format('MMMM Do YYYY')}</b></p>
+                        <p >Current selected date is <b>{moment(dateState).format('MMMM Do YYYY')}</b></p>
 
                     </div>
                     <div style={{ direction: 'rtl', marginLeft: 'auto' }}>
@@ -209,12 +214,13 @@ export default function ProfessionalPA({ children }) {
 
                         <Box style={{ width: '100%', bgcolor: 'background.paper', color: 'black' }} >
                             <Tabs value={valueTab} onChange={handleChange} className="tabs" centered>
-                                <Tab label="נשלח" className="tab" onClick={Chatfunc}  >
-
-                                </Tab>
-
+                                <Tab label="נשלח" className="tab" onClick={Chatfunc}  > </Tab>
                                 <Tab label="התקבל" className="tab" />
                                 <Tab label="הצעות סגורות" className="tab" />
+
+                                {/* // הודעות על ביטול והזמנה שנסגרה */}
+                                <Tab label="הודעות" className="tab" />
+
                             </Tabs>
                         </Box>
                         {isChatShow && <Chat show={isChatShow} setShow={closeChatModal} />}

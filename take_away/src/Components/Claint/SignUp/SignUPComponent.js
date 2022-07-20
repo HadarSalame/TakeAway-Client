@@ -100,7 +100,7 @@ export default function SignUp(props) {
                             </div>
 
                             <form>
-                                <div class="custom-control custom-checkbox custom-control-label">
+                                <div className="custom-control custom-checkbox custom-control-label">
                                   
                                     <label for="TermsdefaultCheck"> אני מאשר/ת את תקנון האתר  </label> 
                                     <input type="checkbox" id="TermsdefaultCheck" name="Terms" />

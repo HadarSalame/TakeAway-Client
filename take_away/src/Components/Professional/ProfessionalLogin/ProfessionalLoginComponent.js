@@ -19,7 +19,7 @@ export default function ProfessionalLogin(props) {
     let ProEmailRef = useRef()
     let ProPassRef = useRef()
     let ProIdRef = useRef()
-    const [showAlert, setShowAlert] = useState(true)
+    const [showAlert, setShowAlert] = useState(false)
 
     let navigate = useNavigate();
 
@@ -28,10 +28,10 @@ export default function ProfessionalLogin(props) {
         axios.get(`http://localhost:3030/business/BusinessLogin/${ProIdRef.current.value}/${ProEmailRef.current.value}/${ProPassRef.current.value}`).then((res) => {
             console.log(res.data);
             if (res.data == null) {
-                setShowAlert(false)
+                setShowAlert(true)
             }
             else {
-                setShowAlert(true)
+                setShowAlert(false)
                 navigate('/Index')
             }
 
@@ -51,7 +51,7 @@ export default function ProfessionalLogin(props) {
                     <div className='border col-xl-6 col-sm-10 col-8'>
                         {/* //איך להפעיל את השגיאה כאן */}
                         <Stack sx={{ width: '100%' }} spacing={2} >
-                            <Alert severity="error" hidden={showAlert}>
+                            <Alert severity="error" hidden={!showAlert}>
                                 <AlertTitle>!שגיאה</AlertTitle>
                                 אחד מהפרטים שהוזנו אינו תקין
                             </Alert>

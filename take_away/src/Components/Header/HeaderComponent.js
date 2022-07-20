@@ -92,7 +92,7 @@ export default function Header(props) {
                   <Nav.Link onClick={gotoBusinessPage} className='opt' >בתי עסק</Nav.Link>
                   <Nav.Link onClick={gotoInfoPage} className='opt'>עלינו</Nav.Link>
 
-                  <i class="material-icons">&#xe8b6;</i>
+                  <i className="material-icons">&#xe8b6;</i>
 
 
                 </Nav>
