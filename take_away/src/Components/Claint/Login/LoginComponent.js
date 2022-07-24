@@ -1,36 +1,63 @@
-import React from 'react';
+import React ,{useRef,useState} from 'react';
 import './LoginCSS.css'
 import { Button, InputGroup, FormControl, FloatingLabel, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
 import axios from 'axios'
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import Stack from '@mui/material/Stack';
+
 
 
 export default function Login(props) {
 
+    let UserEmailRef = useRef()
+    let UserPassRef = useRef()
+
+    const [showAlert, setShowAlert] = useState(false)
+
+
     let navigate = useNavigate();
 
     function gotoIndex() {
-        //send to server 
-    //    axios.get(`http://localhost:3030/claint/claintLogin/${}/`).then(()=>{
 
-    //        navigate("/Index")
-    //    })
+        axios.get(`http://localhost:3030/claintController/claintLogin/${UserEmailRef.current.value}/${UserPassRef.current.value}`).then((res) => {
+
+            console.log(res.data);
+            if (res.data == "null") {
+                setShowAlert(true)
+            }
+            else {
+                setShowAlert(false)
+                navigate('/Index')
+            }
+        }).catch(err => {
+
+        })
     };
 
     return (
         <>
-            <div style={{fontFamily:"'Varela Round', sans-serif"}}>
+            <div style={{ fontFamily: "'Varela Round', sans-serif" }}>
                 {/* //התחברות למשתמשים עם שם סיסמא כפתור שיחזור סיסמה עי שליחת 
             //קישור למייל 
             // וכפתור התחברות */}
                 <br></br>
                 <div></div>
-                <h1  style={{ textAlign: 'center' }}>התחברות</h1>
+                <h1 style={{ textAlign: 'center' }}>התחברות</h1>
                 <br></br>
                 <br></br>
                 <div className=" row" >
                     <div className='border col-xl-6 col-sm-10 col-8'>
+
+                        <Stack sx={{ width: '100%', margin: '2%' }} spacing={2} >
+                            <Alert severity="error" hidden={!showAlert}>
+                                <AlertTitle>!שגיאה</AlertTitle>
+                                אחד מהפרטים שהוזנו אינו תקין
+                            </Alert>
+                        </Stack>
+
                         {/* mail for login */}
                         {/* <div style={{'marginBottom':'30px'}}>
                         <InputGroup className="mb-3">
@@ -60,13 +87,14 @@ export default function Login(props) {
                                 style={{ 'direction': 'rtl' }}
                                 controlId="floatingInput"
                                 label="Email" >
-                                    
+
 
                                 <Form.Control
+                                    ref={UserEmailRef}
                                     type="email"
-                                    placeholder="name@example.com" 
-                                    />
-                                    
+                                    placeholder="name@example.com"
+                                />
+
 
 
                             </FloatingLabel>
@@ -76,17 +104,18 @@ export default function Login(props) {
                                 label="סיסמה">
 
                                 <Form.Control
+                                    ref={UserPassRef}
                                     type="password"
                                     placeholder="Password" />
 
                             </FloatingLabel>
 
                             <div className="FP">
-                              
-                                    <Link to='/ForgetPass'>שכחתי סיסמה</Link>
-                                   
-                                    
-                                   
+
+                                <Link to='/ForgetPass'>שכחתי סיסמה</Link>
+
+
+
                             </div>
                         </div>
                         <Button value="logInBtn" variant="outline" className="btn" onClick={gotoIndex}>התחבר/י</Button>

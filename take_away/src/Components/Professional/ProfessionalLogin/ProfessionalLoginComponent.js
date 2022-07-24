@@ -25,9 +25,9 @@ export default function ProfessionalLogin(props) {
 
     function gotoIndex() {
 
-        axios.get(`http://localhost:3030/business/BusinessLogin/${ProIdRef.current.value}/${ProEmailRef.current.value}/${ProPassRef.current.value}`).then((res) => {
+        axios.get(`http://localhost:3030/businessController/BusinessLogin/${ProIdRef.current.value}/${ProEmailRef.current.value}/${ProPassRef.current.value}`).then((res) => {
             console.log(res.data);
-            if (res.data == null) {
+            if (res.data == "null") {
                 setShowAlert(true)
             }
             else {
@@ -50,7 +50,7 @@ export default function ProfessionalLogin(props) {
                     <h1 style={{ textAlign: 'center' }}>התחברות לעסקים</h1>
                     <div className='border col-xl-6 col-sm-10 col-8'>
                         {/* //איך להפעיל את השגיאה כאן */}
-                        <Stack sx={{ width: '100%' }} spacing={2} >
+                        <Stack sx={{ width: '100%',margin:'2%' }} spacing={2} >
                             <Alert severity="error" hidden={!showAlert}>
                                 <AlertTitle>!שגיאה</AlertTitle>
                                 אחד מהפרטים שהוזנו אינו תקין

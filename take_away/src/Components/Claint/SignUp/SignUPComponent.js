@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useRef} from 'react';
 import './SignUpCss.css'
 import { Button, InputGroup, FormControl, FloatingLabel, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
@@ -6,10 +6,30 @@ import axios from 'axios'
 
 
 export default function SignUp(props) {
+
+    let FirstNameRef = useRef();
+    let LastNameRef = useRef();
+    let PhoneRef = useRef();
+    let EmailRef = useRef();
+    let PassRef = useRef();
+   
+
     let navigate = useNavigate();
     function gotoIndex() {
-      
-      navigate("/Index")
+        let newClaint = {
+            claintFirstName: FirstNameRef.current.value,
+            claintLastName: LastNameRef.current.value,
+            claintPhone: PhoneRef.current.value,
+            claintEmail: EmailRef.current.value,
+            password: PassRef.current.value,
+
+        }
+        axios.post('http://localhost:3030/ClaintController/CreateClaint',newClaint).then(res=>{
+            console.log(res.data)
+            //הסרת כפתורי ההתחברות וההרשמה ולשים כפתור התנתקות ושלום למשתמש
+            navigate("/Index")
+        }).catch(err=>console.log(err))
+
     }
     return (
         <>
@@ -32,6 +52,7 @@ export default function SignUp(props) {
                                     label="שם" >
 
                                     <Form.Control
+                                    ref={FirstNameRef}
                                         type="Text"
                                         placeholder="name" />
                                 </FloatingLabel>
@@ -44,6 +65,8 @@ export default function SignUp(props) {
                                     label="שם משפחה">
 
                                     <Form.Control
+                                    ref={LastNameRef}
+
                                         type="Text"
                                         placeholder="lastName" />
                                 </FloatingLabel>
@@ -56,6 +79,7 @@ export default function SignUp(props) {
                                     label="טלפון" >
 
                                     <Form.Control
+                                    ref={PhoneRef}
                                         type="phone"
                                         placeholder="phone" />
                                 </FloatingLabel>
@@ -68,6 +92,7 @@ export default function SignUp(props) {
                                     label="E-mail" >
 
                                     <Form.Control
+                                    ref={EmailRef}
                                         type="email"
                                         placeholder="name@example.com" />
                                 </FloatingLabel>
@@ -80,6 +105,7 @@ export default function SignUp(props) {
                                     label="סיסמה">
 
                                     <Form.Control
+                                    ref={PassRef}
                                         type="password"
                                         placeholder="Password" />
 
