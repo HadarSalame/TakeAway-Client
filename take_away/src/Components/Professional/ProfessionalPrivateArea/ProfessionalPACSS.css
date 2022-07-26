@@ -68,3 +68,26 @@
     font-family:'Varela Round', sans-serif !important ;
 
 }
+.react-calendar__tile--active  {
+    background: #f7d520 !important;
+    color: white;
+    border-radius: 30% !important;
+
+}
+react-calendar__tile--active:enabled:hover, .react-calendar__tile--active:enabled:focus {
+    background: #f7d520 !important;
+}
+
+.react-calendar__month-view__days__day--weekend {
+    background: #d10000 !important;
+    color: white !important;
+    border-radius: 30% !important;
+}
+
+.react-calendar__tile--now {
+    background: #517ef9 !important ;
+    border-radius: 30% !important;
+    color: white !important;
+
+}
+

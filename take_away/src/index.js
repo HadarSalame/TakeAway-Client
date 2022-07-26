@@ -18,6 +18,7 @@ import PAComponent from './Components/Claint/PrivateArea/PrivateAreaComponents'
 import BusinessPage from './Components/Professional/Business/BusinessComponent';
 import InfoPage from './Components/Infromation/InfoPageComponent';
 import PPAComponent from './Components/Professional/ProfessionalPrivateArea/ProfessionalPAComponent';
+import Menu from './Components/Menu/MenuComponent';
 import Chat from './Components/Actions/Chat';
 import Disposable from './Components/Disposable/DisposableComponent';
 import Waitresses from './Components/Waitresses/WaitressesComponent';
@@ -36,9 +37,9 @@ ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       {/* <App /> */}
-         <Header />
+      <Header />
       <Routes>
-        <Route path='/' element={<App/>} ></Route>
+        <Route path='/' element={<App />} ></Route>
         <Route path='/Header' element={<Header />}></Route>
         <Route path='/Index' element={<Index />}></Route>
         <Route path='/ProfessionalLogin' element={<ProfessionalLogin />}></Route>
@@ -47,18 +48,19 @@ ReactDOM.render(
         <Route path='/ProfessionalSignUp' element={<ProfessionalSignUp />}></Route>
         <Route path='/PAComponent' element={<PAComponent />}></Route>
         <Route path='/PPAComponent' element={<PPAComponent />}></Route>
+        <Route path='/Menu' element={<Menu />}></Route>
 
-        <Route path='/Disposable' element={<Disposable/>}></Route>
-        <Route path='/Waitresses' element={<Waitresses/>}></Route>
-        <Route path='/Order' element={<Order/>}></Route>
+        <Route path='/Disposable' element={<Disposable />}></Route>
+        <Route path='/Waitresses' element={<Waitresses />}></Route>
+        <Route path='/Order' element={<Order />}></Route>
 
 
         <Route path='/BusinessPage' element={<BusinessPage />}></Route>
-        <Route path='/Infopage' element={<InfoPage/>}></Route>
-        <Route path='/Chat' element={<Chat/>}></Route>
+        <Route path='/Infopage' element={<InfoPage />}></Route>
+        <Route path='/Chat' element={<Chat />}></Route>
 
 
-{/* למחוקקקקקק */}
+        {/* למחוקקקקקק */}
         <Route path='/tryPage' element={<tryPage />} />
 
         <Route path='/ForgetPass' element={<ForgetPass />} />
@@ -66,7 +68,7 @@ ReactDOM.render(
 
 
 
-     <i></i>
+      <i></i>
       <h6 style={{ textAlign: 'center' }}>כל הזכויות שמורות</h6>
     </BrowserRouter>
   </React.StrictMode>,

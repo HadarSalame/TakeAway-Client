@@ -22,10 +22,10 @@ export default function Login(props) {
 
     function gotoIndex() {
 
-        axios.get(`http://localhost:3030/claintController/claintLogin/${UserEmailRef.current.value}/${UserPassRef.current.value}`).then((res) => {
+        axios.get(`http://localhost:3030/claint/claintLogin/${UserEmailRef.current.value}/${UserPassRef.current.value}`).then((res) => {
 
             console.log(res.data);
-            if (res.data == "null") {
+            if (res.data == null) {
                 setShowAlert(true)
             }
             else {

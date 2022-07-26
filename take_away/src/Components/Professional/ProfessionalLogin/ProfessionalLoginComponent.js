@@ -27,7 +27,7 @@ export default function ProfessionalLogin(props) {
 
         axios.get(`http://localhost:3030/businessController/BusinessLogin/${ProIdRef.current.value}/${ProEmailRef.current.value}/${ProPassRef.current.value}`).then((res) => {
             console.log(res.data);
-            if (res.data == "null") {
+            if (res.data == null) {
                 setShowAlert(true)
             }
             else {

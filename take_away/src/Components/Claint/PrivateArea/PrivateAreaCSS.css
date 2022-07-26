@@ -1,79 +1,86 @@
-.menu{
-    display:inline-block;
-    margin-right:5%;
+.menu {
+    display: inline-block;
+    margin-right: 5%;
     margin-left: 4%;
 }
-.option{
+
+.option {
     /* display: inline-grid; */
-    margin:2%;
+    margin: 2%;
     direction: rtl;
 }
+
 /* .PA{
     display: inline-flex;
     margin-left: 26%;
 } */
 .btn {
-    
+
     color: #fff;
-    background-color: #f7d520
-;
-    border-color: #f7d520
-;
+    background-color: #f7d520;
+    border-color: #f7d520;
     color: black;
     margin: 20px;
-   height: fit-content;
+    height: fit-content;
 }
-.btn:hover{
+
+.btn:hover {
     color: #fff;
 }
+
 .btn-primary {
     color: rgb(0, 0, 0);
     background-color: #f7d520 !important;
     border-color: #f7d520 !important;
 }
+
 .btn-secondary {
     color: rgb(0, 0, 0);
-    background-color: #f7d520  !important;
+    background-color: #f7d520 !important;
     border-color: #f7d520 !important;
 }
+
 .form-check-input:checked {
-    background-color: #f7d520  !important;
-    border-color:#f7d520  !important;
+    background-color: #f7d520 !important;
+    border-color: #f7d520 !important;
 }
+
 .form-check-input {
     color: #f7d520 !important;
-    border: 1px solid  #f7d520 !important;
+    border: 1px solid #f7d520 !important;
 }
 
 
-.navs{ 
-    background-color: #f7d520
-;
-    color:#000000;
-    border-color: #f7d520
-;
-   
+.navs {
+    background-color: #f7d520;
+    color: #000000;
+    border-color: #f7d520;
+
 }
-.navs1{
-    display:inline;
+
+.navs1 {
+    display: inline;
 }
-.navs:hover{
+
+.navs:hover {
     color: #ffffff;
 }
 
-.details{
+.details {
     text-align: right;
     direction: rtl;
     font-size: 10px;
     right: 0%;
 }
-.forms{
-    width:230px;
+
+.forms {
+    width: 230px;
     margin: 5px;
     height: 38px;
     margin-left: 0%;
 }
-.form-control.b:hover{
+
+.form-control.b:hover {
     position: absolute;
     right: 2px;
     width: 2.26ex;
@@ -91,32 +98,46 @@
     height: 19px;
     background-color: aquamarine;
 }
-.btnPA{
+
+.btnPA {
     margin: 0px;
-    margin-top:10%;
+    margin-top: 10%;
     display: flex;
-    width:123px;
+    width: 123px;
     text-align: center;
 }
-i.material-icons{
-    color:#ffffff;
+
+i.material-icons {
+    color: #ffffff;
     background-color: #f7d520;
     border-radius: 50%;
-    font-size:40px;
+    font-size: 40px;
 }
-.more_vert{
+
+.more_vert {
     background-color: #ffffff;
     border-color: #ffffff;
     margin: 0 !important;
 }
-.more_vert:hover{
+
+.more_vert:hover {
     background-color: #ffffff !important;
     border-color: #ffffff !important;
     margin: 0 !important;
 }
-.css-1dyuqpd{
+
+.css-1dyuqpd {
     height: 80px !important;
     direction: ltr !important;
     width: 70px;
 }
 
+.filter {
+    display: flex;
+    /* color: #fff; */
+    border-color: #000000;
+    font-size: 30px;
+    margin: 1%;
+
+
+}

@@ -4,12 +4,39 @@ import './ProfessionalSignUpCSS.css'
 import { Button, InputGroup, FormControl, FloatingLabel, Form, Select, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
+import { MultiSelect } from "react-multi-select-component";
+
 
 
 
 
 
 export default function ProfessionalSignUp(props) {
+
+    const [selected, setSelected] = useState([]);
+    const options = [
+        { label: "העדה החרדית", value: "1" },
+        { label: "בד''צ בית יוסף", value: "2" },
+        { label: "הרב לנדא", value: "3" },
+        { label: "הרב אברהם רובין", value: "4" },
+        { label: "יורה דעה-הרב שלמה מחפוד", value: "5" },
+        { label: "בד''צ מחזיקי הדת", value: "6" },
+        { label: "בד''צ שארית ישראל", value: "7" },
+        { label: "איגוד הרבנים", value: "8" },
+        { label: "רבני צהר", value: "9" },
+        { label: "רבנות פתח תקווה", value: "10" },
+        { label: "רבנות נתניה", value: "11" }
+
+
+
+    ];
+
+    const customValueRenderer = (selected, _options) => {
+        return selected.length
+            ? selected.map(({ label }) => "✔️ " + label)
+            : "בחר כשרות";
+    };
+
     let ProNameRef = useRef();
     let OwnerProNameRef = useRef();
     let ProAddressRef = useRef();
@@ -32,13 +59,13 @@ export default function ProfessionalSignUp(props) {
             businessEmail: ProEmailRef.current.value,
             businessAddress: ProAddressRef.current.value,
             businesspassword: ProPassRef.current.value,
-            businessKosher:selectedKosher,
+            businessKosher: selectedKosher,
         }
-        axios.post('http://localhost:3030/business/CreateBusiness',newBusiness).then(res=>{
+        axios.post('http://localhost:3030/business/CreateBusiness', newBusiness).then(res => {
             alert(res.data)
             navigate("/Index")
-        }).catch(err=>console.log(err))
-        
+        }).catch(err => console.log(err))
+
     }
 
     return (
@@ -151,20 +178,26 @@ export default function ProfessionalSignUp(props) {
                                 type="password"
                                 placeholder="Password Authentication" />
 
+                        </FloatingLabel >
+
+
+                        <FloatingLabel
+                            className="mb-3 form"
+                        >
+
+                            <MultiSelect
+                                className='form'
+                                style={{direction:'rtl'}}
+                                options={options}
+                                value={selected}
+                                onChange={setSelected}
+                                labelledBy="kosher"
+                                valueRenderer={customValueRenderer}
+
+
+                            />
                         </FloatingLabel>
 
-                        <Form.Select aria-label="Default select example" style={{ height: '58px' }} onChange={(e) => setSelectedKosher(e.target.value)}>
-                            <option disabled>כשרות העסק</option>
-                            <option value="1">העדה החרדית</option>
-                            <option value="2">הרב לנדא</option>
-                            <option value="3">בד''צ בית יוסף</option>
-                            <option value="4">הרב אברהם רובין</option>
-                            <option value="5">יורה דעה-הרב שלמה מחפוד</option>
-                            <option value="6">בד''צ מחזיקי הדת</option>
-                            <option value="7">בד''צ שארית ישראל</option>
-                            <option value="8">רבנות פתח תקווה</option>
-                            <option value="9">רבני צהר</option>
-                        </Form.Select>
 
                         <h1>???</h1>
                         <Form.Group controlId="formFile">

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './PrivateAreaCSS.css'
 import { useNavigate } from 'react-router-dom';
 import { Button, InputGroup, FormControl, FloatingLabel, Form, Nav, Modal } from 'react-bootstrap';
@@ -14,9 +14,15 @@ import { TimePicker } from 'antd';
 import moment from 'moment'
 
 import axios from "axios";
+import { MultiSelect } from "react-multi-select-component";
 
 
+
+
+
+import FilterListIcon from '@mui/icons-material/FilterList';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
+import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import RoomServiceIcon from '@mui/icons-material/RoomService';
 import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
@@ -29,6 +35,33 @@ import Waitresses from '../../Waitresses/WaitressesComponent';
 export default function PAComponent(props) {
 
     let navigate = useNavigate();
+
+
+    const [selected, setSelected] = useState([]);
+    const options = [
+        { label: "העדה החרדית", value: "1" },
+        { label: "בד''צ בית יוסף", value: "2" },
+        { label: "הרב לנדא", value: "3" },
+        { label: "הרב אברהם רובין", value: "4" },
+        { label: "יורה דעה-הרב שלמה מחפוד", value: "5" },
+        { label: "בד''צ מחזיקי הדת", value: "6" },
+        { label: "בד''צ שארית ישראל", value: "7" },
+        { label: "איגוד הרבנים", value: "8" },
+        { label: "רבני צהר", value: "9" },
+        { label: "רבנות פתח תקווה", value: "10" },
+        { label: "רבנות נתניה", value: "11" }
+
+
+
+    ];
+    const customValueRenderer = (selected, _options) => {
+        return selected.length
+            ? selected.map(({ label }) => ", " + label)
+            : "בחר כשרות";
+    };
+
+    const [Allbusiness, setAllbusiness] = useState()
+
     const [isShow, setIsShow] = React.useState(false);
 
     function DisposableFun() {
@@ -48,6 +81,16 @@ export default function PAComponent(props) {
     function closeWaitressesModal() {
         setIsWaitrsShow(false)
     }
+
+    useEffect(() => {
+        axios.get("http://localhost:3030/business/getBusiness").then((res) => {
+            if (res.data && res.data.length) {
+                setAllbusiness(res.data)
+
+            }
+        })
+    }, [])
+
 
 
     //אפשרויות נוספות
@@ -89,6 +132,10 @@ export default function PAComponent(props) {
         setValue(newValue);
     };
 
+    function SendOrder(props) {
+
+    }
+
     return (
         <>
             <div className='row' style={{ fontFamily: "'Varela Round', sans-serif" }}>
@@ -111,7 +158,7 @@ export default function PAComponent(props) {
                                 אפשרויות נוספות<br />
                                 פרטים והערות<br />
                             </div>
-                            <div style={{display:'flex', marginRight:"29%"}}>
+                            <div style={{ display: 'flex', marginRight: "29%" }}>
                                 <Box sx={{ height: 320, transform: 'translateZ(0px)', flexGrow: 1 }}>
                                     <SpeedDial
                                         ariaLabel="SpeedDial basic example"
@@ -253,7 +300,7 @@ export default function PAComponent(props) {
                                     <Form>
                                         {/* //פירוט התפריט - כולל את התפריט עצמו,מילצור,חד פעמי */}
                                         {/* //תאריך הארוע */}
-                                        <div style={{ display: 'flex' }}>
+                                        <div style={{ display: 'flex', marginBottom: '3%' }}>
                                             <Form>
                                                 <Form.Group controlId="datePicker" className='forms'  >
                                                     <Form.Label>תאריך</Form.Label>
@@ -269,18 +316,76 @@ export default function PAComponent(props) {
                                                 </Form.Group>
                                             </Form>
                                         </div>
-                                        <br></br>
-                                        <div style={{ display: 'flex' }}>
+                                        {/* multy select */}
+                                        <div style={{ display: 'flex', marginTop: '5%' }}>
+                                            <Form>
+                                                <Form.Label style={{ direction: 'rtl', width: "466px" }}>כשרות</Form.Label>
+                                                <Form.Group>
+
+                                                    <MultiSelect
+                                                        style={{ direction: 'rtl',height:'38px' }}
+                                                        options={options}
+                                                        value={selected}
+                                                        onChange={setSelected}
+                                                        labelledBy="kosher"
+                                                        valueRenderer={customValueRenderer}
+
+
+                                                    />
+
+
+                                                </Form.Group>
+                                            </Form>
+                                        </div>
+
+                                        <div style={{ display: 'flex', marginTop: '2%' }}>
+                                            <Form>
+                                                <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                                                    <Form.Label>מספר מוזמנים</Form.Label>
+                                                    <Form.Control type='number' rows={1} style={{ width: '466px' }} />
+                                                </Form.Group>
+                                            </Form>
+                                        </div>
+
+                                        <div style={{ display: 'flex', marginTop: '2%' }}>
                                             <Form>
                                                 {/* //מיקום הארוע */}
                                                 <Form.Label style={{ direction: 'rtl', textAlign: 'right' }}>בחר עסק</Form.Label>
-                                                <Form.Select aria-label="Default select example" className='forms' rows={1} style={{ width: '466px' }}>
-                                                    <option disabled>בחר עסק</option>
+                                                {/* <Form.Select aria-label="Default select example" className='forms' rows={1} style={{ width: '466px' }}>
+                                                    <>
+                                                        {Allbusiness && Allbusiness.length && Allbusiness.map((item) =>
+                                                            <option key={item}>{item.businessName} </option>)
+                                                        }
+                                                    </>
 
-                                                </Form.Select>
+                                                </Form.Select> */}
+
+
+                                                //איך להכניס את מערך העסקים לתוך המולטי סלקט וגם לערוך עליו סינון
+                                                {/* <MultiSelect
+                                                        style={{ direction: 'rtl',height:'38px' }}
+                                                        options={Allbusiness.map()}
+                                                        value={Allbusiness}
+                                                        onChange={setAllbusiness(item.businessName)}
+                                                        labelledBy="kosher"
+                                                        valueRenderer={customValueRenderer}
+
+
+                                                    >
+                                                         <>
+                                                        {Allbusiness && Allbusiness.length && Allbusiness.map((item) =>
+                                                            <option key={item}>{item.businessName} </option>)
+                                                        }
+                                                    </>
+                                                    </MultiSelect> */}
+
+
+                                                
                                             </Form>
                                         </div>
-                                        <div style={{ display: 'flex' }}>
+
+
+                                        <div style={{ display: 'flex', marginTop: '2%' }}>
 
                                             <Form>
                                                 <Form.Label>מיקום האירוע</Form.Label>
@@ -289,14 +394,14 @@ export default function PAComponent(props) {
                                         </div>
                                         {/* //העסקים שאליהם נשלחות ההצעות */}
 
-
-                                        {/* //הערות */}
-                                        <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                                            <Form.Label>הערות</Form.Label>
-                                            <Form.Control as="textarea" rows={1} />
-                                        </Form.Group>
-                                        {/* //כפתור עדכון והסרה מהתפריט */}
-
+                                        <div style={{ display: 'flex', marginTop: '2%' }}>
+                                            {/* //הערות */}
+                                            <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                                                <Form.Label>הערות</Form.Label>
+                                                <Form.Control as="textarea" rows={1} style={{ width: '466px' }} />
+                                            </Form.Group>
+                                            {/* //כפתור עדכון והסרה מהתפריט */}
+                                        </div>
 
                                     </Form>
                                 </Modal.Body>
@@ -332,7 +437,7 @@ export default function PAComponent(props) {
 
 
                 </div>
-            </div>
+            </div >
         </>
     )
 }
