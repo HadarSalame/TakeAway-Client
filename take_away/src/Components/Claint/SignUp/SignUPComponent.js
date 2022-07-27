@@ -24,7 +24,7 @@ export default function SignUp(props) {
             password: PassRef.current.value,
 
         }
-        axios.post('http://localhost:3030/ClaintController/CreateClaint',newClaint).then(res=>{
+        axios.post('http://localhost:3030/Claint/CreateClaint',newClaint).then(res=>{
             console.log(res.data)
             //הסרת כפתורי ההתחברות וההרשמה ולשים כפתור התנתקות ושלום למשתמש
             navigate("/Index")

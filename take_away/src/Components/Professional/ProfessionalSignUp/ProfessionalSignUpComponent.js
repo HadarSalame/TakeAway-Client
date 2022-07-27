@@ -63,6 +63,7 @@ export default function ProfessionalSignUp(props) {
         }
         axios.post('http://localhost:3030/business/CreateBusiness', newBusiness).then(res => {
             alert(res.data)
+            console.log(res.data)
             navigate("/Index")
         }).catch(err => console.log(err))
 

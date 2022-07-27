@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import './DisposableCSS.css';
 import { Button, InputGroup, FormControl, FloatingLabel, Form, Select, Modal, Table } from 'react-bootstrap';
 import axios from "axios";
+import { MultiSelect } from "react-multi-select-component";
 
 
 
@@ -40,13 +41,36 @@ import CheckBox from "@mui/icons-material/CheckBox";
 export default function Disposable(Props) {
 
 
+    const [Dselected, DsetSelected] = useState([]);
 
-    const colors = [{ id: 0, cname: "שחור", color: '#000000' }, { id: 1, cname: "אפור", color: '#555555 ' }, { id: 2, cname: "כסף", color: '#c1bfb1ed' }, { id: 3, cname: "לבן", color: '#ffff' }
-        , { id: 4, cname: "שמנת", color: '#f0d693' }, { id: 5, cname: "כתום", color: '#e17c05ed' }, { id: 6, cname: "צהוב", color: '#f7d520' }, { id: 7, cname: "ירוק בהיר", color: '#59de2ff0' }, { id: 8, cname: "ירוק כהה", color: '#34d160f0' }
-        , { id: 9, cname: "טורקיז", color: '#1ed99e' }, { id: 10, cname: "תכלת", color: '#0a92c6' }, { id: 11, cname: "כחול", color: '#003594' }, { id: 12, cname: "כחול כהה", color: '#000556' },
-    { id: 13, cname: "כחול-סגול", color: '#4508a7' }, { id: 14, cname: "סגול", color: '#7002b8' }, { id: 15, cname: "סגול בהיר", color: '#9a03ab' }, { id: 16, cname: "ורוד", color: '#f00bc3' }, { id: 17, cname: "בורדו", color: '#b6034a' }
-        , { id: 18, cname: "ורוד פוקסיה", color: '#f93f74' }, { id: 19, cname: "אדום", color: '#e81414' }
+    const colors = [
+        { label: "שחור", value: '#000000' },
+        { label: "אפור", value: '#555555 ' },
+        { label: "כסף", value: '#c1bfb1ed' },
+        { label: "לבן", value: '#ffff' },
+        { label: "שמנת", value: '#f0d693' },
+        { label: "כתום", value: '#e17c05ed' },
+        { label: "צהוב", value: '#f7d520' },
+        { label: "ירוק בהיר", value: '#59de2ff0' },
+        { label: "ירוק כהה", value: '#34d160f0' },
+        { label: "טורקיז", value: '#1ed99e' },
+        { label: "תכלת", value: '#0a92c6' },
+        { label: "כחול", value: '#003594' },
+        { label: "כחול כהה", value: '#000556' },
+        { label: "כחול-סגול", value: '#4508a7' },
+        { label: "סגול", value: '#7002b8' },
+        { label: "סגול בהיר", value: '#9a03ab' },
+        { label: "ורוד", value: '#f00bc3' },
+        { label: "בורדו", value: '#b6034a' },
+        { label: "ורוד פוקסיה", value: '#f93f74' },
+        { label: "אדום", value: '#e81414' }
     ]
+
+    const customValueRenderer = (selected, _options) => {
+        return selected.length
+            ? selected.map(({ label }) => ", " + label)
+            : "בחר צבע";
+    };
 
     const [countValue, setcountValue] = React.useState(0);
     const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
@@ -89,7 +113,7 @@ export default function Disposable(Props) {
         setselectedValueBowl(event.target.value);
     };
 
-    function nn(option){
+    function nn(option) {
         console.log(option);
 
     }
@@ -113,49 +137,32 @@ export default function Disposable(Props) {
                                 <div>
 
 
-                                    <Autocomplete
-                                        multiple
-                                        id="checkboxes-tags-demo"
-                                        options={colors}
-                                        disableCloseOnSelect
-                                        onChange ={nn}
-                                        // onChange={(e)=>nn(e.target.value)}
-                                        getOptionLabel={(option) => option.cname}
-                                        renderOption={(props, option, { selected }) => (
-                                            <li {...props}  value={selected} >
-                                                
+                                    <Form>
+                                        <Form.Group>
 
-                                                {/* <Checkbox
-                                                    icon={icon}
-                                                    checkedIcon={checkedIcon}
-                                                    style={{ marginRight: 8, backgroundColor: option.color }}
-                                                  checked={selected}
-                                                    className="colorsBtn"
-                                                    value={selected}
-
-                                                    onClick={(e) => console.log("lll",e.target.value)}
-
-                                                /> */}
-
-                                                {option.cname}
+                                            <MultiSelect
+                                                style={{ direction: 'rtl', height: '38px' }}
+                                                options={colors}
+                                                value={Dselected}
+                                                onChange={DsetSelected}
+                                                labelledBy="labal"
+                                                valueRenderer={customValueRenderer}
 
 
-                                            </li>
-                                        )}
-                                        style={{ width: '470px' }}
-                                        renderInput={(params) => (
-                                            <TextField {...params} label="בחר צבע" placeholder="" />
-                                        )}
-                                    />
+                                            />
+
+
+                                        </Form.Group>
+                                    </Form>
                                 </div>
                                 <h6 >ניתן לבחור עד 2 צבעים*</h6>
 
 
-                                
+
 
                                 {/* בחר צבע מס 1
                                 <div style={{ width: "250px" }}>
-                                    {colors.map((item) => (
+                                    {values.map((item) => (
 
                                         <button style={{ backgroundColor: item.color }} className='colorsBtn'></button>
 

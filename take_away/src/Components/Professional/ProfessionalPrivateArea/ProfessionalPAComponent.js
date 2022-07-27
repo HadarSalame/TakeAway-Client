@@ -29,7 +29,8 @@ export default function ProfessionalPA({ children }) {
     const [dateState, setDateState] = useState(new Date())
     const changeDate = (e) => {
         setDateState(e)
-        console.log(moment(e).format('DD MMMM yyyy'))
+        console.log(e)
+        
       
 
 

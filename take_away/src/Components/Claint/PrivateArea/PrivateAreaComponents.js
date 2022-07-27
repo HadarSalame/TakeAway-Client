@@ -34,9 +34,18 @@ import Waitresses from '../../Waitresses/WaitressesComponent';
 
 export default function PAComponent(props) {
 
+    const [Allbusiness, setAllbusiness] = useState()
+
+    const [isShow, setIsShow] = React.useState(false);
     let navigate = useNavigate();
+    //עסקים
+    const [busSelected,setBusSelected]=useState([])
+    const [businessList ,setbusinessList]=useState([])
+    
+    let temp=[]
 
 
+    //כשרויות
     const [selected, setSelected] = useState([]);
     const options = [
         { label: "העדה החרדית", value: "1" },
@@ -60,9 +69,6 @@ export default function PAComponent(props) {
             : "בחר כשרות";
     };
 
-    const [Allbusiness, setAllbusiness] = useState()
-
-    const [isShow, setIsShow] = React.useState(false);
 
     function DisposableFun() {
         setIsShow(true)
@@ -82,14 +88,7 @@ export default function PAComponent(props) {
         setIsWaitrsShow(false)
     }
 
-    useEffect(() => {
-        axios.get("http://localhost:3030/business/getBusiness").then((res) => {
-            if (res.data && res.data.length) {
-                setAllbusiness(res.data)
-
-            }
-        })
-    }, [])
+  
 
 
 
@@ -123,7 +122,20 @@ export default function PAComponent(props) {
 
     const format = 'HH:mm';
 
+  useEffect(() => {
+        axios.get("http://localhost:3030/business/getBusiness").then((res) => {
+            if (res.data && res.data.length) {
+                setAllbusiness(res.data)
+                res.data.forEach(element => {
+                    temp.push({"label":element.businessName,"value":element._id})                    
+                });
+                setbusinessList(temp)
+ 
 
+
+            }
+        })
+    }, [])
     const [value, onChange] = useState(new Date());
 
     const [valueTab, setValue] = React.useState(0);
@@ -132,9 +144,7 @@ export default function PAComponent(props) {
         setValue(newValue);
     };
 
-    function SendOrder(props) {
-
-    }
+   
 
     return (
         <>
@@ -323,7 +333,7 @@ export default function PAComponent(props) {
                                                 <Form.Group>
 
                                                     <MultiSelect
-                                                        style={{ direction: 'rtl',height:'38px' }}
+                                                        style={{ direction: 'rtl', height: '38px' }}
                                                         options={options}
                                                         value={selected}
                                                         onChange={setSelected}
@@ -362,25 +372,29 @@ export default function PAComponent(props) {
 
 
                                                 //איך להכניס את מערך העסקים לתוך המולטי סלקט וגם לערוך עליו סינון
-                                                {/* <MultiSelect
-                                                        style={{ direction: 'rtl',height:'38px' }}
-                                                        options={Allbusiness.map()}
-                                                        value={Allbusiness}
-                                                        onChange={setAllbusiness(item.businessName)}
-                                                        labelledBy="kosher"
-                                                        valueRenderer={customValueRenderer}
+                                                <MultiSelect
+                                                    style={{ direction: 'rtl', height: '38px' }}
+                                                    options={businessList}
+                                                    value={busSelected}
+                                                    onChange={setBusSelected}
+                                                    labelledBy="kosher"
+                                                    valueRenderer={customValueRenderer}
 
 
-                                                    >
-                                                         <>
-                                                        {Allbusiness && Allbusiness.length && Allbusiness.map((item) =>
-                                                            <option key={item}>{item.businessName} </option>)
-                                                        }
+                                                >
+                                                    <>
+                                                        {/* {Allbusiness && Allbusiness.length && Allbusiness.map((item) =>
+                                                            <>
+                                                            
+                                                            { console.log(item)}
+                                                                <option key={item}>{item.businessName} </option>
+                                                            </>)
+                                                        } */}
                                                     </>
-                                                    </MultiSelect> */}
+                                                </MultiSelect>
 
 
-                                                
+
                                             </Form>
                                         </div>
 

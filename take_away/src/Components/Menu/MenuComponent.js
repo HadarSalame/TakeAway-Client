@@ -2,13 +2,14 @@ import React from 'react';
 import axios from 'axios';
 import './MenuCSS.css';
 import { useState, useEffect } from 'react';
-import { Checkbox } from '@mui/material';
+import { Checkbox, FormGroup, FormControlLabel } from '@mui/material';
 
 
 
 export default function Menu(props) {
 
     const [Dose, setDose] = useState()
+    const [Category, setCategory] = useState()
 
     useEffect(() => {
         axios.get("http://localhost:3030/portion/getPortion").then((res) => {
@@ -17,12 +18,7 @@ export default function Menu(props) {
 
             }
         })
-    }, [])
 
-    const [Category, setCategory] = useState()
-
-
-    useEffect(() => {
         axios.get("http://localhost:3030/category/getCategory").then((res) => {
             if (res.data && res.data.length) {
                 setCategory(res.data)
@@ -32,6 +28,12 @@ export default function Menu(props) {
     }, [])
 
 
+
+    function check(e) {
+        console.log(e.target.value);
+
+    }
+
     return (
         <>
             <div className=" row " style={{ fontFamily: "'Varela Round', sans-serif" }}>
@@ -39,11 +41,21 @@ export default function Menu(props) {
                 <div className="border col-xl-6 col-sm-10 col-8 PA" style={{ display: "inline-flex" }}>
 
                     <>
-                        {Dose && Dose.length && Dose.map((items) =>
-                            <Checkbox key={items}>{items.portionName}</Checkbox>
+                        {Category && Category.length && Category.map((cats) =>
+                            <FormGroup style={{ border: "black solid 1 px" }}>
+                                {Dose && Dose.length && Dose.map((items) =>
+                                // <div onClick={check} key={items._id}></div>
+                            
+                                    items.categoryID == cats._id ?
+                                        <FormControlLabel control={<Checkbox />} label={items.portionName} />
+                                        : null
+                                
+                                )
+                                }
+                            </FormGroup>
+                        )}
 
-                        )
-                        }
+
 
                         {/* {Category && Category.length && Category.map((item) =>
                             console.log(item.categoryName)
