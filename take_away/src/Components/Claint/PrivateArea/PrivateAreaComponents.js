@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
+import { Ref } from 'react';
 import './PrivateAreaCSS.css'
 import { useNavigate } from 'react-router-dom';
 import { Button, InputGroup, FormControl, FloatingLabel, Form, Nav, Modal } from 'react-bootstrap';
@@ -12,6 +13,7 @@ import Tab from '@mui/material/Tab';
 import 'antd/dist/antd.css';
 import { TimePicker } from 'antd';
 import moment from 'moment'
+
 
 import axios from "axios";
 import { MultiSelect } from "react-multi-select-component";
@@ -34,15 +36,24 @@ import Waitresses from '../../Waitresses/WaitressesComponent';
 
 export default function PAComponent(props) {
 
+    //ref
+    let DateRef = useRef();
+    let hourRef = useRef();
+    let kosheRef = useRef([]);
+    let invitedRef = useRef();
+    let BusRef = useRef([]);
+
+
+
     const [Allbusiness, setAllbusiness] = useState()
 
     const [isShow, setIsShow] = React.useState(false);
     let navigate = useNavigate();
     //עסקים
-    const [busSelected,setBusSelected]=useState([])
-    const [businessList ,setbusinessList]=useState([])
-    
-    let temp=[]
+    const [busSelected, setBusSelected] = useState([])
+    const [businessList, setbusinessList] = useState([])
+
+    let temp = []
 
 
     //כשרויות
@@ -63,13 +74,19 @@ export default function PAComponent(props) {
 
 
     ];
-    const customValueRenderer = (selected, _options) => {
+    const customValueRendererKosher = (selected, _options) => {
         return selected.length
             ? selected.map(({ label }) => ", " + label)
             : "בחר כשרות";
     };
 
+    const customValueRenderer = (selected, _options) => {
+        return selected.length
+            ? selected.map(({ label }) => ", " + label)
+            : "בחר עסק";
+    };
 
+//חד פעמי
     function DisposableFun() {
         setIsShow(true)
         //  navigate("/Disposable")
@@ -78,6 +95,7 @@ export default function PAComponent(props) {
         setIsShow(false)
     }
 
+    //מלצור
     const [isWaitrsShow, setIsWaitrsShow] = React.useState(false);
 
     function WaitressesFun() {
@@ -88,7 +106,7 @@ export default function PAComponent(props) {
         setIsWaitrsShow(false)
     }
 
-  
+
 
 
 
@@ -104,33 +122,39 @@ export default function PAComponent(props) {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
     //סיכום פרטים
     const [show2, setShowdetails] = useState(false);
-    const CloseDetails = () => setShowdetails(false);
+    // const CloseDetails = () => setShowdetails(false);
     const detailsShow = () => setShowdetails(true);
+    function CloseDetails(){
+        axios.get(`http://localhost:3030/order/CreateOrder/${DateRef.current.value}`)
+    }
+
+
 
     const [show1, setShow1] = useState(false);
     const handleClose1 = () => setShow1(false);
     const handleShow1 = () => setShow1(true);
 
-
-    const checkSwitchDisposable = (e) => {
-        if (console.log(e.target.checked) == true) {
-
-        }
-    };
+    //שעות
 
     const format = 'HH:mm';
+    function onChangetime(time, timeString) {
+        console.log(time, timeString);
+    }
 
-  useEffect(() => {
+
+    //שליפת עסקים
+    useEffect(() => {
         axios.get("http://localhost:3030/business/getBusiness").then((res) => {
             if (res.data && res.data.length) {
                 setAllbusiness(res.data)
                 res.data.forEach(element => {
-                    temp.push({"label":element.businessName,"value":element._id})                    
+                    temp.push({ "label": element.businessName, "value": element._id })
                 });
                 setbusinessList(temp)
- 
+
 
 
             }
@@ -144,7 +168,7 @@ export default function PAComponent(props) {
         setValue(newValue);
     };
 
-   
+
 
     return (
         <>
@@ -315,14 +339,14 @@ export default function PAComponent(props) {
                                                 <Form.Group controlId="datePicker" className='forms'  >
                                                     <Form.Label>תאריך</Form.Label>
 
-                                                    <Form.Control type="date" name="datePicker" placeholder="Date of Birth" className='' />
+                                                    <Form.Control type="date" name="datePicker" placeholder="Date of Birth" className='' value={(e) => console.log(e.target.value)} ref={DateRef} />
                                                 </Form.Group>
                                             </Form>
                                             <Form>
-                                                {/* //כמות המוזמנים */}
+                                                {/* //שעה  */}
                                                 <Form.Group className='forms'>
                                                     <Form.Label>שעת האירוע</Form.Label>
-                                                    <TimePicker defaultValue={moment('12:00', format)} format={format} style={{ width: "230px", height: "38px" }} onChange={(console.log(value))} />
+                                                    <TimePicker defaultValue={moment('12:00', format)} format={format} style={{ width: "230px", height: "38px" }} onChange={onChangetime} ref={hourRef} />
                                                 </Form.Group>
                                             </Form>
                                         </div>
@@ -338,12 +362,9 @@ export default function PAComponent(props) {
                                                         value={selected}
                                                         onChange={setSelected}
                                                         labelledBy="kosher"
-                                                        valueRenderer={customValueRenderer}
-
-
+                                                        valueRenderer={customValueRendererKosher}
+                                                        ref={kosheRef}
                                                     />
-
-
                                                 </Form.Group>
                                             </Form>
                                         </div>
@@ -352,7 +373,7 @@ export default function PAComponent(props) {
                                             <Form>
                                                 <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                                                     <Form.Label>מספר מוזמנים</Form.Label>
-                                                    <Form.Control type='number' rows={1} style={{ width: '466px' }} />
+                                                    <Form.Control type='number' rows={1} style={{ width: '466px' }}  ref={invitedRef}/>
                                                 </Form.Group>
                                             </Form>
                                         </div>
@@ -379,8 +400,7 @@ export default function PAComponent(props) {
                                                     onChange={setBusSelected}
                                                     labelledBy="kosher"
                                                     valueRenderer={customValueRenderer}
-
-
+                                                    ref={BusRef}
                                                 >
                                                     <>
                                                         {/* {Allbusiness && Allbusiness.length && Allbusiness.map((item) =>

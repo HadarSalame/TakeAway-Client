@@ -30,9 +30,6 @@ export default function ProfessionalPA({ children }) {
     const changeDate = (e) => {
         setDateState(e)
         console.log(e)
-        
-      
-
 
 
     }
