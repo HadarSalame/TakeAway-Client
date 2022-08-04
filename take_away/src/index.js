@@ -52,7 +52,7 @@ ReactDOM.render(
 
         <Route path='/Disposable' element={<Disposable />}></Route>
         <Route path='/Waitresses' element={<Waitresses />}></Route>
-        <Route path='/Order' element={<Order />}></Route>
+        <Route path='/Order' element={<Order/>}></Route>
 
 
         <Route path='/BusinessPage' element={<BusinessPage />}></Route>

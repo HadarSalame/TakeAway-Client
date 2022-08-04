@@ -4,42 +4,36 @@ import Big_Bite from '../../../Images/Logos/Big_Bite.jpg'
 import Timin from '../../../Images/Logos/Timin.jpg'
 import Cook from '../../../Images/Logos/Cook.jpeg'
 import axios from "axios";
+import { Button } from "@mui/material";
 
 export default function BusinessPage(props) {
 
-    const ListB=[{BID:1,Bname:"Cook",kosher:"בית יוסף",tel:"034587898",Blogo:Cook},
-    {BID:2,Bname:"Timin",kosher:"בית יוסף",tel:"034587838",Blogo:Timin}]
- 
+    const b = [
+        { id: '123', ClaintId: '123456', OrderDate: '2/3/2022', eventDate: '2/5/2022', numInvited: '30' },
+        { id: '456', ClaintId: '25847', OrderDate: '2/3/2022', eventDate: '2/5/2022', numInvited: '60' }]
+
+
+
     return (
         <>
-            <div className="row" style={{fontFamily:"'Varela Round', sans-serif"}}>
-                <h1  style={{ textAlign: 'center' }}>העסקים שלנו</h1>
-                <div className='border col-xl-6 col-sm-10 col-8' style={{ width:'fit-content'}}>
-                    <br></br>
-                  
-                        
-                        {ListB.map((item)=>{
-                        //   <img src={item.Blogo} style={{backgroundImage:item.Blogo}}></img>
-                        <h2>{item.BID}</h2>
-                      
-                        })}
+            <div className="row" style={{ fontFamily: "'Varela Round', sans-serif" }}>
+                <h1 style={{ textAlign: 'center' }}>הצעות</h1>
+                <div className='border col-xl-6 col-sm-10 col-8'>
+                    <div>
+                        {b.map((item) =>
+                            <>
+                                <div className='b' >
+                                    <p >קוד הזמנה: {item.id}</p>
+                                    <p >מאת: {item.ClaintId}</p>
+                                    <p >תאריך הזמנה: {item.OrderDate}</p>
+                                    <p >תאריך האירוע: {item.eventDate}</p>
+                                    <p >מספר מנות: {item.numInvited}</p>
+                                    <Button style={{direction:'ltr',display:'flex'}} className="btn">תמחר</Button>
+                                    
+                                </div>
+                            </>)}
+                    </div>
 
-
-                        {/* <div className="border B_border">
-                            <img src={Big_Bite} className='Logos'></img>
-                            <h2>Big Bite</h2>
-                        </div>
-                        <div className="border B_border">
-                            <img src={Timin} className='Logos'></img>
-                            <h2>Timin</h2>
-
-                        </div>
-                        <div className="border B_border">
-                            <img src={Cook} className='Logos'></img>
-                            <h2>Cook</h2> */}
-
-                        {/* </div> */}
-                    
                 </div>
             </div>
         </>

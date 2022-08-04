@@ -16,3 +16,29 @@ height: 300px;
 margin: 20px;
 text-align: center;
 }
+.b{
+    direction: rtl;
+    margin: 20px;
+    margin-bottom: 25px;
+    border-bottom-color: black !important;
+    border-bottom-width: 2px !important;
+    border-bottom-style: solid !important;
+}
+
+.btn {
+    color: #fff;
+    background-color: #f7d520
+;
+    border-color: #f7d520
+;
+    color: black;
+    margin-top: 20px;
+    margin-bottom: 20px;
+   height: fit-content;
+   text-align: center;
+   margin-left: 45%;
+}
+
+.btn:hover{
+    color: #fff;
+}

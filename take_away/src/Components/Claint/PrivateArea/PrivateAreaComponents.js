@@ -129,6 +129,7 @@ export default function PAComponent(props) {
     const detailsShow = () => setShowdetails(true);
     function CloseDetails(){
         axios.get(`http://localhost:3030/order/CreateOrder/${DateRef.current.value}`)
+        setShowdetails(false)
     }
 
 

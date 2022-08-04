@@ -1,0 +1,6 @@
+.mc{
+    display: flex;
+}
+.MuiFormGroup-root .css-dmmspl-MuiFormGroup-root{
+    display: flex !important;
+}

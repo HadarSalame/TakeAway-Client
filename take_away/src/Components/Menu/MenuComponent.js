@@ -8,6 +8,8 @@ import { Checkbox, FormGroup, FormControlLabel } from '@mui/material';
 
 export default function Menu(props) {
 
+
+
     const [Dose, setDose] = useState()
     const [Category, setCategory] = useState()
 
@@ -42,26 +44,21 @@ export default function Menu(props) {
 
                     <>
                         {Category && Category.length && Category.map((cats) =>
+                        //איך אפשר לתת שם לכל קטגוריה אם אפשר להכניס רק משהו אחד בכלmap
                             <FormGroup style={{ border: "black solid 1 px" }}>
                                 {Dose && Dose.length && Dose.map((items) =>
-                                // <div onClick={check} key={items._id}></div>
-                            
+                                    // <div onClick={check} key={items._id}></div>
+
                                     items.categoryID == cats._id ?
-                                        <FormControlLabel control={<Checkbox />} label={items.portionName} />
+                                        <FormControlLabel control={<Checkbox style={{color:'#f7d520'}}/>} label={items.portionName} 
+                                        style={{display:'flex',borderColor:'green'}} labelPlacement="start" />
                                         : null
-                                
+
                                 )
                                 }
                             </FormGroup>
                         )}
 
-
-
-                        {/* {Category && Category.length && Category.map((item) =>
-                            console.log(item.categoryName)
-
-                        )
-                        } */}
                     </>
 
 
