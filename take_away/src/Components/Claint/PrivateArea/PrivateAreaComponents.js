@@ -6,12 +6,12 @@ import { Button, InputGroup, FormControl, FloatingLabel, Form, Nav, Modal } from
 import NumericInput from 'react-numeric-input';
 import { useState } from 'react';
 import { AccessAlarm, ThreeDRotation, MailIcon } from '@mui/icons-material';
-import { Badge } from '@mui/material';
+import { Badge, Input, Select, TextField } from '@mui/material';
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import 'antd/dist/antd.css';
-import { TimePicker } from 'antd';
+import { InputNumber, TimePicker } from 'antd';
 import moment from 'moment'
 
 
@@ -86,7 +86,7 @@ export default function PAComponent(props) {
             : "בחר עסק";
     };
 
-//חד פעמי
+    //חד פעמי
     function DisposableFun() {
         setIsShow(true)
         //  navigate("/Disposable")
@@ -127,7 +127,7 @@ export default function PAComponent(props) {
     const [show2, setShowdetails] = useState(false);
     // const CloseDetails = () => setShowdetails(false);
     const detailsShow = () => setShowdetails(true);
-    function CloseDetails(){
+    function CloseDetails() {
         axios.get(`http://localhost:3030/order/CreateOrder/${DateRef.current.value}`)
         setShowdetails(false)
     }
@@ -183,8 +183,41 @@ export default function PAComponent(props) {
   4ץדואר נכנס      */}
                     <div className='menu' style={{ width: "50%" }}>
 
-                        <div className='border' >
-                            <div style={{ direction: 'rtl', fontSize: 'small' }}>
+                        <div >
+
+                            {/* //סינון כשרות. */}
+                            <h5 style={{ direction: 'rtl' }}>סינון</h5>
+                            <MultiSelect
+                                className='fillter'
+                                options={businessList}
+                                value={busSelected}
+                                onChange={setBusSelected}
+                                labelledBy="kosher"
+                                valueRenderer={customValueRenderer}
+                                ref={BusRef}
+                            >
+                            </MultiSelect>
+
+                            {/*סינון מחיר מקסימאלי */}
+                            <FloatingLabel
+                                className="mb-3 fillter"
+                                controlId="floatingMaxPrice"
+                                label="מחיר מקסימלי ">
+
+                                <Form.Control
+                                    type="text"
+                                    style={{ height: '30px', display: 'flex', alignItems: 'center' }}
+                                    placeholder="businessName" />
+                            </FloatingLabel>
+
+
+                            {/**מספר הצעה */}
+                            <Select>
+
+                            </Select>
+
+
+                            {/*<div style={{ direction: 'rtl', fontSize: 'small' }}>
                                 מנות ראשונות<br />
                                 מנות עיקריות<br />
                                 קינוח<br />
@@ -374,7 +407,7 @@ export default function PAComponent(props) {
                                             <Form>
                                                 <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                                                     <Form.Label>מספר מוזמנים</Form.Label>
-                                                    <Form.Control type='number' rows={1} style={{ width: '466px' }}  ref={invitedRef}/>
+                                                    <Form.Control type='number' rows={1} style={{ width: '466px' }} ref={invitedRef} />
                                                 </Form.Group>
                                             </Form>
                                         </div>

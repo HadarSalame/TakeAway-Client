@@ -28,7 +28,7 @@ export default function BusinessPage(props) {
                                     <p >תאריך הזמנה: {item.OrderDate}</p>
                                     <p >תאריך האירוע: {item.eventDate}</p>
                                     <p >מספר מנות: {item.numInvited}</p>
-                                    <Button style={{direction:'ltr',display:'flex'}} className="btn">תמחר</Button>
+                                    <Button style={{direction:'ltr',display:'flex', marginTop:'10px',marginBottom:'10px',marginRight: "80%"}} className="btn">תמחר</Button>
                                     
                                 </div>
                             </>)}

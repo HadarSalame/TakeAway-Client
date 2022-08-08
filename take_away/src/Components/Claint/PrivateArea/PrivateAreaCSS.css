@@ -133,11 +133,27 @@ i.material-icons {
 }
 
 .filter {
-    display: flex;
+    /* display: flex;
     /* color: #fff; */
-    border-color: #000000;
+    /* border-color: #000000;
     font-size: 30px;
-    margin: 1%;
+    margin: 1%;  */
 
 
+}
+
+.rmsc .dropdown-heading{
+    height: 30px !important;
+}
+
+.rmsc .gray{ 
+    display: flex;
+    flex-direction: row-reverse;
+}
+ 
+.fillter{
+margin-top: 2% !important;
+margin-bottom: 4% !important;
+height: 30px !important;
+direction: rtl !important;
 }

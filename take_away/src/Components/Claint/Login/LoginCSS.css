@@ -22,16 +22,16 @@
 
 }
 .btn {
-    color: #fff;
-    background-color: #f7d520
+    color: #fff !important;
+    background-color: #f7d520 !important
 ;
-    border-color: #f7d520
+    border-color: #f7d520 !important
 ;
-    color: black;
-    margin-top: 20px;
-    margin-bottom: 20px;
-   height: fit-content;
-   text-align: center;
+    color: black !important;
+    margin-top: 20px ;
+    margin-bottom: 20px ;
+   height: fit-content ;
+   text-align: center !important;
    margin-left: 45%;
 }
 

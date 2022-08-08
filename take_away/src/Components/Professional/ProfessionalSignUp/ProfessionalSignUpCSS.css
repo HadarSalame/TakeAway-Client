@@ -4,6 +4,8 @@
 }
 .rmsc .gray{
     color:black !important;
+    display: flex;
+    flex-direction: row-reverse;
 }
 .rmsc .dropdown-heading{
     height: 58px !important;

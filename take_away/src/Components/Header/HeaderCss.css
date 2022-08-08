@@ -86,15 +86,15 @@
 }
 
 .log{
-    margin-right: 30px;
-    width: 10%;
+    margin-right: 30px !important;
+    width: 10% !important;
     height: 50px;
     font-family:'Varela Round', sans-serif;
     color: black;
     font-size: 13px;
     font-weight: bolder;
-    padding: 0%;
-    width: 100px; 
+    padding: 0% !important;
+    width: 100px !important; 
 }
 i.material-icons {
     color: #000000 !important;

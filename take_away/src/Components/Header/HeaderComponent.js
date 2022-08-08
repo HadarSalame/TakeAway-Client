@@ -65,16 +65,16 @@ export default function Header(props) {
 
       <div className=" row" style={{ fontFamily: "'Varela Round', sans-serif" }}>
         <div className='col-xl-12 col-sm-10 col-8'>
-
-          <NavDropdown title="התחברות" id="navbarScrollingDropdownLogin" className='log btn'>
-            <NavDropdown.Item onClick={gotoUserLogin} >התחברות למשתמש</NavDropdown.Item>
-            <NavDropdown.Item onClick={gotoProfessionalLogin}>התחברות לבעל עסק</NavDropdown.Item>
-          </NavDropdown>
-          <NavDropdown title="הרשמה" id="navbarScrollingDropdownSignUp" className='log btn '>
-            <NavDropdown.Item onClick={gotoUserSignUp} >הרשמה למשתמש</NavDropdown.Item>
-            <NavDropdown.Item onClick={gotoProfessionalSignUp}>הרשמה לבעל עסק</NavDropdown.Item>
-          </NavDropdown>
-
+          <div style={{display:'inline-flex',backgroundColor:'gray'}}>
+            <NavDropdown title="התחברות" id="navbarScrollingDropdownLogin" className='log btn'>
+              <NavDropdown.Item onClick={gotoUserLogin} >התחברות למשתמש</NavDropdown.Item>
+              <NavDropdown.Item onClick={gotoProfessionalLogin}>התחברות לבעל עסק</NavDropdown.Item>
+            </NavDropdown>
+            <NavDropdown title="הרשמה" id="navbarScrollingDropdownSignUp" className='log btn '>
+              <NavDropdown.Item onClick={gotoUserSignUp} >הרשמה למשתמש</NavDropdown.Item>
+              <NavDropdown.Item onClick={gotoProfessionalSignUp}>הרשמה לבעל עסק</NavDropdown.Item>
+            </NavDropdown>
+          </div>
           <div>
             <img src={Logo} className='Logo ' onClick={gotoIndex}></img>
           </div>

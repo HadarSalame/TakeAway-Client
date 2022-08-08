@@ -99,6 +99,7 @@ export default function ProfessionalSignUp(props) {
                                 ref={OwnerProNameRef}
                                 type="Text"
                                 placeholder="BusinessOwnerName" />
+                                
                         </FloatingLabel>
 
                         <FloatingLabel
