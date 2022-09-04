@@ -2,7 +2,9 @@ import React from 'react';
 import axios from 'axios';
 import './MenuCSS.css';
 import { useState, useEffect } from 'react';
-import { Checkbox, FormGroup, FormControlLabel } from '@mui/material';
+import { Checkbox, FormGroup, FormControlLabel, } from '@mui/material';
+import { Button, FloatingLabel, Form } from 'react-bootstrap';
+import { margin } from '@mui/system';
 
 
 
@@ -39,19 +41,25 @@ export default function Menu(props) {
     return (
         <>
             <div className=" row " style={{ fontFamily: "'Varela Round', sans-serif" }}>
-                <h1 style={{ textAlign: 'center' }}>תפריטים</h1>
-                <div className="border col-xl-6 col-sm-10 col-8 PA" style={{ display: "inline-flex" }}>
-
+                <h1 style={{ textAlign: 'center' }}>יצירת הזמנה</h1>
+                <div className="border col-xl-6 col-sm-10 col-8 PA" style={{ display: "inline-flex", flexDirection: "column" }}>
+                <div>
                     <>
                         {Category && Category.length && Category.map((cats) =>
-                        //איך אפשר לתת שם לכל קטגוריה אם אפשר להכניס רק משהו אחד בכלmap
-                            <FormGroup style={{ border: "black solid 1 px" }}>
+                            //איך אפשר לתת שם לכל קטגוריה אם אפשר להכניס רק משהו אחד בכלmap
+                            <FormGroup style={{
+                                display: 'flex',
+                                flexDirection: "row-reverse",
+                                justifycontent: "flex-start",
+                                margin: "3%",
+                                marginRight:0
+                            }}>
                                 {Dose && Dose.length && Dose.map((items) =>
                                     // <div onClick={check} key={items._id}></div>
 
                                     items.categoryID == cats._id ?
-                                        <FormControlLabel control={<Checkbox style={{color:'#f7d520'}}/>} label={items.portionName} 
-                                        style={{display:'flex',borderColor:'green'}} labelPlacement="start" />
+                                        <FormControlLabel control={<Checkbox style={{ color: '#f7d520' }} />} label={items.portionName}
+                                            style={{ display: 'flex', borderColor: 'green' }} labelPlacement="start" />
                                         : null
 
                                 )
@@ -60,11 +68,28 @@ export default function Menu(props) {
                         )}
 
                     </>
-
-
                 </div>
+                <div style={{
+                    flexDirection: 'column', alignItems: ' flex-end', display: 'flex',
+                    flexWrap: "nowrap",
+                    justifyContent: "flex-end"
+                }}>
 
+                    <FloatingLabel
+                        className="mb-3 "
+                        style={{ 'direction': 'rtl' }}
+                        controlId="floatingInputNumber"
+                        label="מספר סועדים" >
+
+                        <Form.Control
+                            type="number"
+                            placeholder="number" />
+                    </FloatingLabel>
+                </div>
+                <Button style={{marginLeft: "5%"}}>שלח</Button>
             </div>
+
+        </div>
         </>
     )
 }

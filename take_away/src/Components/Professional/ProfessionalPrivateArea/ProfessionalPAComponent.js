@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import 'react-calendar/dist/Calendar.css';
 import Chat from '../../Actions/Chat';
 import axios from "axios";
+import Timin from '../../../Images/Logos/Timin.jpg';
+import Cook from '../../../Images/Logos/Cook.jpeg'
 
 import moment from 'moment';
 
@@ -71,15 +73,20 @@ export default function ProfessionalPA({ children }) {
             <div className='row ' style={{ fontFamily: "'Varela Round', sans-serif" }}>
                 <h1 style={{ textAlign: "center" }}>אזור אישי לבעלי עסק</h1>
                 <div className='border col-xl-6 col-sm-10 col-8' style={{ display: 'flex' }}>
-                    <div>
-                        <Calendar
+                    <div >
+                        {/* <Calendar
                             value={dateState}
                             
                             onChange={changeDate}
                             className='calender'
 
                         />
-                        <p >Current selected date is <b>{moment(dateState).format('MMMM Do YYYY')}</b></p>
+                        <p >Current selected date is <b>{moment(dateState).format('MMMM Do YYYY')}</b></p> */}
+
+                        {/* logo  לוגו של בעל העסק*/}
+                        <img src={Cook} className='blogo'></img>
+
+
 
                     </div>
                     <div style={{ direction: 'rtl', marginLeft: 'auto' }}>
@@ -93,7 +100,7 @@ export default function ProfessionalPA({ children }) {
                         </div>
 
                         {/* <Calendar onChange={onChange} value={value} className='calender' /> */}
-                        <Button onClick={handleShow} style={{ marginRight: 0 }}>עדכון פרטי העסק</Button>
+                        <Button onClick={handleShow} style={{ marginRight: 0 ,width:' max-content'}}>עדכון פרטי העסק</Button>
 
                         <Modal show={show} onHide={handleClose}>
                             <Modal.Header closeButton>
@@ -195,7 +202,7 @@ export default function ProfessionalPA({ children }) {
                                     </FloatingLabel>
                                 </Form>
                             </Modal.Body>
-                            <Modal.Footer>
+                            <Modal.Footer style={{flexWrap: "nowrap"}}>
 
                                 <Button variant="secondary" className='btn' onClick={handleClose}>
                                     ביטול
@@ -215,11 +222,9 @@ export default function ProfessionalPA({ children }) {
                         <Box style={{ width: '100%', bgcolor: 'background.paper', color: 'black' }} >
                             <Tabs value={valueTab} onChange={handleChange} className="tabs" centered>
                                 <Tab label="נשלח" className="tab" onClick={Chatfunc}  > </Tab>
-                                <Tab label="התקבל" className="tab" />
                                 <Tab label="הצעות סגורות" className="tab" />
 
-                                {/* // הודעות על ביטול והזמנה שנסגרה */}
-                                <Tab label="הודעות" className="tab" />
+
 
                             </Tabs>
                         </Box>

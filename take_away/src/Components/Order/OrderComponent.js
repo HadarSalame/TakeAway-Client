@@ -21,7 +21,7 @@ export default function Order(Props) {
     return (
         <>
             <div>
-                <Modal show={showOrder} onHide={handleOrderClose}>
+                <Modal show={showOrder} onHide={handleOrderShow}>
                     <Modal.Header>
                         <Modal.Title style={{ textAlign: 'center' }}>הזמנה</Modal.Title>
                     </Modal.Header>
@@ -45,7 +45,7 @@ export default function Order(Props) {
                             ביטול
                         </Button>
                         <Button variant="primary" className='btn' onClick={handleOrderClose}>
-                            הוסף להזמנה
+                   תמחר
                         </Button>
                     </Modal.Footer>
                 </Modal>

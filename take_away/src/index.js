@@ -36,8 +36,11 @@ import ForgetPass from './Components/ForgetPassWord/ForgetPassComponent';
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      {/* <App /> */}
+     
+
       <Header />
+      {/* <Index/> */} 
+      {/* <App /> */}
       <Routes>
         <Route path='/' element={<App />} ></Route>
         <Route path='/Header' element={<Header />}></Route>

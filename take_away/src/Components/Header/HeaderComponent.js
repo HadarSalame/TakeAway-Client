@@ -65,7 +65,7 @@ export default function Header(props) {
 
       <div className=" row" style={{ fontFamily: "'Varela Round', sans-serif" }}>
         <div className='col-xl-12 col-sm-10 col-8'>
-          <div style={{display:'inline-flex',backgroundColor:'gray'}}>
+          <div style={{display:'inline-flex',marginLeft:'3%',width:'3%'}}>
             <NavDropdown title="התחברות" id="navbarScrollingDropdownLogin" className='log btn'>
               <NavDropdown.Item onClick={gotoUserLogin} >התחברות למשתמש</NavDropdown.Item>
               <NavDropdown.Item onClick={gotoProfessionalLogin}>התחברות לבעל עסק</NavDropdown.Item>
@@ -85,11 +85,11 @@ export default function Header(props) {
                 <Nav className="me-auto " >
                   {/* <Nav.Link onClick={gototryPage} className='opt'>ניסיונות</Nav.Link> */}
 
-                  <Nav.Link onClick={gotoPrivateArae} className='opt'>אזור אישי</Nav.Link>
+                  <Nav.Link onClick={gotoPrivateArae} className='opt'> אזור אישי ללקוחות</Nav.Link>
                   <Nav.Link onClick={gotoProPrivateArae} className='opt' style={{ width: '185px' }}> אזור אישי לעסקים</Nav.Link>
 
-                  <Nav.Link onClick={gotoMenu} className='opt'>תפריטים</Nav.Link>
-                  <Nav.Link onClick={gotoBusinessPage} className='opt' >בתי עסק</Nav.Link>
+                  <Nav.Link onClick={gotoMenu} className='opt'>הזמן אירוע</Nav.Link>
+                  <Nav.Link onClick={gotoBusinessPage} className='opt' > הזמנות לתמחור בתי עסק</Nav.Link>
                   <Nav.Link onClick={gotoInfoPage} className='opt'>עלינו</Nav.Link>
 
                   <i className="material-icons">&#xe8b6;</i>

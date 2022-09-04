@@ -13,3 +13,14 @@ export function addProfessional(newProfessional){
 export function updateProfessional(Professional){
     return{type:'UPDATE_PROFESSIONAL',payLoad:Professional}
 }
+
+
+//order
+export function addToOrder(dish){
+    return{type:'ADD_TO_ORDER',payLoad:dish}
+}
+
+//bid
+export function addToOrder(p){
+    return{type:'UPDATE_PRICE',payLoad:p}
+}

@@ -1,44 +1,50 @@
-.Logos{
-    width:170px !important;
+.Logos {
+    width: 170px !important;
     height: auto;
     border-color: black;
     text-align: center;
     margin: 5px;
-    
-    
+
+
 }
-.B_logos{
+
+.B_logos {
     display: inline-flex;
 }
+
 .B_border {
-width: 215px;
-height: 300px;
-margin: 20px;
-text-align: center;
+    width: 215px;
+    height: 300px;
+    margin: 20px;
+    text-align: center;
 }
-.b{
+
+.b {
     direction: rtl;
     margin: 20px;
     margin-bottom: 25px;
     border-bottom-color: black !important;
     border-bottom-width: 2px !important;
     border-bottom-style: solid !important;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+
 }
 
 .btn {
     color: #fff;
-    background-color: #f7d520
-;
-    border-color: #f7d520
-;
+    background-color: #f7d520;
+    border-color: #f7d520;
     color: black;
+    width: max-content !important;
     margin-top: 20px;
     margin-bottom: 20px;
-   height: fit-content;
-   text-align: center;
-   margin-left: 45%;
+    height: fit-content;
+    text-align: center;
+    margin-left: 45%;
 }
 
-.btn:hover{
+.btn:hover {
     color: #fff;
 }

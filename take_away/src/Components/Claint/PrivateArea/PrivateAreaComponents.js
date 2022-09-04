@@ -169,6 +169,32 @@ export default function PAComponent(props) {
         setValue(newValue);
     };
 
+    const OrderRef = useRef('62ce9dd7d07bf0eb8b038d97');
+    //שליפת ההזמנות של אותו לקוח
+    const [AllOrders, setAllOrders] = useState()
+    useEffect(() => {
+        console.log(OrderRef)
+        axios.get(`http://localhost:3030/order/getOrderById/62ce9dd7d07bf0eb8b038d97`).then((res) => {
+            if (res.data && res.data.length) {
+                console.log(res.data)
+                setAllOrders(res.data)
+            }
+        })
+    }, [])
+
+    const [AllBids, setAllBids] = useState()
+
+
+    // שליפת הצעות
+    // useEffect(() => {
+    //     axios.get(`http://localhost:3030/bid/getbidsByOrder/${OrderRef.current.value}`).then((res) => {
+    //         if (res.data && res.data.length) {
+    //             setAllBids(res.data)
+    //         }
+    //     })
+    // }, [])
+
+
 
 
     return (
@@ -184,38 +210,75 @@ export default function PAComponent(props) {
                     <div className='menu' style={{ width: "50%" }}>
 
                         <div >
+                            <div>
 
-                            {/* //סינון כשרות. */}
-                            <h5 style={{ direction: 'rtl' }}>סינון</h5>
-                            <MultiSelect
-                                className='fillter'
-                                options={businessList}
-                                value={busSelected}
-                                onChange={setBusSelected}
-                                labelledBy="kosher"
-                                valueRenderer={customValueRenderer}
-                                ref={BusRef}
-                            >
-                            </MultiSelect>
+                                <h5 style={{ direction: 'rtl' }}>הסטורית הזמנות</h5>
+                                <div>
+                                    {AllOrders && AllOrders.length && AllOrders.map((or) =>
+                                        <>
+                                            <div style={{ direction: 'rtl' }}>
+                                                <p>
+                                                   מספר הזמנה:{or.id}
+                                                </p>
+                                                <p>
+                                                    תאריך אירוע:{or.eventDate}
+                                                </p>
+                                                <p>
+                                                    סטטוס:{or.StatusOrder}
+                                                </p>
+                                            </div>
+                                        </>
+                                    )
+                                    }
+                                </div>
 
-                            {/*סינון מחיר מקסימאלי */}
-                            <FloatingLabel
-                                className="mb-3 fillter"
-                                controlId="floatingMaxPrice"
-                                label="מחיר מקסימלי ">
+                                {/* //סינון כשרות. */}
+                                <h5 style={{ direction: 'rtl' }}>סינון</h5>
+                                <MultiSelect
+                                    className='fillter'
+                                    options={businessList}
+                                    value={busSelected}
+                                    onChange={setBusSelected}
+                                    labelledBy="kosher"
+                                    valueRenderer={customValueRenderer}
+                                    ref={BusRef}
+                                >
+                                </MultiSelect>
 
-                                <Form.Control
-                                    type="text"
-                                    style={{ height: '30px', display: 'flex', alignItems: 'center' }}
-                                    placeholder="businessName" />
-                            </FloatingLabel>
+                                {/*סינון מחיר מקסימאלי */}
+                                <FloatingLabel
+                                    className="mb-3 fillter"
+                                    controlId="floatingMaxPrice"
+                                    label="מחיר מקסימלי ">
+
+                                    <Form.Control
+                                        type="text"
+                                        style={{ height: '30px', display: 'flex', alignItems: 'center' }}
+                                        placeholder="businessName" />
+                                </FloatingLabel>
 
 
-                            {/**מספר הצעה */}
-                            <Select>
+                                {/**מספר הצעה */}
+                                {/* <Select aria-label='מחיר מקסימאלי'>
+                            </Select> */}
+                            </div>
 
-                            </Select>
 
+
+                            <div style={{ marginTop: '18%' }}>
+                                {/* איך להפוך את זה ללולאה שתשלוף לי את כל ההצעות? */}
+                                <h5 style={{ direction: 'rtl' }}>הצעות שהתקבלו</h5>
+                                <br></br>
+                                <div style={{ display: 'flex', alignItems: 'center', direction: 'ltr', flexDirection: 'row', margin: 0 }} className='b' >
+                                    <div className='end'>
+                                        <Button className='btn bidbtn'>פירוט הצעה</Button>
+                                        <Button className='btn bidbtn'>סגירת הצעה</Button>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
 
                             {/*<div style={{ direction: 'rtl', fontSize: 'small' }}>
                                 מנות ראשונות<br />
@@ -256,6 +319,7 @@ export default function PAComponent(props) {
 
                         <div className='details' style={{ fontSize: '13px' }}>
 
+                            <h5 style={{ direction: 'rtl' }}>פרטי לקוחות</h5>
 
                             <p>שם:</p>
                             <p>E-mail:</p>
@@ -492,13 +556,7 @@ export default function PAComponent(props) {
 
                         </div>
                         <div>
-                            <Box style={{ width: '100%', bgcolor: 'background.paper', color: 'black' }} >
-                                <Tabs value={valueTab} onChange={handleChange} className="tabs" centered>
-                                    <Tab label="נשלח" className="tab" ></Tab>
-                                    <Tab label="התקבל" className="tab" />
-                                    <Tab label="הצעות סגורות" className="tab" />
-                                </Tabs>
-                            </Box>
+
                         </div>
 
                     </div>

@@ -22,6 +22,8 @@
     color: black;
     margin: 20px;
     height: fit-content;
+    width: max-content !important;
+
 }
 
 .btn:hover {
@@ -142,18 +144,38 @@ i.material-icons {
 
 }
 
-.rmsc .dropdown-heading{
+.rmsc .dropdown-heading {
     height: 30px !important;
 }
 
-.rmsc .gray{ 
+.rmsc .gray {
     display: flex;
     flex-direction: row-reverse;
 }
- 
-.fillter{
-margin-top: 2% !important;
-margin-bottom: 4% !important;
-height: 30px !important;
-direction: rtl !important;
+
+.fillter {
+    margin-top: 2% !important;
+    margin-bottom: 4% !important;
+    height: 30px !important;
+    direction: rtl !important;
+}
+
+.end {
+    direction: ltr;
+    margin-top: 0;
+    flex-direction: row;
+
+}
+
+.bidbtn {
+    margin-left: 0px !important;
+    font-size: 11px;
+    font-weight: 650;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    width: 90px;
+    text-align: center;
+    margin-top: 0;
+
 }

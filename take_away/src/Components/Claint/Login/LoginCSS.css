@@ -1,12 +1,12 @@
-.input{
+.input {
     border-color: black;
     width: 30px;
     height: 7px;
 
 }
-.border{
-    border-color: #f7d520
-;
+
+.border {
+    border-color: #f7d520;
     /* width: 40%; */
     border-width: 15px;
     height: auto;
@@ -18,42 +18,47 @@
     margin-right: auto;
     margin-left: auto;
     padding-top: 20px;
-    
+
 
 }
+
 .btn {
     color: #fff !important;
-    background-color: #f7d520 !important
-;
-    border-color: #f7d520 !important
-;
+    background-color: #f7d520 !important;
+    width: max-content !important;
+    border-color: #f7d520 !important;
     color: black !important;
-    margin-top: 20px ;
-    margin-bottom: 20px ;
-   height: fit-content ;
-   text-align: center !important;
-   margin-left: 45%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    height: fit-content;
+    text-align: center !important;
+    margin-left: 45%;
 }
 
-.btn:hover{
+.btn:hover {
     color: #fff;
 }
 
-.a{
+.a {
     width: 200px;
     direction: rtl;
-    
+
 
 }
-.ForgetPassword{
-    font-size:  13.5px;;
+
+.ForgetPassword {
+    font-size: 13.5px;
+    ;
     text-align: left;
     margin-top: 5px;
 }
-.FP{
+
+.FP {
     direction: ltr;
     text-align: left;
-    
-}.FP:hover{
+
+}
+
+.FP:hover {
     text-decoration: none;
 }

@@ -15,9 +15,11 @@ import BusinessPage from './Components/Professional/Business/BusinessComponent';
 
 
 
+
 function App() {
   return (
     <div className="App">
+      <Index/>
       
       {/* <Provider store={store}> */}
 {/* 
@@ -36,6 +38,7 @@ function App() {
       {/* <ProfessionalPA/> */}
       {/* <BusinessPage></BusinessPage> */}
       {/* <img src={Big_Bite}></img> */}
+      
 
       <br></br>
     
