@@ -4,8 +4,8 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-
-
+import {Provider} from 'react-redux'
+import store from './Redux/Store/store'
 
 // components
 import Index from './Components/Index/IndexComponents'
@@ -35,6 +35,7 @@ import ForgetPass from './Components/ForgetPassWord/ForgetPassComponent';
 
 ReactDOM.render(
   <React.StrictMode>
+    <Provider store={store}>
     <BrowserRouter>
      
 
@@ -74,6 +75,7 @@ ReactDOM.render(
       <i></i>
       <h6 style={{ textAlign: 'center' }}>כל הזכויות שמורות</h6>
     </BrowserRouter>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -12,11 +12,12 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import 'antd/dist/antd.css';
 import { InputNumber, TimePicker } from 'antd';
-import moment from 'moment'
+import moment from 'moment';
 
 
 import axios from "axios";
 import { MultiSelect } from "react-multi-select-component";
+import { connect } from 'react-redux';
 
 
 
@@ -33,8 +34,16 @@ import Disposable from '../../Disposable/DisposableComponent';
 import Waitresses from '../../Waitresses/WaitressesComponent';
 
 
+function mapStateToProps(state) {
+    debugger
+    return {
+        clt: state.Cliant.C
+        
+    }
+}
 
-export default function PAComponent(props) {
+export default connect(mapStateToProps)(function PAComponent(props) {
+    const { clt, dispatch } = props
 
     //ref
     let DateRef = useRef();
@@ -42,9 +51,8 @@ export default function PAComponent(props) {
     let kosheRef = useRef([]);
     let invitedRef = useRef();
     let BusRef = useRef([]);
-
-
-
+   
+   
     const [Allbusiness, setAllbusiness] = useState()
 
     const [isShow, setIsShow] = React.useState(false);
@@ -171,13 +179,15 @@ export default function PAComponent(props) {
 
     const OrderRef = useRef('62ce9dd7d07bf0eb8b038d97');
     //שליפת ההזמנות של אותו לקוח
-    const [AllOrders, setAllOrders] = useState()
+    //איך לוקחים מהרידקס?
+    const [AllClaintOrders, setAllClaintOrders] = useState()
     useEffect(() => {
+        console.log(clt,"llllllllllllllll")
         console.log(OrderRef)
         axios.get(`http://localhost:3030/order/getOrderById/62ce9dd7d07bf0eb8b038d97`).then((res) => {
             if (res.data && res.data.length) {
                 console.log(res.data)
-                setAllOrders(res.data)
+                setAllClaintOrders(res.data)
             }
         })
     }, [])
@@ -198,7 +208,7 @@ export default function PAComponent(props) {
 
 
     return (
-        <>
+        <>{clt.claintFirstName != undefined ?
             <div className='row' style={{ fontFamily: "'Varela Round', sans-serif" }}>
                 <h1 style={{ textAlign: 'center' }}>אזור אישי</h1>
                 <div className="border col-xl-6 col-sm-10 col-8 PA" style={{ display: "inline-flex" }}>
@@ -214,18 +224,24 @@ export default function PAComponent(props) {
 
                                 <h5 style={{ direction: 'rtl' }}>הסטורית הזמנות</h5>
                                 <div>
-                                    {AllOrders && AllOrders.length && AllOrders.map((or) =>
+                                    {AllClaintOrders && AllClaintOrders.length && AllClaintOrders.map((or) =>
                                         <>
-                                            <div style={{ direction: 'rtl' }}>
-                                                <p>
-                                                   מספר הזמנה:{or.id}
-                                                </p>
-                                                <p>
-                                                    תאריך אירוע:{or.eventDate}
-                                                </p>
-                                                <p>
-                                                    סטטוס:{or.StatusOrder}
-                                                </p>
+                                            <div style={{ display: 'flex', alignItems: 'center', direction: 'rtl', flexDirection: 'row', margin: 0, alignItems: 'flex-end' }} className='b'>
+                                                <div>
+                                                    <p>
+                                                        מספר הזמנה:{or.id}
+                                                    </p>
+                                                    <p>
+                                                        תאריך אירוע:{or.eventDate}
+                                                    </p>
+                                                    <p>
+                                                        סטטוס:{or.StatusOrder}
+                                                    </p>
+                                                </div>
+                                                <div className='end'>
+                                                    <Button className='btn bidbtn'>פירוט הצעה</Button>
+                                                </div>
+
                                             </div>
                                         </>
                                     )
@@ -233,7 +249,7 @@ export default function PAComponent(props) {
                                 </div>
 
                                 {/* //סינון כשרות. */}
-                                <h5 style={{ direction: 'rtl' }}>סינון</h5>
+                                <h5 style={{ direction: 'rtl', marginTop: '18%' }}> סינון הצעות</h5>
                                 <MultiSelect
                                     className='fillter'
                                     options={businessList}
@@ -269,48 +285,37 @@ export default function PAComponent(props) {
                                 {/* איך להפוך את זה ללולאה שתשלוף לי את כל ההצעות? */}
                                 <h5 style={{ direction: 'rtl' }}>הצעות שהתקבלו</h5>
                                 <br></br>
-                                <div style={{ display: 'flex', alignItems: 'center', direction: 'ltr', flexDirection: 'row', margin: 0 }} className='b' >
-                                    <div className='end'>
-                                        <Button className='btn bidbtn'>פירוט הצעה</Button>
-                                        <Button className='btn bidbtn'>סגירת הצעה</Button>
+                                <div>
 
-                                    </div>
+                                    //לשנות את המערך למערך בידס
+                                    {AllClaintOrders && AllClaintOrders.length && AllClaintOrders.map((or) =>
+                                        <>
+                                            <div style={{ display: 'flex', alignItems: 'center', direction: 'rtl', flexDirection: 'row', margin: 0, alignItems: 'flex-end' }} className='b'>
+                                                <div>
+                                                    <p>
+                                                        מאת:{or.id}
+                                                    </p>
+                                                    <p>
+                                                        סכום:{or.eventDate}
+                                                    </p>
+                                                    <p>
+                                                        סטטוס:{or.StatusOrder}
+                                                    </p>
+                                                </div>
+                                                <div className='end'>
+                                                    <Button className='btn bidbtn'>סגירת הצעה</Button>
+                                                </div>
 
+                                            </div>
+                                        </>
+                                    )
+                                    }
                                 </div>
 
+
                             </div>
 
-                            {/*<div style={{ direction: 'rtl', fontSize: 'small' }}>
-                                מנות ראשונות<br />
-                                מנות עיקריות<br />
-                                קינוח<br />
-                                בופה<br />
-                                תוספות<br />
-                                אפשרויות נוספות<br />
-                                פרטים והערות<br />
-                            </div>
-                            <div style={{ display: 'flex', marginRight: "29%" }}>
-                                <Box sx={{ height: 320, transform: 'translateZ(0px)', flexGrow: 1 }}>
-                                    <SpeedDial
-                                        ariaLabel="SpeedDial basic example"
-                                        sx={{ position: 'absolute', bottom: 16, right: 16 }}
-                                        icon={<SpeedDialIcon />}
-                                    >
-                                        {actions.map((action) => (
-                                            <SpeedDialAction
-                                                key={action.name}
-                                                icon={action.icon}
-                                                tooltipTitle={action.name}
 
-                                            />
-                                        ))}
-                                    </SpeedDial>
-                                </Box>
-
-
-                                <Button variant="outline" className='btn btnPA' onClick={detailsShow} >סיכום ושליחה</Button>
-                            </div>
-                            {/* יפתח חלון ויהיה ניתן לבחור בו למי לשלוח את ההצעה */}
                         </div>
                         <br></br>
 
@@ -321,10 +326,9 @@ export default function PAComponent(props) {
 
                             <h5 style={{ direction: 'rtl' }}>פרטי לקוחות</h5>
 
-                            <p>שם:</p>
-                            <p>E-mail:</p>
-                            <p>טלפון:</p>
-                            <p>כתובת:</p>
+                            <p>שם:{clt.claintFirstName + clt.claintLastName}</p>
+                            <p>E-mail:{clt.claintEmail}</p>
+                            <p>טלפון:{clt.claintPhone}</p>
                         </div>
                         <div>
                             <Button variant="outline" className='btn btnPA' style={{ width: '170px' }} onClick={handleShow}>עדכון פרטים אישיים</Button>
@@ -564,6 +568,7 @@ export default function PAComponent(props) {
 
                 </div>
             </div >
+            : ''}
         </>
     )
-}
+})

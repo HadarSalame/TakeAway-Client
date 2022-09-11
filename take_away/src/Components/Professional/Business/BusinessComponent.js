@@ -59,7 +59,7 @@ export default function BusinessPage() {
                         {AllFalseOrders && AllFalseOrders.length && AllFalseOrders.map((item) =>
                             // <div onClick={check} key={items._id}></div>
                             <>
-                                <div className='b' >
+                                <div className='b'  style={{}}>
                                     {/* <p >קוד הזמנה: {item.ordertID}</p> */}
                                     <p >מאת: {item.claintID}</p>
                                     <p >תאריך הזמנה: {item.orderDate}</p>

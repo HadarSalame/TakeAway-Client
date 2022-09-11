@@ -21,11 +21,21 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 
+import { connect } from 'react-redux';
+
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 
-export default function ProfessionalPA({ children }) {
+function mapStateToProps(state) {
+    return {
+        bus: state.Professional.B
+    }
+}
+
+export default  connect(mapStateToProps)( function ProfessionalPA(props) {
+
+    const { bus, dispatch } = props
 
     //פונקצית לוח שנה
     const [dateState, setDateState] = useState(new Date())
@@ -91,12 +101,13 @@ export default function ProfessionalPA({ children }) {
                     </div>
                     <div style={{ direction: 'rtl', marginLeft: 'auto' }}>
                         <div>
-                            שם העסק:<br />
-                            שם בעל העסק<br />
-                            מספר העסק<br />
-                            כתובת העסק<br />
-                            טלפון<br />
-                            מייל<br />
+                           <p>שם העסק: {bus.businessName}</p>
+                           <p>שם בעל העסק: {bus.businessOwnerName}</p>
+                           <p>טלפון: {bus.businessPhone}</p>
+                           <p>Email:  {bus.businessEmail}</p>
+                           <p>כתובת: {bus.businessAddress}</p>
+                           <p>כשרות: {bus.businessKosher}</p>
+
                         </div>
 
                         {/* <Calendar onChange={onChange} value={value} className='calender' /> */}
@@ -244,5 +255,5 @@ export default function ProfessionalPA({ children }) {
         </>
     )
 }
-
+)
 

@@ -3,9 +3,13 @@ import './SignUpCss.css'
 import { Button, InputGroup, FormControl, FloatingLabel, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
+import { connect } from 'react-redux';
+import {addUser} from '../../../Redux/Actions/actions'
 
 
-export default function SignUp(props) {
+export default connect()(function SignUp(props) {
+
+    const {dispatch } = props
 
     let FirstNameRef = useRef();
     let LastNameRef = useRef();
@@ -27,6 +31,7 @@ export default function SignUp(props) {
         axios.post('http://localhost:3030/Claint/CreateClaint',newClaint).then(res=>{
             console.log(res.data)
             //הסרת כפתורי ההתחברות וההרשמה ולשים כפתור התנתקות ושלום למשתמש
+            dispatch(addUser(newClaint));
             navigate("/Index")
         }).catch(err=>console.log(err))
 
@@ -142,4 +147,4 @@ export default function SignUp(props) {
             </div>
         </>
     )
-}
+})

@@ -21,6 +21,6 @@ export function addToOrder(dish){
 }
 
 //bid
-export function addToOrder(p){
+export function updatePrice(p){
     return{type:'UPDATE_PRICE',payLoad:p}
 }

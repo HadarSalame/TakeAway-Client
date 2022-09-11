@@ -8,9 +8,12 @@ import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Stack from '@mui/material/Stack';
 
+import { connect } from 'react-redux';
+import {addUser} from '../../../Redux/Actions/actions'
 
+export default connect()( function Login(props) {
 
-export default function Login(props) {
+    const {dispatch } = props
 
     let UserEmailRef = useRef()
     let UserPassRef = useRef()
@@ -28,7 +31,8 @@ export default function Login(props) {
             if (res.data == null) {
                 setShowAlert(true)
             }
-            else {
+            else {             
+                   dispatch(addUser(res.data));
                 setShowAlert(false)
                 navigate('/Index')
             }
@@ -40,9 +44,6 @@ export default function Login(props) {
     return (
         <>
             <div style={{ fontFamily: "'Varela Round', sans-serif" }}>
-                {/* //התחברות למשתמשים עם שם סיסמא כפתור שיחזור סיסמה עי שליחת 
-            //קישור למייל 
-            // וכפתור התחברות */}
                 <br></br>
                 <div></div>
                 <h1 style={{ textAlign: 'center' }}>התחברות</h1>
@@ -124,4 +125,4 @@ export default function Login(props) {
             </div>
         </>
     )
-}
+})

@@ -5,14 +5,13 @@ import { Button, InputGroup, FormControl, FloatingLabel, Form, Select, Alert } f
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import { MultiSelect } from "react-multi-select-component";
+import { connect } from 'react-redux';
+import {addProfessional} from '../../../Redux/Actions/actions'
 
 
-
-
-
-
-export default function ProfessionalSignUp(props) {
-
+export default connect()(function ProfessionalSignUp(props) {
+    const {dispatch } = props
+    
     const [selected, setSelected] = useState([]);
     const options = [
         { label: "העדה החרדית", value: "1" },
@@ -64,6 +63,7 @@ export default function ProfessionalSignUp(props) {
         axios.post('http://localhost:3030/business/CreateBusiness', newBusiness).then(res => {
             alert(res.data)
             console.log(res.data)
+            dispatch(addProfessional(newBusiness));
             navigate("/Index")
         }).catch(err => console.log(err))
 
@@ -99,7 +99,7 @@ export default function ProfessionalSignUp(props) {
                                 ref={OwnerProNameRef}
                                 type="Text"
                                 placeholder="BusinessOwnerName" />
-                                
+
                         </FloatingLabel>
 
                         <FloatingLabel
@@ -189,7 +189,7 @@ export default function ProfessionalSignUp(props) {
 
                             <MultiSelect
                                 className='form'
-                                style={{direction:'rtl'}}
+                                style={{ direction: 'rtl' }}
                                 options={options}
                                 value={selected}
                                 onChange={setSelected}
@@ -250,4 +250,4 @@ export default function ProfessionalSignUp(props) {
             </div>
         </>
     )
-}
+}) 

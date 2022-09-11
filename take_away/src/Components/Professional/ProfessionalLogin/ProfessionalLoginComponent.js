@@ -10,12 +10,19 @@ import AlertTitle from '@mui/material/AlertTitle';
 import Stack from '@mui/material/Stack';
 
 
+import { connect } from 'react-redux';
+import {addProfessional} from '../../../Redux/Actions/actions'
+
+
 //למצוא את הניתוב של ForgetPass
 //import Forgetpass from '.././'
 
 
 
-export default function ProfessionalLogin(props) {
+export default connect()(  function ProfessionalLogin(props) {
+   
+    const {dispatch } = props
+   
     let ProEmailRef = useRef()
     let ProPassRef = useRef()
     let ProIdRef = useRef()
@@ -32,6 +39,7 @@ export default function ProfessionalLogin(props) {
             }
             else {
                 setShowAlert(false)
+                dispatch(addProfessional(res.data));
                 navigate('/Index')
             }
 
@@ -109,4 +117,4 @@ export default function ProfessionalLogin(props) {
             </div>
         </>
     )
-}
+})

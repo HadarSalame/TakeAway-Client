@@ -1,11 +1,10 @@
-import { createStore, combineReducers, } from 'redux';
+import { createStore, combineReducers } from 'redux';
 import produce from 'immer';
-import cliant from '../Reducers/cliant'
+import order from '../Reducers/order'
 import professional from '../Reducers/professional'
+import cliant from '../Reducers/cliant'
 
-const reducer = combineReducers((state,action)=>{
-    
-});
+const reducer = combineReducers({Order:order,Professional:professional,Cliant:cliant})
 
 const store = createStore(reducer);
 window.store = store;
