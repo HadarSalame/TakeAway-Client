@@ -31,7 +31,7 @@ export default connect()(function SignUp(props) {
         axios.post('http://localhost:3030/Claint/CreateClaint',newClaint).then(res=>{
             console.log(res.data)
             //הסרת כפתורי ההתחברות וההרשמה ולשים כפתור התנתקות ושלום למשתמש
-            dispatch(addUser(newClaint));
+            dispatch(addUser(res.data.CreateClaint));
             navigate("/Index")
         }).catch(err=>console.log(err))
 

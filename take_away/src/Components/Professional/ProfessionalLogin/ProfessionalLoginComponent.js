@@ -25,14 +25,14 @@ export default connect()(  function ProfessionalLogin(props) {
    
     let ProEmailRef = useRef()
     let ProPassRef = useRef()
-    let ProIdRef = useRef()
+    // let ProIdRef = useRef()
     const [showAlert, setShowAlert] = useState(false)
 
     let navigate = useNavigate();
 
     function gotoIndex() {
 
-        axios.get(`http://localhost:3030/businessController/BusinessLogin/${ProIdRef.current.value}/${ProEmailRef.current.value}/${ProPassRef.current.value}`).then((res) => {
+        axios.get(`http://localhost:3030/businessController/BusinessLogin/${ProEmailRef.current.value}/${ProPassRef.current.value}`).then((res) => {
             console.log(res.data);
             if (res.data == null) {
                 setShowAlert(true)
@@ -79,7 +79,7 @@ export default connect()(  function ProfessionalLogin(props) {
 
                             </FloatingLabel>
 
-                            <FloatingLabel
+                            {/* <FloatingLabel
                                 className="mb-3 "
                                 style={{ 'direction': 'rtl' }}
                                 controlId="floatingInput"
@@ -91,7 +91,7 @@ export default connect()(  function ProfessionalLogin(props) {
                                     placeholder="BusinessID" />
 
 
-                            </FloatingLabel>
+                            </FloatingLabel> */}
 
                             <FloatingLabel
                                 controlId="floatingPassword"

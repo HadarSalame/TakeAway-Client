@@ -33,7 +33,7 @@ function mapStateToProps(state) {
     }
 }
 
-export default  connect(mapStateToProps)( function ProfessionalPA(props) {
+export default connect(mapStateToProps)(function ProfessionalPA(props) {
 
     const { bus, dispatch } = props
 
@@ -101,17 +101,17 @@ export default  connect(mapStateToProps)( function ProfessionalPA(props) {
                     </div>
                     <div style={{ direction: 'rtl', marginLeft: 'auto' }}>
                         <div>
-                           <p>שם העסק: {bus.businessName}</p>
-                           <p>שם בעל העסק: {bus.businessOwnerName}</p>
-                           <p>טלפון: {bus.businessPhone}</p>
-                           <p>Email:  {bus.businessEmail}</p>
-                           <p>כתובת: {bus.businessAddress}</p>
-                           <p>כשרות: {bus.businessKosher}</p>
+                            <p>שם העסק: {bus.businessName}</p>
+                            <p>שם בעל העסק: {bus.businessOwnerName}</p>
+                            <p>טלפון: {bus.businessPhone}</p>
+                            <p>Email:  {bus.businessEmail}</p>
+                            <p>כתובת: {bus.businessAddress}</p>
+                            <p>כשרות: {bus.businessKosher}</p>
 
                         </div>
 
                         {/* <Calendar onChange={onChange} value={value} className='calender' /> */}
-                        <Button onClick={handleShow} style={{ marginRight: 0 ,width:' max-content'}}>עדכון פרטי העסק</Button>
+                        <Button onClick={handleShow} style={{ marginRight: 0, width: ' max-content' }}>עדכון פרטי העסק</Button>
 
                         <Modal show={show} onHide={handleClose}>
                             <Modal.Header closeButton>
@@ -213,7 +213,7 @@ export default  connect(mapStateToProps)( function ProfessionalPA(props) {
                                     </FloatingLabel>
                                 </Form>
                             </Modal.Body>
-                            <Modal.Footer style={{flexWrap: "nowrap"}}>
+                            <Modal.Footer style={{ flexWrap: "nowrap" }}>
 
                                 <Button variant="secondary" className='btn' onClick={handleClose}>
                                     ביטול
@@ -240,6 +240,7 @@ export default  connect(mapStateToProps)( function ProfessionalPA(props) {
                             </Tabs>
                         </Box>
                         {isChatShow && <Chat show={isChatShow} setShow={closeChatModal} />}
+
 
 
 

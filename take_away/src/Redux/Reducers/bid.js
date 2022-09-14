@@ -1,15 +1,24 @@
-import { Produce } from "immer";
+import produce from "immer";
 import axios from "axios";
 
 const initialState = {
-   price:0,
-    
+    Bi: {
+
     }
 
-    export default reducer = Produce((state, action) => {
-        switch (action.type) {
-            case 'UPDATE_PRICE':
-                {state.price=action.payload}
-                break;
+}
+
+const reducer = produce((state, action) => {
+    switch (action.type) {
+        case 'UPDATE_PRICE':
+            { state.Bi.price = action.payload }
+            break;
+        case 'ADD_BID': {
+            state.Bi= action.payLoad
+            console.log(state.Bid, "state addusertoredux");
+        }
+            break;
     }
-    }, initialState)
+}, initialState)
+
+export default reducer;

@@ -63,7 +63,7 @@ export default connect()(function ProfessionalSignUp(props) {
         axios.post('http://localhost:3030/business/CreateBusiness', newBusiness).then(res => {
             alert(res.data)
             console.log(res.data)
-            dispatch(addProfessional(newBusiness));
+            dispatch(addProfessional(res.data.Business));
             navigate("/Index")
         }).catch(err => console.log(err))
 

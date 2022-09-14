@@ -18,6 +18,7 @@ import moment from 'moment';
 import axios from "axios";
 import { MultiSelect } from "react-multi-select-component";
 import { connect } from 'react-redux';
+import { updateUser } from '../../../Redux/Actions/actions';
 
 
 
@@ -37,13 +38,16 @@ import Waitresses from '../../Waitresses/WaitressesComponent';
 function mapStateToProps(state) {
     debugger
     return {
-        clt: state.Cliant.C
+        clt: state.Cliant.C,
+        bid:state.Bid.Bi
         
     }
 }
 
 export default connect(mapStateToProps)(function PAComponent(props) {
-    const { clt, dispatch } = props
+    const { clt,bid,dispatch } = props;
+   
+
 
     //ref
     let DateRef = useRef();
@@ -177,14 +181,13 @@ export default connect(mapStateToProps)(function PAComponent(props) {
         setValue(newValue);
     };
 
-    const OrderRef = useRef('62ce9dd7d07bf0eb8b038d97');
+
     //שליפת ההזמנות של אותו לקוח
     //איך לוקחים מהרידקס?
     const [AllClaintOrders, setAllClaintOrders] = useState()
     useEffect(() => {
-        console.log(clt,"llllllllllllllll")
-        console.log(OrderRef)
-        axios.get(`http://localhost:3030/order/getOrderById/62ce9dd7d07bf0eb8b038d97`).then((res) => {
+        console.log(clt._id,"llllllllllllllll")
+        axios.get(`http://localhost:3030/order/getOrderById/${clt._id}`).then((res) => {
             if (res.data && res.data.length) {
                 console.log(res.data)
                 setAllClaintOrders(res.data)
@@ -195,16 +198,63 @@ export default connect(mapStateToProps)(function PAComponent(props) {
     const [AllBids, setAllBids] = useState()
 
 
-    // שליפת הצעות
-    // useEffect(() => {
-    //     axios.get(`http://localhost:3030/bid/getbidsByOrder/${OrderRef.current.value}`).then((res) => {
-    //         if (res.data && res.data.length) {
-    //             setAllBids(res.data)
-    //         }
-    //     })
-    // }, [])
+ //   שליפת הצעות
+    useEffect(() => {
+        axios.get(`http://localhost:3030/bid/getbidsByOrder/${bid.order}`).then((res) => {
+            if (res.data && res.data.length) {
+                setAllBids(res.data)
+            }
+            else{
+                <>
+                <h5>לא נמצאו תוצאות</h5>
+                </>
+            }
+        })
+    }, [])
 
 
+//update
+
+let UpFirstNameRef = useRef();
+let UpLastNameRef = useRef();
+let UpPhoneRef = useRef();
+let UpEmailRef = useRef();
+let UpPassRef = useRef();
+
+//update name
+axios.get('http://localhost:3030/Claint/UpdateClaintName',UpFirstNameRef).then(res=>{
+    console.log(res.data)
+    //הסרת כפתורי ההתחברות וההרשמה ולשים כפתור התנתקות ושלום למשתמש
+    dispatch(updateUser(UpFirstNameRef));
+}).catch(err=>console.log(err))
+
+//update lastname
+axios.get('http://localhost:3030/Claint/UpdateClaintLastName',UpLastNameRef).then(res=>{
+    console.log(res.data)
+    //הסרת כפתורי ההתחברות וההרשמה ולשים כפתור התנתקות ושלום למשתמש
+    dispatch(updateUser(UpLastNameRef));
+}).catch(err=>console.log(err))
+
+//update phone
+axios.get('http://localhost:3030/Claint/UpdateClaintPhone',UpPhoneRef).then(res=>{
+    console.log(res.data)
+    //הסרת כפתורי ההתחברות וההרשמה ולשים כפתור התנתקות ושלום למשתמש
+    dispatch(updateUser(UpPhoneRef));
+}).catch(err=>console.log(err))
+
+//update email
+axios.get('http://localhost:3030/Claint/UpdateClaintEmail',UpEmailRef).then(res=>{
+    console.log(res.data)
+    //הסרת כפתורי ההתחברות וההרשמה ולשים כפתור התנתקות ושלום למשתמש
+    dispatch(updateUser(UpEmailRef));
+}).catch(err=>console.log(err))
+
+//update pass
+axios.get('http://localhost:3030/Claint/UpdateClaintPassword',UpPassRef).then(res=>{
+    console.log(res.data)
+    //הסרת כפתורי ההתחברות וההרשמה ולשים כפתור התנתקות ושלום למשתמש
+    dispatch(updateUser(UpPassRef));
+}).catch(err=>console.log(err))
 
 
     return (
@@ -287,19 +337,19 @@ export default connect(mapStateToProps)(function PAComponent(props) {
                                 <br></br>
                                 <div>
 
-                                    //לשנות את המערך למערך בידס
-                                    {AllClaintOrders && AllClaintOrders.length && AllClaintOrders.map((or) =>
+
+                                    {AllBids && AllBids.length && AllBids.map((b) =>
                                         <>
                                             <div style={{ display: 'flex', alignItems: 'center', direction: 'rtl', flexDirection: 'row', margin: 0, alignItems: 'flex-end' }} className='b'>
                                                 <div>
                                                     <p>
-                                                        מאת:{or.id}
+                                                        מאת:{b.business}
                                                     </p>
                                                     <p>
-                                                        סכום:{or.eventDate}
+                                                        סכום:{b.price}
                                                     </p>
                                                     <p>
-                                                        סטטוס:{or.StatusOrder}
+                                                        סטטוס:{b.status}
                                                     </p>
                                                 </div>
                                                 <div className='end'>

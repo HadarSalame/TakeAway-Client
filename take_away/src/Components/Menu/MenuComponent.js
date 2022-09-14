@@ -4,7 +4,6 @@ import './MenuCSS.css';
 import { useState, useEffect, } from 'react';
 import { Checkbox, FormGroup, FormControlLabel, } from '@mui/material';
 import { Button, FloatingLabel, Form } from 'react-bootstrap';
-import { margin } from '@mui/system';
 import moment from 'moment';
 
 import { connect } from 'react-redux';
@@ -22,7 +21,7 @@ export default connect(mapStateToProps)(function Menu(props) {
     const { clt, dispatch } = props
 
     //קטגוריות
-    const categoryList = [{ cn: 'סלטים' }, { cn: 'מנות ראשונות' }, { cn: 'תוספות' }, { cn: 'מנות עיקריות' }, { cn: 'קינוחים' },]
+    const categoryList = [{ cn: 'סלטים' }, { cn: 'מנות ראשונות' }, { cn: 'תוספות' }, { cn: 'מנות עיקריות' }, { cn: 'קינוחים' }]
     const [Dose, setDose] = useState()
     const [Category, setCategory] = useState()
 
@@ -54,12 +53,10 @@ export default connect(mapStateToProps)(function Menu(props) {
 
     function CreateanOrder() {
         let newOrder = {
-            //מאיפ מביאים את הID של הCLAINT
 
-            // claintID: clt.claint,
             orderDate: moment().format('DD-MM-YY'),
             eventDate: eventDateRef.current.value,
-            eventAddress:eventAddressRef.current.value,
+            // eventAddress: eventAddressRef.current.value,
             numInvited: numInvitedRef.current.value,
             portion: selectedPortion,
             StatusOrder: 'false'
@@ -68,7 +65,7 @@ export default connect(mapStateToProps)(function Menu(props) {
         axios.post('http://localhost:3030/order/CreateOrder', newOrder).then(res => {
             alert(res.data)
             console.log(res.data)
-            dispatch(addToOrder(newOrder));
+            dispatch(addToOrder(res.data.Create));
             // navigate("/Index")
         }).catch(err => console.log(err))
 
@@ -98,13 +95,13 @@ export default connect(mapStateToProps)(function Menu(props) {
                                     marginRight: 0
 
                                 }}>
-                                    {/* {categoryList.map((c)=>(
+                                    {categoryList.map((c)=>(
                                         
                                         
-                                            <h3>{c.cn}</h3>
-                                            <br></br>
+                                            <h3 style={{margin:'1%'}}>{c.cn}</h3>
+                                            
                                         
-                                    )) } */}
+                                    )) }
 
                                     {Dose && Dose.length && Dose.map((items) =>
                                         // <div onClick={check} key={items._id}></div>
@@ -154,14 +151,15 @@ export default connect(mapStateToProps)(function Menu(props) {
 
                         <FloatingLabel
                             className="mb-3 "
-                            style={{ 'direction': 'rtl' }}
+                            style={{ 'direction': 'rtl',width:'220.4px' }}
                             controlId="floatingInputAddress"
                             label="תאריך לשנות" >
 
                             <Form.Control
                                 ref={eventDateRef}
-                                type="text"
+                                type="date"
                                 placeholder="text" />
+
                         </FloatingLabel>
                     </div>
                     <Button style={{ marginLeft: "5%" }} onClick={CreateanOrder}>שלח</Button>
