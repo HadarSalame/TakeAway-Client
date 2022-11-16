@@ -11,7 +11,7 @@ import Stack from '@mui/material/Stack';
 
 
 import { connect } from 'react-redux';
-import {addProfessional} from '../../../Redux/Actions/actions'
+import {addProfessional, signhoutClient} from '../../../Redux/Actions/actions'
 
 
 //למצוא את הניתוב של ForgetPass
@@ -32,7 +32,7 @@ export default connect()(  function ProfessionalLogin(props) {
 
     function gotoIndex() {
 
-        axios.get(`http://localhost:3030/businessController/BusinessLogin/${ProEmailRef.current.value}/${ProPassRef.current.value}`).then((res) => {
+        axios.get(`http://localhost:3030/business/BusinessLogin/${ProEmailRef.current.value}/${ProPassRef.current.value}`).then((res) => {
             console.log(res.data);
             if (res.data == null) {
                 setShowAlert(true)
@@ -40,6 +40,7 @@ export default connect()(  function ProfessionalLogin(props) {
             else {
                 setShowAlert(false)
                 dispatch(addProfessional(res.data));
+                dispatch(signhoutClient());
                 navigate('/Index')
             }
 

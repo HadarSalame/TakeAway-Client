@@ -1,17 +1,17 @@
-// // import React, { useState } from 'react';
-// // import './InfopageCss.css'
-// // import axios from "axios";
+import React, { useState } from 'react';
+import './InfopageCss.css'
+import axios from "axios";
 
 
 
-// // export default function Infopage() {
+export default function Infopage() {
     
-// //     return (
-// //         <>
+    return (
+        <>
             
-// //         </>
-// //     )
-// // }
+        </>
+    )
+}
 
 // import * as React from 'react';
 // import Stack from '@mui/material/Stack';

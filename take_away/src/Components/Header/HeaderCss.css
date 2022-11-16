@@ -108,3 +108,15 @@ i.material-icons {
 i.material-icons:hover{
     color: #fff !important;
 }
+p{
+    font-size: unset;
+    margin-left: 10%;
+}
+
+.out{
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: center;
+}

@@ -10,7 +10,8 @@ const initialState = {
         // businessAddress: '',
         // businessKosher: '',
         // businessId: ''
-    }
+    },
+    loginB:false
 }
 
 const reducer = produce((state, action) => {
@@ -18,9 +19,16 @@ const reducer = produce((state, action) => {
         case 'ADD_PROFESSIONAL':
             {
                  state.B = action.payLoad
+                 state.loginB=true
                  console.log(state.B,"state addbusinesstoredux");
                 }
             break;
+            case 'SINGHOUT_PROFESSIONAL':
+                {
+                     state.loginB = false;
+
+                    }
+                break;
     }
 }, initialState)
 

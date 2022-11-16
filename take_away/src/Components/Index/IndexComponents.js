@@ -7,20 +7,45 @@ import Page2 from '../../Images/Logos/Photos/Page2.jpg'
 import Page3 from '../../Images/Logos/Photos/Page3.jpg'
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
+import { connect } from 'react-redux';
 
 
+function mapStateToProps(state) {
 
-export default function Index(props) {
+    return {
+        clt: state.Cliant.C,
+        loginClient: state.Cliant.loginClient,
+        loginB: state.Professional.loginB,
+        B: state.Professional.B,
 
-  let navigate = useNavigate();
+    }
+}
+
+export default connect(mapStateToProps)(function Index(props) {
+
+    const { B, loginB, loginClient, clt, dispatch } = props;
+
+    let navigate = useNavigate();
 
     function gotoMenu() {
-        //to add menu page
+
         navigate('/Menu')
-      }
+    }
+
+    function gotoPA() {
+        navigate('/PAComponent')
+
+
+    }
+
+    function gotoPPA() {
+        navigate('/PPAComponent')
+
+
+    }
     return (
         <>
-            <div style={{fontFamily:"'Varela Round', sans-serif"}}>
+            <div style={{ fontFamily: "'Varela Round', sans-serif" }}>
                 <div className="row col-xl-12 col-sm-10 col-xs-6" >
 
 
@@ -35,7 +60,8 @@ export default function Index(props) {
 
                     <div>
 
-                        <Button className="btn st" style={{ top: "1060px" }} >לתפריט</Button>
+                        {!loginClient ? <Button className="btn st" style={{ top: "1060px" }} onClick={gotoPPA} >אזור אישי</Button> : !loginB ?
+                            <Button className="btn st" style={{ top: "1060px" }} onClick={gotoPA} >אזור אישי</Button> : ""}
 
                         <img src={stake1} className='opens '></img>
                     </div>
@@ -52,9 +78,9 @@ export default function Index(props) {
 
                 </div>
             </div>
-       
+
 
         </>
     )
 
-}
+})

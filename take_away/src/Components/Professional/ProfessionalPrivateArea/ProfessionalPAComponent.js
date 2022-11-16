@@ -22,6 +22,7 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 
 import { connect } from 'react-redux';
+import {updateProfessional} from '../../../Redux/Actions/actions'
 
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
@@ -69,7 +70,18 @@ export default connect(mapStateToProps)(function ProfessionalPA(props) {
         setIsChatShow(false)
     }
 
-    //
+    //update
+    function updateBus(){
+        let upBus={
+
+        }
+    axios.get('http://localhost:3030/business/UpdateBus',upBus).then(res=>{
+    console.log(res.data)
+    dispatch(updateProfessional(upBus));
+    handleClose()
+}).catch(err=>console.log(err))
+}
+
 
 
 
@@ -106,6 +118,7 @@ export default connect(mapStateToProps)(function ProfessionalPA(props) {
                             <p>טלפון: {bus.businessPhone}</p>
                             <p>Email:  {bus.businessEmail}</p>
                             <p>כתובת: {bus.businessAddress}</p>
+                          למה לא מופיע?
                             <p>כשרות: {bus.businessKosher}</p>
 
                         </div>
@@ -218,28 +231,32 @@ export default connect(mapStateToProps)(function ProfessionalPA(props) {
                                 <Button variant="secondary" className='btn' onClick={handleClose}>
                                     ביטול
                                 </Button>
-                                <Button variant="primary" className='btn' onClick={handleClose}>
-                                    שלח/י הצעה
+                                <Button variant="primary" className='btn' onClick={updateBus}>
+                                    עדכון
                                 </Button>
                             </Modal.Footer>
 
                         </Modal>
+                        <h3>היסטוריה</h3>
+                        <div>
+
+                        </div>
                         {/* <br />
                         <Button style={{ marginRight: 0 }}>עדכון התפריט</Button>
                         <br /> */}
 
 
-
+                        {/* 
                         <Box style={{ width: '100%', bgcolor: 'background.paper', color: 'black' }} >
                             <Tabs value={valueTab} onChange={handleChange} className="tabs" centered>
                                 <Tab label="נשלח" className="tab" onClick={Chatfunc}  > </Tab>
-                                <Tab label="הצעות סגורות" className="tab" />
+                                
 
 
 
                             </Tabs>
-                        </Box>
-                        {isChatShow && <Chat show={isChatShow} setShow={closeChatModal} />}
+                        </Box> */}
+                        {/* {isChatShow && <Chat show={isChatShow} setShow={closeChatModal} />} */}
 
 
 

@@ -12,16 +12,18 @@ import Order from "../../Order/OrderComponent";
 
 export default function BusinessPage() {
 
-    const b = [
-        { id: '123', ClaintId: '123456', OrderDate: '2/3/2022', eventDate: '2/5/2022', numInvited: '30' },
-        { id: '456', ClaintId: '25847', OrderDate: '2/3/2022', eventDate: '2/5/2022', numInvited: '60' }]
 
     //שליפת כל ההזמנות שלא סגורות
     const [AllFalseOrders, setAllFalseOrders] = useState()
 
     useEffect(() => {
+        debugger
         axios.get("http://localhost:3030/order/getOrdersFalse").then((res) => {
             if (res.data && res.data.length) {
+                if (res.data === "the business exist") {
+                    alert("כבר שלחת הצעת החיר להזמנה זו")
+                }
+                else
                 setAllFalseOrders(res.data)
             };
 
@@ -34,10 +36,11 @@ export default function BusinessPage() {
 
     let navigate = useNavigate();
 
-    const [isPricingShow, setIsPricingShow] = React.useState(false);
+    const [isPricingShow, setIsPricingShow] = React.useState();
+    const [IdCurrent, setIdCurrent] = React.useState();
 
-    function PricingModal() {
-
+    function PricingModal(id) {
+        setIdCurrent(id)
         setIsPricingShow(true)
         console.log("1234");
 
@@ -52,27 +55,27 @@ export default function BusinessPage() {
     return (
         <>
             <div className="row" style={{ fontFamily: "'Varela Round', sans-serif" }}>
-                <h1 style={{ textAlign: 'center' }}>הצעות</h1>
+                <h1 style={{ textAlign: 'center' }}>הצעות לתמחור</h1>
                 <div className='border col-xl-6 col-sm-10 col-8'>
                     <div>
 
-                        {AllFalseOrders && AllFalseOrders.length && AllFalseOrders.map((item) =>
+                        {AllFalseOrders && AllFalseOrders.length && AllFalseOrders.map((item, index) =>
                             // <div onClick={check} key={items._id}></div>
                             <>
-                                <div className='b'  style={{}}>
-                                    {/* <p >קוד הזמנה: {item.ordertID}</p> */}
-                                    <p >מאת: {item.claintID}</p>
+                                <div className='b' key={index} style={{}}>
+                                    <p >קוד הזמנה: {item._id}</p>
+                                    {item.claintID !== undefined ? <p >מאת: {item['claintID']['claintFirstName']}</p> : ''}
                                     <p >תאריך הזמנה: {item.orderDate}</p>
                                     <p >תאריך האירוע: {item.eventDate}</p>
                                     <p >מספר מנות: {item.numInvited}</p>
-                                    <Button style={{ direction: 'ltr', display: 'flex', marginTop: '10px', marginBottom: '10px', marginRight: "80%" }} className="btn" onClick={PricingModal}>פתח הצעה</Button>
-                                    {isPricingShow && <Order  show={isPricingShow} setShow={closePricingModal} />}
+                                    <Button style={{ direction: 'ltr', display: 'flex', marginTop: '10px', marginBottom: '10px', marginRight: "80%" }} className="btn" onClick={() => { PricingModal(item._id) }}>פתח הצעה</Button>
+
                                 </div>
                             </>
-
-
                         )
                         }
+                        {isPricingShow && <Order show={isPricingShow} setShow={closePricingModal} orderId={IdCurrent} />}
+
                     </div>
 
                 </div>

@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import axios from 'axios';
 import './MenuCSS.css';
 import { useState, useEffect, } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Checkbox, FormGroup, FormControlLabel, } from '@mui/material';
 import { Button, FloatingLabel, Form } from 'react-bootstrap';
 import moment from 'moment';
@@ -11,9 +12,11 @@ import { addToOrder } from '../../Redux/Actions/actions'
 
 function mapStateToProps(state) {
     return {
-        clt: state.Professional.C
+        clt: state.Cliant.C
     }
 }
+
+
 
 
 export default connect(mapStateToProps)(function Menu(props) {
@@ -21,7 +24,6 @@ export default connect(mapStateToProps)(function Menu(props) {
     const { clt, dispatch } = props
 
     //קטגוריות
-    const categoryList = [{ cn: 'סלטים' }, { cn: 'מנות ראשונות' }, { cn: 'תוספות' }, { cn: 'מנות עיקריות' }, { cn: 'קינוחים' }]
     const [Dose, setDose] = useState()
     const [Category, setCategory] = useState()
 
@@ -37,6 +39,7 @@ export default connect(mapStateToProps)(function Menu(props) {
             if (res.data && res.data.length) {
                 setCategory(res.data)
 
+
             }
         })
     }, [])
@@ -48,13 +51,23 @@ export default connect(mapStateToProps)(function Menu(props) {
     let numInvitedRef = useRef();
     // let portionRef = useRef([]);
 
-    const [selectedPortion, setSelectedPortion] = useState()
+    const [selectedPortion, setSelectedPortion] = useState([])
 
+  let navigate = useNavigate();
 
     function CreateanOrder() {
-        let newOrder = {
+        // var por=document.getElementsByClassName("portion")
+        // console.log(por);
 
-            orderDate: moment().format('DD-MM-YY'),
+        console.log("_______________________")
+
+        console.log(selectedPortion)
+
+
+        let newOrder = {
+            claintID: clt._id,
+
+            //orderDate: moment().format('DD-MM-YY'),
             eventDate: eventDateRef.current.value,
             // eventAddress: eventAddressRef.current.value,
             numInvited: numInvitedRef.current.value,
@@ -62,11 +75,13 @@ export default connect(mapStateToProps)(function Menu(props) {
             StatusOrder: 'false'
 
         }
+        console.log(newOrder.eventDate);
+        console.log(newOrder)
         axios.post('http://localhost:3030/order/CreateOrder', newOrder).then(res => {
             alert(res.data)
             console.log(res.data)
             dispatch(addToOrder(res.data.Create));
-            // navigate("/Index")
+            navigate("/Index")
         }).catch(err => console.log(err))
 
     }
@@ -77,6 +92,31 @@ export default connect(mapStateToProps)(function Menu(props) {
         console.log(e.target.value);
 
     }
+    var temp = []
+    function savePoration(items) {
+
+
+        // console.log(items);
+        temp = selectedPortion;
+        var itemdup = selectedPortion.find(i => i._id == items._id);
+        //    console.log(itemdup);
+        if (itemdup == undefined) {
+            temp.push(items)
+            setSelectedPortion(temp)
+        }
+        else {
+            temp = selectedPortion.filter(i => i._id != items._id);
+            console.log("temp");
+            console.log(temp);
+
+            setSelectedPortion(temp)
+
+        }
+        console.log(selectedPortion);
+    }
+
+
+
 
     return (
         <>
@@ -86,6 +126,7 @@ export default connect(mapStateToProps)(function Menu(props) {
                     <div>
                         <>
                             {Category && Category.length && Category.map((cats) =>
+
                                 //איך אפשר לתת שם לכל קטגוריה אם אפשר להכניס רק משהו אחד בכלmap
                                 <FormGroup style={{
                                     display: 'flex',
@@ -95,20 +136,17 @@ export default connect(mapStateToProps)(function Menu(props) {
                                     marginRight: 0
 
                                 }}>
-                                    {categoryList.map((c)=>(
-                                        
-                                        
-                                            <h3 style={{margin:'1%'}}>{c.cn}</h3>
-                                            
-                                        
-                                    )) }
+                                    <div>
+                                        <h3>{cats.categoryName}</h3>
+                                        <h1></h1>
+                                    </div>
 
                                     {Dose && Dose.length && Dose.map((items) =>
                                         // <div onClick={check} key={items._id}></div>
 
                                         items.categoryID == cats._id ?
-                                            <FormControlLabel control={<Checkbox style={{ color: '#f7d520' }} onClick={setSelectedPortion} />} label={items.portionName}
-                                                style={{ display: 'flex', borderColor: 'green' }} labelPlacement="start" />
+                                            <FormControlLabel control={<Checkbox className="portion" style={{ color: '#f7d520' }} onClick={() => savePoration(items)} />} label={items.portionName}
+                                                name={items.portionName} data={items.Category} style={{ display: 'flex', borderColor: 'green' }} labelPlacement="start" />
                                             : null
 
                                     )
@@ -151,7 +189,7 @@ export default connect(mapStateToProps)(function Menu(props) {
 
                         <FloatingLabel
                             className="mb-3 "
-                            style={{ 'direction': 'rtl',width:'220.4px' }}
+                            style={{ 'direction': 'rtl', width: '220.4px' }}
                             controlId="floatingInputAddress"
                             label="תאריך לשנות" >
 

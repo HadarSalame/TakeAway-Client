@@ -36,7 +36,7 @@ import Waitresses from '../../Waitresses/WaitressesComponent';
 
 
 function mapStateToProps(state) {
-    debugger
+     
     return {
         clt: state.Cliant.C,
         bid:state.Bid.Bi
@@ -183,10 +183,9 @@ export default connect(mapStateToProps)(function PAComponent(props) {
 
 
     //שליפת ההזמנות של אותו לקוח
-    //איך לוקחים מהרידקס?
     const [AllClaintOrders, setAllClaintOrders] = useState()
     useEffect(() => {
-        console.log(clt._id,"llllllllllllllll")
+        console.log(clt,"llllllllllllllll")
         axios.get(`http://localhost:3030/order/getOrderById/${clt._id}`).then((res) => {
             if (res.data && res.data.length) {
                 console.log(res.data)
@@ -199,66 +198,45 @@ export default connect(mapStateToProps)(function PAComponent(props) {
 
 
  //   שליפת הצעות
-    useEffect(() => {
-        axios.get(`http://localhost:3030/bid/getbidsByOrder/${bid.order}`).then((res) => {
-            if (res.data && res.data.length) {
-                setAllBids(res.data)
-            }
-            else{
-                <>
-                <h5>לא נמצאו תוצאות</h5>
-                </>
-            }
-        })
-    }, [])
+    function getbidsByOrder(or){
+        console.log(or);
+        // axios.get(`http://localhost:3030/bid/getbidsByOrder/${or}`).then((res) => {
+            // if (res.data && res.data.length) {
+            //     setAllBids(res.data)
+            // }
+            // else{
+            //     <>
+            //     <h5>לא נמצאו תוצאות</h5>
+            //     </>
+            // }
+        }
+   
 
 
 //update
 
-let UpFirstNameRef = useRef();
-let UpLastNameRef = useRef();
-let UpPhoneRef = useRef();
-let UpEmailRef = useRef();
-let UpPassRef = useRef();
+//איך אפשר לעדכן רק חצי אובייקט
 
-//update name
-axios.get('http://localhost:3030/Claint/UpdateClaintName',UpFirstNameRef).then(res=>{
+// let UpFirstNameRef = useRef();
+// let UpLastNameRef = useRef();
+// let UpPhoneRef = useRef();
+// let UpEmailRef = useRef();
+// let UpPassRef = useRef();
+
+let upClaint={
+
+}
+
+//update 
+axios.get('http://localhost:3030/Claint/UpdateClaint',upClaint).then(res=>{
     console.log(res.data)
-    //הסרת כפתורי ההתחברות וההרשמה ולשים כפתור התנתקות ושלום למשתמש
-    dispatch(updateUser(UpFirstNameRef));
+    dispatch(updateUser(upClaint));
 }).catch(err=>console.log(err))
 
-//update lastname
-axios.get('http://localhost:3030/Claint/UpdateClaintLastName',UpLastNameRef).then(res=>{
-    console.log(res.data)
-    //הסרת כפתורי ההתחברות וההרשמה ולשים כפתור התנתקות ושלום למשתמש
-    dispatch(updateUser(UpLastNameRef));
-}).catch(err=>console.log(err))
-
-//update phone
-axios.get('http://localhost:3030/Claint/UpdateClaintPhone',UpPhoneRef).then(res=>{
-    console.log(res.data)
-    //הסרת כפתורי ההתחברות וההרשמה ולשים כפתור התנתקות ושלום למשתמש
-    dispatch(updateUser(UpPhoneRef));
-}).catch(err=>console.log(err))
-
-//update email
-axios.get('http://localhost:3030/Claint/UpdateClaintEmail',UpEmailRef).then(res=>{
-    console.log(res.data)
-    //הסרת כפתורי ההתחברות וההרשמה ולשים כפתור התנתקות ושלום למשתמש
-    dispatch(updateUser(UpEmailRef));
-}).catch(err=>console.log(err))
-
-//update pass
-axios.get('http://localhost:3030/Claint/UpdateClaintPassword',UpPassRef).then(res=>{
-    console.log(res.data)
-    //הסרת כפתורי ההתחברות וההרשמה ולשים כפתור התנתקות ושלום למשתמש
-    dispatch(updateUser(UpPassRef));
-}).catch(err=>console.log(err))
 
 
     return (
-        <>{clt.claintFirstName != undefined ?
+        <>{clt.claintFirstName !== undefined ?
             <div className='row' style={{ fontFamily: "'Varela Round', sans-serif" }}>
                 <h1 style={{ textAlign: 'center' }}>אזור אישי</h1>
                 <div className="border col-xl-6 col-sm-10 col-8 PA" style={{ display: "inline-flex" }}>
@@ -277,9 +255,9 @@ axios.get('http://localhost:3030/Claint/UpdateClaintPassword',UpPassRef).then(re
                                     {AllClaintOrders && AllClaintOrders.length && AllClaintOrders.map((or) =>
                                         <>
                                             <div style={{ display: 'flex', alignItems: 'center', direction: 'rtl', flexDirection: 'row', margin: 0, alignItems: 'flex-end' }} className='b'>
-                                                <div>
+                                                <div onClick={getbidsByOrder(or.id)}>
                                                     <p>
-                                                        מספר הזמנה:{or.id}
+                                                        מספר הזמנה:{or._id}
                                                     </p>
                                                     <p>
                                                         תאריך אירוע:{or.eventDate}
@@ -376,9 +354,9 @@ axios.get('http://localhost:3030/Claint/UpdateClaintPassword',UpPassRef).then(re
 
                             <h5 style={{ direction: 'rtl' }}>פרטי לקוחות</h5>
 
-                            <p>שם:{clt.claintFirstName + clt.claintLastName}</p>
-                            <p>E-mail:{clt.claintEmail}</p>
-                            <p>טלפון:{clt.claintPhone}</p>
+                            <p>שם: {" "+ clt.claintFirstName +" "+ clt.claintLastName}</p>
+                            <p>E-mail: { " "+ clt.claintEmail}</p>
+                            <p>טלפון: {" "+ clt.claintPhone}</p>
                         </div>
                         <div>
                             <Button variant="outline" className='btn btnPA' style={{ width: '170px' }} onClick={handleShow}>עדכון פרטים אישיים</Button>

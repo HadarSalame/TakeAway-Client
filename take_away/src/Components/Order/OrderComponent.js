@@ -1,66 +1,121 @@
 import React, { useEffect, useRef } from 'react';
 import axios from "axios";
 import { useState } from 'react';
-import { Modal, Button, Form } from "react-bootstrap";
+import { Modal, Button, Form, FloatingLabel } from "react-bootstrap";
 import "./OrderCss.css";
 import { connect } from 'react-redux';
+import { addToOrder } from '../../Redux/Actions/actions'
 
+//לא עובד
+//.1 פונקצית CreateBid לא עובדת- בעיות המרה
 
+function mapStateToProps(state) {
+    return {
+        bus: state.Professional.B
+    }
+}
 
-export default  connect()( function Order(Props) {
+export default connect(mapStateToProps)(function Order(Props) {
+    const { show, setShow } = Props
+    const { bus, dispatch } = Props
+
 
     //מערך דוגמה
-    const temp = [
-        { date: '02/03/2022', OrderCode: '123456', from: 'liel', event: '02/04/2022', kind: 'חתונה', place: 'מייפל', detils: "", count: 12, marks: "" },
-        { date: '12/6/2022', OrderCode: '325697', from: 'noa', event: '02/12/2022', kind: 'אירוסין', place: 'מייפל', detils: "", count: 130, marks: "" }
-    ]
 
-    const [AllOrders, setAllOrders] = useState()
+
+    const [order, setOrder] = useState()
     useEffect(() => {
-        axios.get(`http://localhost:3030/order/getOrdersFalse`).then((res) => {
-            if (res.data && res.data.length) {
+        axios.get(`http://localhost:3030/order/getOrder/${Props.orderId}`).then((res) => {
+            if (res.data) {
                 console.log(res.data)
-                setAllOrders(res.data)
+                setOrder(res.data)
+
             }
         })
     }, [])
 
-    const [showOrder, setShowOrder] = useState(Props.showOrder);
-    const handleOrderClose = () => { setShowOrder(false); Props.setShowOrder() };
-    const handleOrderShow = () => setShowOrder(true);
+    // const [show, setShow] = useState(Props);
+    const handleOrderClose = () => { setShow(false); };
+    const handleOrderShow = () => setShow(true);
+
+    const [bids, setBids] = useState()
+
+    let refPrice = useRef()
+
+    function CreateBid() {
+        let newBid = {
+
+            price:refPrice.current.value,
+            business:bus._id,
+            order:order._id,
+            status: false
+
+        }
+console.log("newbid: "+ newBid);
+        axios.post(`http://localhost:3030/bid/Createbid`,newBid).then((res) => {
+            console.log('res',res);
+            if (res.data && res.data.length) {
+                console.log(res.data)
+                alert('ההצעה נשלחה בהצלחה')
+                handleOrderClose()
+
+            }
+        }).catch((err)=>{
+            console.log(err)})
+    }
 
     //הזמנה סגורה שנשלחת
     return (
         <>
+
+
             <div>
-                <Modal show={showOrder} onHide={handleOrderShow}>
+                <Modal show={show} onHide={handleOrderShow}>
                     <Modal.Header>
-                        <Modal.Title style={{ textAlign: 'center' }}>הזמנה</Modal.Title>
+                        <Modal.Title style={{ textAlign: 'center' }}> פירוט ההזמנה</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <div>
-                         {AllOrders && AllOrders.length && AllOrders.map((ord) =>
-                            (
-                                <>
+                        {order ?
+                            <div style={{ direction: 'rtl' }}>
 
-                                /איך אני משנה לשם הלקוח
-                                    <h1>{ord.claintID}</h1>
-                                    <h1>{ord.orderDate}</h1>
-                                    <h1>{ord.eventDate}</h1>
-                                    <h1>{ord.numInvited}</h1>
-                                    //הוספת כתובת האירוע
-                                    {/* <h1>{item.event}</h1> */}
-                                </>
-                            ))}
-                        </div>
+
+
+                                <h3>תפריט</h3>
+                                {/* <p>{order.portion.portionName}</p> */}
+                                {order.portion !== undefined ? order.portion.map(item => 
+                                <p > {item['portionName']}</p>) 
+                                : ''}
+                                <br></br>
+
+                                {/* <h5>{order != undefined ? order.eventDate : ''}</h5> */}
+                                <h3>הצעת מחיר:</h3>
+                                <div>
+                                    <h5>תמחר</h5>
+                                    <FloatingLabel
+                                        className="mb-3 "
+                                        style={{ 'direction': 'rtl' }}
+                                        controlId="floatingInput"
+                                        label="price" >
+
+                                        <Form.Control
+                                            ref={refPrice}
+                                            type="text"
+                                            placeholder="number" />
+
+
+                                    </FloatingLabel>
+                                </div>
+
+
+                            </div> : <></>}
                     </Modal.Body>
-                    <Modal.Footer>
+                    <Modal.Footer style={{ marginLeft: '5%', display: 'flex', flexWrap: 'nowrap' }}>
 
                         <Button variant="secondary" className='btn' onClick={handleOrderClose}>
                             ביטול
                         </Button>
-                        <Button variant="primary" className='btn' onClick={handleOrderClose}>
-                   תמחר
+                        <Button variant="primary" className='btn' onClick={CreateBid}>
+                            שלח
                         </Button>
                     </Modal.Footer>
                 </Modal>

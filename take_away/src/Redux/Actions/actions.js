@@ -6,12 +6,19 @@ export function updateUser(user){
     return{type:'UPDATE_USER',payLoad:user}
 }
 
+export function signhoutClient(Professional){
+    return{type:'SINGHOUT_CLIENT',payLoad:Professional}
+}
+
 export function addProfessional(newProfessional){
     return{type:'ADD_PROFESSIONAL',payLoad:newProfessional}
 }
 
 export function updateProfessional(Professional){
     return{type:'UPDATE_PROFESSIONAL',payLoad:Professional}
+}
+export function signhoutProfessional(Professional){
+    return{type:'SINGHOUT_PROFESSIONAL',payLoad:Professional}
 }
 
 

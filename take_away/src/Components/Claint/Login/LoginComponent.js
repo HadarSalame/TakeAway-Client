@@ -9,7 +9,7 @@ import AlertTitle from '@mui/material/AlertTitle';
 import Stack from '@mui/material/Stack';
 
 import { connect } from 'react-redux';
-import {addUser} from '../../../Redux/Actions/actions'
+import {addUser, signhoutClient, signhoutProfessional} from '../../../Redux/Actions/actions'
 
 export default connect()( function Login(props) {
 
@@ -28,16 +28,17 @@ export default connect()( function Login(props) {
         axios.get(`http://localhost:3030/claint/claintLogin/${UserEmailRef.current.value}/${UserPassRef.current.value}`).then((res) => {
 
             console.log(res.data);
-            if (res.data == null) {
+            if (res.data == null||res.data == undefined) {
                 setShowAlert(true)
             }
             else {             
                    dispatch(addUser(res.data));
+                   dispatch(signhoutProfessional());
                 setShowAlert(false)
                 navigate('/Index')
             }
         }).catch(err => {
-
+console.log(err);
         })
     };
 
