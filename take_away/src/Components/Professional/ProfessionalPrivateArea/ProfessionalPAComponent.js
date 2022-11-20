@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import './ProfessionalPACSS.css'
 import { Button, InputGroup, FormControl, FloatingLabel, Form, Select, Modal } from 'react-bootstrap';
 import { BrowserRouter, Link, Route, Routes, Accordion, Card } from 'react-router-dom'
@@ -22,7 +22,7 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 
 import { connect } from 'react-redux';
-import {updateProfessional} from '../../../Redux/Actions/actions'
+import { updateProfessional } from '../../../Redux/Actions/actions'
 
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
@@ -71,16 +71,43 @@ export default connect(mapStateToProps)(function ProfessionalPA(props) {
     }
 
     //update
-    function updateBus(){
-        let upBus={
+    function updateBus() {
+        let upBus = {
 
         }
-    axios.get('http://localhost:3030/business/UpdateBus',upBus).then(res=>{
-    console.log(res.data)
-    dispatch(updateProfessional(upBus));
-    handleClose()
-}).catch(err=>console.log(err))
-}
+        axios.get('http://localhost:3030/business/UpdateBus', upBus).then(res => {
+            console.log(res.data)
+            dispatch(updateProfessional(upBus));
+            handleClose()
+        }).catch(err => console.log(err))
+    }
+
+    //get bids by business
+    const [AllBusinessBids, setAllBusinessBids] = useState()
+    useEffect(() => {
+        console.log(bus,"AllBusinessBids")
+        axios.get(`http://localhost:3030/bid/getbidsByBusiness/${bus._id}`).then((res) => {
+            if (res.data && res.data.length) {
+                console.log(res.data)
+                setAllBusinessBids(res.data)
+            }
+        })
+    }, [])
+
+
+    //get close orders
+    const [AllCloseOrders, setAllCloseOrders] = useState()
+    useEffect(() => {
+        console.log("AllCloseOrders")
+        axios.get(`http://localhost:3030/order/getOrders`).then((res) => {
+//איך אני שולפת גם את ההזמנות שנסגרו רק לאותו בעל עסק?
+            if (res.data && res.data.length && res.data.StatusOrder===true) {
+                console.log(res.data)
+                setAllCloseOrders(res.data)
+            }
+        })
+    }, [])
+
 
 
 
@@ -118,7 +145,8 @@ export default connect(mapStateToProps)(function ProfessionalPA(props) {
                             <p>טלפון: {bus.businessPhone}</p>
                             <p>Email:  {bus.businessEmail}</p>
                             <p>כתובת: {bus.businessAddress}</p>
-                          למה לא מופיע?
+                            למה לא מופיע?
+
                             <p>כשרות: {bus.businessKosher}</p>
 
                         </div>
@@ -239,7 +267,54 @@ export default connect(mapStateToProps)(function ProfessionalPA(props) {
                         </Modal>
                         <h3>היסטוריה</h3>
                         <div>
+                            <div>
+                                <h5>הצעות שנשלחו</h5>
+                                {AllBusinessBids && AllBusinessBids.length && AllBusinessBids.map((item)=>
+                                <>
+                                  <div style={{ display: 'flex', alignItems: 'center', direction: 'rtl', flexDirection: 'row', margin: 0, alignItems: 'flex-end' }} className='b'>
+                                                <div >
+                                                    <p>
+                                                        מספר ההצעה:{item._id}
+                                                    </p>
+                                                    <p>
+                                                        סטטוס:{item.status}
+                                                    </p>
+                                                    <p>
+                                                        סכום:{item.price}
+                                                    </p>
+                                                </div>
+                                                <div className='end'>
+                                                    <Button className='btn bidbtn'>פירוט הצעה</Button>
+                                                </div>
 
+                                            </div>
+                                </>
+                                )}
+
+                            </div>
+                            <div>
+                                <h5>הזמנות סגורות</h5>
+                                {AllCloseOrders && AllCloseOrders.length && AllCloseOrders.map((item)=>
+                                <>
+                                  <div style={{ display: 'flex', alignItems: 'center', direction: 'rtl', flexDirection: 'row', margin: 0, alignItems: 'flex-end' }} className='b'>
+                                                <div >
+                                                    <p>
+                                                        מספר ההצעה:{item._id}
+                                                    </p>
+                                                    {item.claintID !== undefined ? <p >מאת: {item['claintID']['claintFirstName']}</p> : ''}
+                                                    <p>
+                                                        סטטוס:{item.StatusOrder}
+                                                    </p>
+                                                  
+                                                </div>
+                                                <div className='end'>
+                                                    <Button className='btn bidbtn'>פירוט הצעה</Button>
+                                                </div>
+
+                                            </div>
+                                </>
+                                )}
+                            </div>
                         </div>
                         {/* <br />
                         <Button style={{ marginRight: 0 }}>עדכון התפריט</Button>
