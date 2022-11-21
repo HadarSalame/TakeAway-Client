@@ -1,4 +1,4 @@
-import React ,{useRef,useState} from 'react';
+import React, { useRef, useState } from 'react';
 import './LoginCSS.css'
 import { Button, InputGroup, FormControl, FloatingLabel, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
@@ -9,11 +9,11 @@ import AlertTitle from '@mui/material/AlertTitle';
 import Stack from '@mui/material/Stack';
 
 import { connect } from 'react-redux';
-import {addUser, signhoutClient, signhoutProfessional} from '../../../Redux/Actions/actions'
+import { addUser, signhoutClient, signhoutProfessional } from '../../../Redux/Actions/actions'
 
-export default connect()( function Login(props) {
+export default connect()(function Login(props) {
 
-    const {dispatch } = props
+    const { dispatch } = props
 
     let UserEmailRef = useRef()
     let UserPassRef = useRef()
@@ -28,17 +28,17 @@ export default connect()( function Login(props) {
         axios.get(`http://localhost:3030/claint/claintLogin/${UserEmailRef.current.value}/${UserPassRef.current.value}`).then((res) => {
 
             console.log(res.data);
-            if (res.data == null||res.data == undefined) {
+            if (res.data == null || res.data == undefined) {
                 setShowAlert(true)
             }
-            else {             
-                   dispatch(addUser(res.data));
-                   dispatch(signhoutProfessional());
+            else {
+                dispatch(addUser(res.data));
+                dispatch(signhoutProfessional());
                 setShowAlert(false)
                 navigate('/Index')
             }
         }).catch(err => {
-console.log(err);
+            console.log(err);
         })
     };
 

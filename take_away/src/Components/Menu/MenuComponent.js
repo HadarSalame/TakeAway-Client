@@ -69,7 +69,7 @@ export default connect(mapStateToProps)(function Menu(props) {
 
             //orderDate: moment().format('DD-MM-YY'),
             eventDate: eventDateRef.current.value,
-            // eventAddress: eventAddressRef.current.value,
+            eventAddress: eventAddressRef.current.value,
             numInvited: numInvitedRef.current.value,
             portion: selectedPortion,
             StatusOrder: 'false'

@@ -1,22 +1,24 @@
-import React,{useRef} from 'react';
+import React, { useRef ,useState} from 'react';
 import './SignUpCss.css'
 import { Button, InputGroup, FormControl, FloatingLabel, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
+import { Alert,Stack,AlertTitle} from '@mui/material';
 import { connect } from 'react-redux';
-import {addUser} from '../../../Redux/Actions/actions'
+import { addUser } from '../../../Redux/Actions/actions'
 
 
 export default connect()(function SignUp(props) {
 
-    const {dispatch } = props
+    const { dispatch } = props
 
     let FirstNameRef = useRef();
     let LastNameRef = useRef();
     let PhoneRef = useRef();
     let EmailRef = useRef();
     let PassRef = useRef();
-   
+
+    const [showAlert, setShowAlert] = useState(false)
 
     let navigate = useNavigate();
     function gotoIndex() {
@@ -28,23 +30,35 @@ export default connect()(function SignUp(props) {
             password: PassRef.current.value,
 
         }
-        axios.post('http://localhost:3030/Claint/CreateClaint',newClaint).then(res=>{
-            console.log(res.data)
-            //הסרת כפתורי ההתחברות וההרשמה ולשים כפתור התנתקות ושלום למשתמש
-            dispatch(addUser(res.data.CreateClaint));
-            navigate("/Index")
-        }).catch(err=>console.log(err))
+        if (newClaint.claintPhone < 10 || newClaint.claintPhone > 10) {
+            axios.post('http://localhost:3030/Claint/CreateClaint', newClaint).then(res => {
+                console.log(res.data)
+                //הסרת כפתורי ההתחברות וההרשמה ולשים כפתור התנתקות ושלום למשתמש
+                dispatch(addUser(res.data.CreateClaint));
+                navigate("/Index")
+            }).catch(err => console.log(err))
+        }
+        else {
+            setShowAlert(false)
+        }
 
     }
     return (
         <>
-            <div style={{fontFamily:"'Varela Round', sans-serif"}}>
+            <div style={{ fontFamily: "'Varela Round', sans-serif" }}>
                 {/* for users */}
                 <div className='signUp' >
                     {/* //הרשמה למשתמשים מכילה
                     //שם, שם משפחה, נייד, מייל, סיסמה, אימות סיסמה
                     //אישור תנאי האתר וכפתור הרשמה */}
-                    <h1  style={{ textAlign: 'center' }}>הרשמה למשתמשים</h1>
+                    <h1 style={{ textAlign: 'center' }}>הרשמה למשתמשים</h1>
+
+                    <Stack sx={{ width: '100%', margin: '2%' }} spacing={2} >
+                        <Alert severity="error" hidden={!showAlert}>
+                            <AlertTitle>!שגיאה</AlertTitle>
+                            אחד מהפרטים שהוזנו אינו תקין
+                        </Alert>
+                    </Stack>
                     <br></br>
                     <div className=" row" >
                         <div className='border col-xl-6 col-sm-10 col-8'>
@@ -57,7 +71,7 @@ export default connect()(function SignUp(props) {
                                     label="שם" >
 
                                     <Form.Control
-                                    ref={FirstNameRef}
+                                        ref={FirstNameRef}
                                         type="Text"
                                         placeholder="name" />
                                 </FloatingLabel>
@@ -70,7 +84,7 @@ export default connect()(function SignUp(props) {
                                     label="שם משפחה">
 
                                     <Form.Control
-                                    ref={LastNameRef}
+                                        ref={LastNameRef}
 
                                         type="Text"
                                         placeholder="lastName" />
@@ -84,7 +98,7 @@ export default connect()(function SignUp(props) {
                                     label="טלפון" >
 
                                     <Form.Control
-                                    ref={PhoneRef}
+                                        ref={PhoneRef}
                                         type="phone"
                                         placeholder="phone" />
                                 </FloatingLabel>
@@ -97,7 +111,7 @@ export default connect()(function SignUp(props) {
                                     label="E-mail" >
 
                                     <Form.Control
-                                    ref={EmailRef}
+                                        ref={EmailRef}
                                         type="email"
                                         placeholder="name@example.com" />
                                 </FloatingLabel>
@@ -110,7 +124,7 @@ export default connect()(function SignUp(props) {
                                     label="סיסמה">
 
                                     <Form.Control
-                                    ref={PassRef}
+                                        ref={PassRef}
                                         type="password"
                                         placeholder="Password" />
 
@@ -132,8 +146,8 @@ export default connect()(function SignUp(props) {
 
                             <form>
                                 <div className="custom-control custom-checkbox custom-control-label">
-                                  
-                                    <label for="TermsdefaultCheck"> אני מאשר/ת את תקנון האתר  </label> 
+
+                                    <label for="TermsdefaultCheck"> אני מאשר/ת את תקנון האתר  </label>
                                     <input type="checkbox" id="TermsdefaultCheck" name="Terms" />
                                 </div>
                             </form>

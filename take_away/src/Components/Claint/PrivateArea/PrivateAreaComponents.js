@@ -6,7 +6,7 @@ import { Button, InputGroup, FormControl, FloatingLabel, Form, Nav, Modal } from
 import NumericInput from 'react-numeric-input';
 import { useState } from 'react';
 import { AccessAlarm, ThreeDRotation, MailIcon } from '@mui/icons-material';
-import { Badge, Input, Select, TextField } from '@mui/material';
+import { Alert, Badge, Input, Select, TextField } from '@mui/material';
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -31,22 +31,37 @@ import RoomServiceIcon from '@mui/icons-material/RoomService';
 import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
-import Disposable from '../../Disposable/DisposableComponent';
+// import Disposable from '../../Disposable/DisposableComponent';
 import Waitresses from '../../Waitresses/WaitressesComponent';
+import { addToOrder } from '../../../Redux/Actions/actions';
+
 
 
 function mapStateToProps(state) {
-     
+
     return {
         clt: state.Cliant.C,
-        bid:state.Bid.Bi
-        
+        bid: state.Bid.Bi,
+        ord: state.Order.O
     }
 }
 
 export default connect(mapStateToProps)(function PAComponent(props) {
-    const { clt,bid,dispatch } = props;
-   
+    const { ord, clt, bid, dispatch } = props;
+
+
+    const [currentClt, setCurrentClt] = useState(clt)
+
+    const changeCurrentClt = (fieldName, fieldValue) => {
+        console.log('ji');
+        console.log(currentClt);
+        setCurrentClt({ ...currentClt, [fieldName]: fieldValue })
+    }
+
+
+    const handleSave = () => {
+        console.log(currentClt);
+    }
 
 
     //ref
@@ -55,8 +70,8 @@ export default connect(mapStateToProps)(function PAComponent(props) {
     let kosheRef = useRef([]);
     let invitedRef = useRef();
     let BusRef = useRef([]);
-   
-   
+
+
     const [Allbusiness, setAllbusiness] = useState()
 
     const [isShow, setIsShow] = React.useState(false);
@@ -185,55 +200,60 @@ export default connect(mapStateToProps)(function PAComponent(props) {
     //שליפת ההזמנות של אותו לקוח
     const [AllClaintOrders, setAllClaintOrders] = useState()
     useEffect(() => {
-        console.log(clt,"llllllllllllllll")
-        axios.get(`http://localhost:3030/order/getOrderById/${clt._id}`).then((res) => {
-            if (res.data && res.data.length) {
-                console.log(res.data)
-                setAllClaintOrders(res.data)
-            }
-        })
+        if (clt._id) {
+            console.log(clt, "llllllllllllllll")
+            axios.get(`http://localhost:3030/order/getOrderById/${clt._id}`).then((res) => {
+                if (res.data && res.data.length) {
+                    console.log(res.data)
+                    dispatch(addToOrder())
+                    setAllClaintOrders(res.data)
+                }
+            })
+        }
     }, [])
 
     const [AllBids, setAllBids] = useState()
 
-
- //   שליפת הצעות
-    function getbidsByOrder(or){
+    // אישור הצעה
+    const closeBid = (id) => {
+        axios.put(`http://localhost:3030/bid/updatBidsById/${id}`)
+    }
+    //   שליפת הצעות
+    function getbidsByOrder(or) {
         console.log(or);
-        // axios.get(`http://localhost:3030/bid/getbidsByOrder/${or}`).then((res) => {
-            // if (res.data && res.data.length) {
-            //     setAllBids(res.data)
-            // }
-            // else{
-            //     <>
-            //     <h5>לא נמצאו תוצאות</h5>
-            //     </>
-            // }
-        }
-   
+        axios.get(`http://localhost:3030/bid/getbidsByOrder/${or}`).then((res) => {
+            if (res.data && res.data.length) {
+                setAllBids(res.data)
+            }
+            else {
+                setAllBids([])
+            }
+        })
+    }
 
 
-//update
+    //update
 
-//איך אפשר לעדכן רק חצי אובייקט
+    //איך אפשר לעדכן רק חצי אובייקט
 
-// let UpFirstNameRef = useRef();
-// let UpLastNameRef = useRef();
-// let UpPhoneRef = useRef();
-// let UpEmailRef = useRef();
-// let UpPassRef = useRef();
+    let UpFirstNameRef = useRef();
+    let UpLastNameRef = useRef();
+    let UpPhoneRef = useRef();
+    let UpEmailRef = useRef();
+    let UpPassRef = useRef();
 
-let upClaint={
+    let upClaint = {
 
-}
+    }
 
-//update 
-axios.get('http://localhost:3030/Claint/UpdateClaint',upClaint).then(res=>{
-    console.log(res.data)
-    dispatch(updateUser(upClaint));
-}).catch(err=>console.log(err))
+    // //update 
+    // axios.get('http://localhost:3030/Claint/UpdateClaint', upClaint).then(res => {
+    //     console.log(res.data)
+    //     dispatch(updateUser(upClaint));
+    // }).catch(err => console.log(err))
 
-
+    //open Order
+    // const [showOrder,setShowOrder]=
 
     return (
         <>{clt.claintFirstName !== undefined ?
@@ -255,7 +275,7 @@ axios.get('http://localhost:3030/Claint/UpdateClaint',upClaint).then(res=>{
                                     {AllClaintOrders && AllClaintOrders.length && AllClaintOrders.map((or) =>
                                         <>
                                             <div style={{ display: 'flex', alignItems: 'center', direction: 'rtl', flexDirection: 'row', margin: 0, alignItems: 'flex-end' }} className='b'>
-                                                <div onClick={getbidsByOrder(or.id)}>
+                                                <div style={{ cursor: "pointer" }} onClick={() => getbidsByOrder(or._id)}>
                                                     <p>
                                                         מספר הזמנה:{or._id}
                                                     </p>
@@ -263,11 +283,11 @@ axios.get('http://localhost:3030/Claint/UpdateClaint',upClaint).then(res=>{
                                                         תאריך אירוע:{or.eventDate}
                                                     </p>
                                                     <p>
-                                                        סטטוס:{or.StatusOrder}
+                                                        סטטוס:{or.StatusOrder ? "סגור" : "פתוח"}
                                                     </p>
                                                 </div>
                                                 <div className='end'>
-                                                    <Button className='btn bidbtn'>פירוט הצעה</Button>
+                                                    <Button className='btn bidbtn' >פירוט הזמנה</Button>
                                                 </div>
 
                                             </div>
@@ -316,9 +336,10 @@ axios.get('http://localhost:3030/Claint/UpdateClaint',upClaint).then(res=>{
                                 <div>
 
 
-                                    {AllBids && AllBids.length && AllBids.map((b) =>
+                                    {AllBids && AllBids.length > 0 && AllBids.map((b) =>
                                         <>
-                                            <div style={{ display: 'flex', alignItems: 'center', direction: 'rtl', flexDirection: 'row', margin: 0, alignItems: 'flex-end' }} className='b'>
+                                            <div style={{ display: 'flex', alignItems: 'center', direction: 'rtl', flexDirection: 'row', margin: 0, alignItems: 'flex-end' }}
+                                                className='b'>
                                                 <div>
                                                     <p>
                                                         מאת:{b.business}
@@ -327,11 +348,11 @@ axios.get('http://localhost:3030/Claint/UpdateClaint',upClaint).then(res=>{
                                                         סכום:{b.price}
                                                     </p>
                                                     <p>
-                                                        סטטוס:{b.status}
+                                                        סטטוס:{b.status ? "סגור" : "פתוח"}
                                                     </p>
                                                 </div>
                                                 <div className='end'>
-                                                    <Button className='btn bidbtn'>סגירת הצעה</Button>
+                                                    <Button className='btn bidbtn' onClick={() => closeBid(b._id)}>אישור הצעה</Button>
                                                 </div>
 
                                             </div>
@@ -339,6 +360,7 @@ axios.get('http://localhost:3030/Claint/UpdateClaint',upClaint).then(res=>{
                                     )
                                     }
                                 </div>
+                                {AllBids?.length === 0 && <div>אין הצעות להזמנה זו</div>}
 
 
                             </div>
@@ -354,9 +376,9 @@ axios.get('http://localhost:3030/Claint/UpdateClaint',upClaint).then(res=>{
 
                             <h5 style={{ direction: 'rtl' }}>פרטי לקוחות</h5>
 
-                            <p>שם: {" "+ clt.claintFirstName +" "+ clt.claintLastName}</p>
-                            <p>E-mail: { " "+ clt.claintEmail}</p>
-                            <p>טלפון: {" "+ clt.claintPhone}</p>
+                            <p>שם: {" " + clt.claintFirstName + " " + clt.claintLastName}</p>
+                            <p>E-mail: {" " + clt.claintEmail}</p>
+                            <p>טלפון: {" " + clt.claintPhone}</p>
                         </div>
                         <div>
                             <Button variant="outline" className='btn btnPA' style={{ width: '170px' }} onClick={handleShow}>עדכון פרטים אישיים</Button>
@@ -376,7 +398,9 @@ axios.get('http://localhost:3030/Claint/UpdateClaint',upClaint).then(res=>{
 
                                             <Form.Control
                                                 type="Text"
-                                                placeholder="name" />
+                                                placeholder="name"
+                                                value={currentClt.claintFirstName}
+                                                onChange={(e) => changeCurrentClt("claintFirstName", e.target.value)} />
                                         </FloatingLabel>
 
                                         {/* lastname */}
@@ -388,7 +412,9 @@ axios.get('http://localhost:3030/Claint/UpdateClaint',upClaint).then(res=>{
 
                                             <Form.Control
                                                 type="Text"
-                                                placeholder="lastName" />
+                                                placeholder="lastName" 
+                                                value={currentClt.claintLastName}
+                                                onChange={(e) => changeCurrentClt("claintLastName", e.target.value)} />
                                         </FloatingLabel>
 
                                         {/* phone */}
@@ -447,7 +473,7 @@ axios.get('http://localhost:3030/Claint/UpdateClaint',upClaint).then(res=>{
                                     <Button variant="secondary" className='btn' onClick={handleClose}>
                                         ביטול
                                     </Button>
-                                    <Button variant="primary" className='btn' onClick={handleClose}>
+                                    <Button variant="primary" className='btn' onClick={handleSave}>
                                         שמור שינויים
                                     </Button>
                                 </Modal.Footer>
@@ -580,9 +606,9 @@ axios.get('http://localhost:3030/Claint/UpdateClaint',upClaint).then(res=>{
                                 </Modal.Footer>
 
                             </Modal>
-
+                            {/* 
                             {isShow && <Disposable show={isShow} setShow={closeModal} />}
-                            {isWaitrsShow && <Waitresses show={isWaitrsShow} setShow={closeWaitressesModal} />}
+                            {isWaitrsShow && <Waitresses show={isWaitrsShow} setShow={closeWaitressesModal} />} */}
 
 
 

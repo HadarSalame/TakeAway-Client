@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ProfessionalPACSS.css'
 import { Button, InputGroup, FormControl, FloatingLabel, Form, Select, Modal } from 'react-bootstrap';
 import { BrowserRouter, Link, Route, Routes, Accordion, Card } from 'react-router-dom'
@@ -85,11 +85,12 @@ export default connect(mapStateToProps)(function ProfessionalPA(props) {
     //get bids by business
     const [AllBusinessBids, setAllBusinessBids] = useState()
     useEffect(() => {
-        console.log(bus,"AllBusinessBids")
+        console.log(bus, "AllBusinessBids")
         axios.get(`http://localhost:3030/bid/getbidsByBusiness/${bus._id}`).then((res) => {
             if (res.data && res.data.length) {
                 console.log(res.data)
-                setAllBusinessBids(res.data)
+                setAllBusinessBids(res.data.filter(d => !d.status))
+                setAllCloseOrders(res.data.filter(d => d.status))
             }
         })
     }, [])
@@ -97,25 +98,6 @@ export default connect(mapStateToProps)(function ProfessionalPA(props) {
 
     //get close orders
     const [AllCloseOrders, setAllCloseOrders] = useState()
-    useEffect(() => {
-        console.log("AllCloseOrders")
-        axios.get(`http://localhost:3030/order/getOrders`).then((res) => {
-//איך אני שולפת גם את ההזמנות שנסגרו רק לאותו בעל עסק?
-            if (res.data && res.data.length && res.data.StatusOrder===true) {
-                console.log(res.data)
-                setAllCloseOrders(res.data)
-            }
-        })
-    }, [])
-
-
-
-
-
-
-
-
-
 
     return (
         <>
@@ -269,50 +251,54 @@ export default connect(mapStateToProps)(function ProfessionalPA(props) {
                         <div>
                             <div>
                                 <h5>הצעות שנשלחו</h5>
-                                {AllBusinessBids && AllBusinessBids.length && AllBusinessBids.map((item)=>
-                                <>
-                                  <div style={{ display: 'flex', alignItems: 'center', direction: 'rtl', flexDirection: 'row', margin: 0, alignItems: 'flex-end' }} className='b'>
-                                                <div >
-                                                    <p>
-                                                        מספר ההצעה:{item._id}
-                                                    </p>
-                                                    <p>
-                                                        סטטוס:{item.status}
-                                                    </p>
-                                                    <p>
-                                                        סכום:{item.price}
-                                                    </p>
-                                                </div>
-                                                <div className='end'>
-                                                    <Button className='btn bidbtn'>פירוט הצעה</Button>
-                                                </div>
-
+                                {AllBusinessBids && AllBusinessBids.length && AllBusinessBids.map((item) =>
+                                    <>
+                                        <div style={{ display: 'flex', alignItems: 'center', direction: 'rtl', flexDirection: 'row', margin: 0, alignItems: 'flex-end' }} className='b'>
+                                            <div >
+                                                <p>
+                                                    מספר ההצעה:{item._id}
+                                                </p>
+                                                
+                                                <p>
+                                                    סטטוס:{item.status ? "אושר" : "פתוח"}
+                                                </p>
+                                                <p>
+                                                    סכום:{item.price}
+                                                </p>
                                             </div>
-                                </>
+                                            <div className='end'>
+                                                <Button className='btn bidbtn'>פירוט הצעה</Button>
+                                            </div>
+
+                                        </div>
+                                    </>
                                 )}
 
                             </div>
                             <div>
-                                <h5>הזמנות סגורות</h5>
-                                {AllCloseOrders && AllCloseOrders.length && AllCloseOrders.map((item)=>
-                                <>
-                                  <div style={{ display: 'flex', alignItems: 'center', direction: 'rtl', flexDirection: 'row', margin: 0, alignItems: 'flex-end' }} className='b'>
-                                                <div >
-                                                    <p>
-                                                        מספר ההצעה:{item._id}
-                                                    </p>
-                                                    {item.claintID !== undefined ? <p >מאת: {item['claintID']['claintFirstName']}</p> : ''}
-                                                    <p>
-                                                        סטטוס:{item.StatusOrder}
-                                                    </p>
-                                                  
-                                                </div>
-                                                <div className='end'>
-                                                    <Button className='btn bidbtn'>פירוט הצעה</Button>
-                                                </div>
+                                <h5>הצעות שאושרו</h5>
+                                {AllCloseOrders && AllCloseOrders.length && AllCloseOrders.map((item) =>
+                                    <>
+                                        <div style={{ display: 'flex', alignItems: 'center', direction: 'rtl', flexDirection: 'row', margin: 0, alignItems: 'flex-end' }} className='b'>
+                                            <div >
+                                                <p>
+                                                    מספר ההצעה:{item._id}
+                                                </p>
+                                                <p>
+                                                    מספר הזמנה:{item.order}
+                                                </p>
+                                                {item.order !== undefined ? <p >מאת: {item['order']['claintID']}</p> : ''}
+                                                <p>
+                                                סטטוס:{item.status ? "אושר" : "פתוח"}
+                                                </p>
 
                                             </div>
-                                </>
+                                            <div className='end'>
+                                                <Button className='btn bidbtn'>פירוט הצעה</Button>
+                                            </div>
+
+                                        </div>
+                                    </>
                                 )}
                             </div>
                         </div>
