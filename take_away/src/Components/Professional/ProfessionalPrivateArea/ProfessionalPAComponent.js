@@ -38,6 +38,15 @@ export default connect(mapStateToProps)(function ProfessionalPA(props) {
 
     const { bus, dispatch } = props
 
+    const [currentBus, setCurrentBus] = useState(bus)
+
+    const changeCurrentBus = (fieldName, fieldValue) => {
+        console.log('ji');
+        console.log(currentBus);
+        setCurrentBus({ ...currentBus, [fieldName]: fieldValue })
+    }
+
+
     //פונקצית לוח שנה
     const [dateState, setDateState] = useState(new Date())
     const changeDate = (e) => {
@@ -150,7 +159,9 @@ export default connect(mapStateToProps)(function ProfessionalPA(props) {
 
                                         <Form.Control
                                             type="Text"
-                                            placeholder="businessName" />
+                                            placeholder="businessName"
+                                            value={currentBus.businessName}
+                                            onChange={(e) => changeCurrentBus("businessName", e.target.value)} />
                                     </FloatingLabel>
 
                                     <FloatingLabel
@@ -161,18 +172,9 @@ export default connect(mapStateToProps)(function ProfessionalPA(props) {
 
                                         <Form.Control
                                             type="Text"
-                                            placeholder="BusinessOwnerName" />
-                                    </FloatingLabel>
-
-                                    <FloatingLabel
-                                        className="mb-3 "
-                                        style={{ 'direction': 'rtl' }}
-                                        controlId="floatingInputId"
-                                        label="מספר העסק" >
-
-                                        <Form.Control
-                                            type="Text"
-                                            placeholder="BusinessID" />
+                                            placeholder="BusinessOwnerName"
+                                            value={currentBus.businessOwnerName}
+                                            onChange={(e) => changeCurrentBus("businessOwnerName", e.target.value)}  />
                                     </FloatingLabel>
 
                                     <div style={{ display: 'flex' }}>
@@ -184,7 +186,9 @@ export default connect(mapStateToProps)(function ProfessionalPA(props) {
 
                                             <Form.Control
                                                 type="Text"
-                                                placeholder="BusinessAddress" />
+                                                placeholder="BusinessAddress"
+                                                value={currentBus.businessAddress}
+                                                onChange={(e) => changeCurrentBus("businessAddress", e.target.value)}  />
                                         </FloatingLabel>
 
                                     </div>
@@ -196,7 +200,9 @@ export default connect(mapStateToProps)(function ProfessionalPA(props) {
 
                                         <Form.Control
                                             type="phone"
-                                            placeholder="businessPhone" />
+                                            placeholder="businessPhone" 
+                                            value={currentBus.businessPhone}
+                                            onChange={(e) => changeCurrentBus("businessPhone", e.target.value)} />
                                     </FloatingLabel>
 
                                     <FloatingLabel
@@ -207,8 +213,11 @@ export default connect(mapStateToProps)(function ProfessionalPA(props) {
 
                                         <Form.Control
                                             type="email"
-                                            placeholder="name@example.com" />
+                                            placeholder="name@example.com"
+                                            value={currentBus.businessEmail}
+                                            onChange={(e) => changeCurrentBus("businessEmail", e.target.value)}  />
                                     </FloatingLabel>
+                                    
                                     {/* password */}
                                     <FloatingLabel
                                         className="mb-3"
@@ -218,7 +227,9 @@ export default connect(mapStateToProps)(function ProfessionalPA(props) {
 
                                         <Form.Control
                                             type="password"
-                                            placeholder="Password" />
+                                            placeholder="Password"
+                                            value={currentBus.businesspassword}
+                                            onChange={(e) => changeCurrentBus("businesspassword", e.target.value)}  />
 
                                     </FloatingLabel>
 
@@ -235,6 +246,7 @@ export default connect(mapStateToProps)(function ProfessionalPA(props) {
 
                                     </FloatingLabel>
                                 </Form>
+                                
                             </Modal.Body>
                             <Modal.Footer style={{ flexWrap: "nowrap" }}>
 
@@ -258,7 +270,7 @@ export default connect(mapStateToProps)(function ProfessionalPA(props) {
                                                 <p>
                                                     מספר ההצעה:{item._id}
                                                 </p>
-                                                
+
                                                 <p>
                                                     סטטוס:{item.status ? "אושר" : "פתוח"}
                                                 </p>
@@ -289,7 +301,7 @@ export default connect(mapStateToProps)(function ProfessionalPA(props) {
                                                 </p>
                                                 {item.order !== undefined ? <p >מאת: {item['order']['claintID']}</p> : ''}
                                                 <p>
-                                                סטטוס:{item.status ? "אושר" : "פתוח"}
+                                                    סטטוס:{item.status ? "אושר" : "פתוח"}
                                                 </p>
 
                                             </div>

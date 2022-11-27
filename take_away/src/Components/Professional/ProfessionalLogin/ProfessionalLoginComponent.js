@@ -34,7 +34,7 @@ export default connect()(  function ProfessionalLogin(props) {
 
         axios.get(`http://localhost:3030/business/BusinessLogin/${ProEmailRef.current.value}/${ProPassRef.current.value}`).then((res) => {
             console.log(res.data);
-            if (res.data == null) {
+            if (res.data === 'undefined') {
                 setShowAlert(true)
             }
             else {

@@ -426,7 +426,9 @@ export default connect(mapStateToProps)(function PAComponent(props) {
 
                                             <Form.Control
                                                 type="phone"
-                                                placeholder="phone" />
+                                                placeholder="phone" 
+                                                value={currentClt.claintPhone}
+                                                onChange={(e) => changeCurrentClt("claintPhone", e.target.value)} />
                                         </FloatingLabel>
 
                                         {/* email */}
@@ -438,7 +440,9 @@ export default connect(mapStateToProps)(function PAComponent(props) {
 
                                             <Form.Control
                                                 type="email"
-                                                placeholder="name@example.com" />
+                                                placeholder="name@example.com" 
+                                                value={currentClt.claintEmail}
+                                                onChange={(e) => changeCurrentClt("claintEmail", e.target.value)} />
                                         </FloatingLabel>
 
                                         {/* password */}
@@ -450,7 +454,9 @@ export default connect(mapStateToProps)(function PAComponent(props) {
 
                                             <Form.Control
                                                 type="password"
-                                                placeholder="Password" />
+                                                placeholder="Password" 
+                                                value={currentClt.password}
+                                                onChange={(e) => changeCurrentClt("password", e.target.value)} />
 
                                         </FloatingLabel>
 
@@ -464,7 +470,9 @@ export default connect(mapStateToProps)(function PAComponent(props) {
 
                                             <Form.Control
                                                 type="password"
-                                                placeholder="Password Authentication" />
+                                                placeholder="Password Authentication" 
+                                                value={currentClt.claintLastName}
+                                                onChange={(e) => changeCurrentClt("claintLastName", e.target.value)} />
                                         </FloatingLabel>
                                     </Form>
                                 </Modal.Body>

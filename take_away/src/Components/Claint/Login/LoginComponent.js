@@ -24,11 +24,11 @@ export default connect()(function Login(props) {
     let navigate = useNavigate();
 
     function gotoIndex() {
-
+console.log(UserEmailRef, UserPassRef);
         axios.get(`http://localhost:3030/claint/claintLogin/${UserEmailRef.current.value}/${UserPassRef.current.value}`).then((res) => {
 
             console.log(res.data);
-            if (res.data == null || res.data == undefined) {
+            if (res.data === 'null' || res.data === 'undefined') {
                 setShowAlert(true)
             }
             else {
