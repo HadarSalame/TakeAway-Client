@@ -19,7 +19,7 @@ import BusinessPage from './Components/Professional/Business/BusinessComponent';
 import InfoPage from './Components/Infromation/InfoPageComponent';
 import PPAComponent from './Components/Professional/ProfessionalPrivateArea/ProfessionalPAComponent';
 import Menu from './Components/Menu/MenuComponent';
-import Chat from './Components/Actions/Chat';
+import ShowOrder from './Components/ShowOrder/ShowOrderComponent';
 import Disposable from './Components/Disposable/DisposableComponent';
 import Waitresses from './Components/Waitresses/WaitressesComponent';
 import Order from './Components/Order/OrderComponent';
@@ -31,6 +31,7 @@ import Order from './Components/Order/OrderComponent';
 
 
 import ForgetPass from './Components/ForgetPassWord/ForgetPassComponent';
+import  NoLogin  from './Components/NoLogin/NoLoginComponent';
 
 
 ReactDOM.render(
@@ -53,7 +54,7 @@ ReactDOM.render(
         <Route path='/PAComponent' element={<PAComponent />}></Route>
         <Route path='/PPAComponent' element={<PPAComponent />}></Route>
         <Route path='/Menu' element={<Menu />}></Route>
-
+        <Route path='/NoLogin' element={<NoLogin />}></Route>
         <Route path='/Disposable' element={<Disposable />}></Route>
         <Route path='/Waitresses' element={<Waitresses />}></Route>
         <Route path='/Order' element={<Order/>}></Route>
@@ -61,7 +62,7 @@ ReactDOM.render(
 
         <Route path='/BusinessPage' element={<BusinessPage />}></Route>
         <Route path='/Infopage' element={<InfoPage />}></Route>
-        <Route path='/Chat' element={<Chat />}></Route>
+        <Route path='/ShowOrder' element={<ShowOrder />}></Route>
 
 
         {/* למחוקקקקקק */}
@@ -73,7 +74,7 @@ ReactDOM.render(
 
 
       <i></i>
-      <h6 style={{ textAlign: 'center' }}>כל הזכויות שמורות</h6>
+      <h6 style={{ textAlign: 'center',margin:'3%' }}>כל הזכויות שמורות</h6>
     </BrowserRouter>
     </Provider>
   </React.StrictMode>,

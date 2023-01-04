@@ -20,6 +20,9 @@ export function updateProfessional(Professional){
 export function signhoutProfessional(Professional){
     return{type:'SINGHOUT_PROFESSIONAL',payLoad:Professional}
 }
+export function IsBidExistProfessional(Professional){
+    return{type:'UPDATE_ISBIDEXIST',payLoad:Professional}
+}
 
 
 //order

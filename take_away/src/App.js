@@ -20,7 +20,6 @@ function App() {
   return (
     <div className="App">
       <Index/>
-      
       {/* <Provider store={store}> */}
 {/* 
         <Link to='/Login'>page1</Link>

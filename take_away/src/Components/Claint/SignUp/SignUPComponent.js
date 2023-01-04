@@ -1,11 +1,13 @@
-import React, { useRef ,useState} from 'react';
+import React, { useRef, useState } from 'react';
 import './SignUpCss.css'
-import { Button, InputGroup, FormControl, FloatingLabel, Form } from 'react-bootstrap';
+import { Button, InputGroup, FormControl, FloatingLabel, Form ,Modal} from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
-import { Alert,Stack,AlertTitle} from '@mui/material';
+import { Alert, Stack, AlertTitle } from '@mui/material';
 import { connect } from 'react-redux';
 import { addUser } from '../../../Redux/Actions/actions'
+import CancelIcon from '@mui/icons-material/Cancel';
+
 
 
 export default connect()(function SignUp(props) {
@@ -17,29 +19,66 @@ export default connect()(function SignUp(props) {
     let PhoneRef = useRef();
     let EmailRef = useRef();
     let PassRef = useRef();
+    let conPassRef = useRef();
 
-    const [showAlert, setShowAlert] = useState(false)
+    
+
+    const [showErrorAlert, setShowErrorAlert] = useState(false)
+    const handleCloseErrorAlert = () => setShowErrorAlert(false);
+    const handleShowErrorAlert = () => setShowErrorAlert(true);
+
+    const [showErrorAlertPass, setShowErrorAlertPass] = useState(false)
+    const handleCloseErrorAlertPass = () => setShowErrorAlertPass(false);
+    const handleShowErrorAlertPass = () => setShowErrorAlertPass(true);
+
+    const [showErrorAlertExist, setShowErrorAlertExist] = useState(false)
+    const handleCloseErrorAlertExist = () => setShowErrorAlertExist(false);
+    const handleShowErrorAlertExist = () => setShowErrorAlertExist(true);
+
+
 
     let navigate = useNavigate();
-    function gotoIndex() {
+    function SignUpClaint() {
         let newClaint = {
             claintFirstName: FirstNameRef.current.value,
             claintLastName: LastNameRef.current.value,
             claintPhone: PhoneRef.current.value,
             claintEmail: EmailRef.current.value,
             password: PassRef.current.value,
+            confirmPassword: conPassRef.current.value
 
         }
-        if (newClaint.claintPhone < 10 || newClaint.claintPhone > 10) {
-            axios.post('http://localhost:3030/Claint/CreateClaint', newClaint).then(res => {
-                console.log(res.data)
-                //הסרת כפתורי ההתחברות וההרשמה ולשים כפתור התנתקות ושלום למשתמש
-                dispatch(addUser(res.data.CreateClaint));
-                navigate("/Index")
-            }).catch(err => console.log(err))
+        if (newClaint.claintPhone.length !== 10
+            && newClaint.claintFirstName !== ""
+            && newClaint.claintLastName !== ""
+            && newClaint.claintPhone !== ""
+            && newClaint.claintEmail !== ""
+            && newClaint.password !== ""
+            && newClaint.confirmPassword !== ""
+
+        ) {
+            if (
+                newClaint.password !== newClaint.confirmPassword
+            ) {
+                handleShowErrorAlertPass()
+
+            } else {
+              
+                axios.post('http://localhost:3030/Claint/CreateClaint', newClaint).then(res => {
+                    if (res.data === 'exist' || res.data === "password") {
+                        handleShowErrorAlertExist()
+                    }
+                    else {
+                        console.log(res.data)
+                        //הסרת כפתורי ההתחברות וההרשמה ולשים כפתור התנתקות ושלום למשתמש
+                        dispatch(addUser(res.data.CreateClaint));
+                        navigate("/PAComponent")
+                    }
+                }).catch(err => console.log(err))
+            }
         }
         else {
-            setShowAlert(false)
+            handleShowErrorAlert()
         }
 
     }
@@ -47,18 +86,66 @@ export default connect()(function SignUp(props) {
         <>
             <div style={{ fontFamily: "'Varela Round', sans-serif" }}>
                 {/* for users */}
-                <div className='signUp' >
+                <div className='signUp' style={{ margin: '10%' }}>
                     {/* //הרשמה למשתמשים מכילה
                     //שם, שם משפחה, נייד, מייל, סיסמה, אימות סיסמה
                     //אישור תנאי האתר וכפתור הרשמה */}
                     <h1 style={{ textAlign: 'center' }}>הרשמה למשתמשים</h1>
 
-                    <Stack sx={{ width: '100%', margin: '2%' }} spacing={2} >
-                        <Alert severity="error" hidden={!showAlert}>
-                            <AlertTitle>!שגיאה</AlertTitle>
-                            אחד מהפרטים שהוזנו אינו תקין
-                        </Alert>
-                    </Stack>
+                    <Modal show={showErrorAlert} onHide={handleCloseErrorAlert} >
+
+                        <Modal.Body className='alertModal'>
+                            <CancelIcon sx={{ color: "#cb2121cc", fontSize: '106px' }} />
+                            <br></br>
+
+                            <h3 style={{ direction: 'rtl' }}>שגיאה!</h3>
+                            <h5>  יש למלא את כל הפרטים</h5>
+
+                            <Button variant="primary" className='btn'
+                                style={{ alignItems: 'center', marginTop: '3% ', marginLeft: 0, marginRight: 0 }}
+                                onClick={handleCloseErrorAlert}>
+                                סגור
+                            </Button>
+
+                        </Modal.Body>
+                    </Modal>
+
+                    <Modal show={showErrorAlertPass} onHide={handleCloseErrorAlertPass} >
+
+                        <Modal.Body className='alertModal'>
+                            <CancelIcon sx={{ color: "#cb2121cc", fontSize: '106px' }} />
+                            <br></br>
+
+                            <h3 style={{ direction: 'rtl' }}>שגיאה!</h3>
+                            <h5>  הסימאות אינן זהות</h5>
+
+                            <Button variant="primary" className='btn'
+                                style={{ alignItems: 'center', marginTop: '3% ', marginLeft: 0, marginRight: 0 }}
+                                onClick={handleCloseErrorAlertPass}>
+                                סגור
+                            </Button>
+
+                        </Modal.Body>
+                    </Modal>
+
+                    <Modal show={showErrorAlertExist} onHide={handleCloseErrorAlertExist} >
+
+                        <Modal.Body className='alertModal'>
+                            <CancelIcon sx={{ color: "#cb2121cc", fontSize: '106px' }} />
+                            <br></br>
+
+                            <h3 style={{ direction: 'rtl' }}>שגיאה!</h3>
+                            <h5>  המשתמש קיים במערכת</h5>
+
+                            <Button variant="primary" className='btn'
+                                style={{ alignItems: 'center', marginTop: '3% ', marginLeft: 0, marginRight: 0 }}
+                                onClick={handleCloseErrorAlertExist}>
+                                סגור
+                            </Button>
+
+                        </Modal.Body>
+                    </Modal>
+
                     <br></br>
                     <div className=" row" >
                         <div className='border col-xl-6 col-sm-10 col-8'>
@@ -138,21 +225,15 @@ export default connect()(function SignUp(props) {
                                     label=" אימות סיסמה">
 
                                     <Form.Control
+                                        ref={conPassRef}
                                         type="password"
                                         placeholder="Password Authentication" />
 
                                 </FloatingLabel>
                             </div>
 
-                            <form>
-                                <div className="custom-control custom-checkbox custom-control-label">
 
-                                    <label for="TermsdefaultCheck"> אני מאשר/ת את תקנון האתר  </label>
-                                    <input type="checkbox" id="TermsdefaultCheck" name="Terms" />
-                                </div>
-                            </form>
-
-                            <Button value="SignUpBtn" variant="outline" className="btn" onClick={gotoIndex} >הרשמ/י</Button>
+                            <Button value="SignUpBtn" variant="outline" className="btn" onClick={SignUpClaint} >הרשמ/י</Button>
                         </div>
                     </div>
 

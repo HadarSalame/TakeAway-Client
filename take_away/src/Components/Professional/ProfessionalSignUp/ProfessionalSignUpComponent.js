@@ -1,17 +1,20 @@
 import React, { useRef, useState } from 'react';
 
 import './ProfessionalSignUpCSS.css'
-import { Button, InputGroup, FormControl, FloatingLabel, Form, Select, Alert } from 'react-bootstrap';
+import { Button, InputGroup, FormControl, FloatingLabel, Form, Modal } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import { MultiSelect } from "react-multi-select-component";
 import { connect } from 'react-redux';
-import {addProfessional} from '../../../Redux/Actions/actions'
+import { addProfessional } from '../../../Redux/Actions/actions'
+import { Stack, AlertTitle } from '@mui/material';
+import CancelIcon from '@mui/icons-material/Cancel';
+
 
 
 export default connect()(function ProfessionalSignUp(props) {
-    const {dispatch } = props
-    
+    const { dispatch } = props
+
     const [selected, setSelected] = useState([]);
     const options = [
         { label: "העדה החרדית", value: "1" },
@@ -42,14 +45,25 @@ export default connect()(function ProfessionalSignUp(props) {
     let ProPhoneRef = useRef();
     let ProEmailRef = useRef()
     let ProPassRef = useRef()
+    let ProConPassRef = useRef();
     let ProIdRef = useRef()
     //איך זה עובד עם קבצים??
-    const [selectedKosher, setSelectedKosher] = useState()
 
+    const [showErrorAlert, setShowErrorAlert] = useState(false)
+    const handleCloseErrorAlert = () => setShowErrorAlert(false);
+    const handleShowErrorAlert = () => setShowErrorAlert(true);
 
+    const [showErrorAlertPass, setShowErrorAlertPass] = useState(false)
+    const handleCloseErrorAlertPass = () => setShowErrorAlertPass(false);
+    const handleShowErrorAlertPass = () => setShowErrorAlertPass(true);
+
+    const [showErrorAlertExist, setShowErrorAlertExist] = useState(false)
+    const handleCloseErrorAlertExist = () => setShowErrorAlertExist(false);
+    const handleShowErrorAlertExist = () => setShowErrorAlertExist(true);
 
     let navigate = useNavigate();
     function gotoIndex() {
+        console.log(selected);
         let newBusiness = {
             businessID: ProIdRef.current.value,
             businessName: ProNameRef.current.value,
@@ -58,14 +72,45 @@ export default connect()(function ProfessionalSignUp(props) {
             businessEmail: ProEmailRef.current.value,
             businessAddress: ProAddressRef.current.value,
             businesspassword: ProPassRef.current.value,
-            businessKosher: selectedKosher,
+            confirmPassword: ProConPassRef.current.value,
+            businessKosher: selected.map(s => s.label),
         }
-        axios.post('http://localhost:3030/business/CreateBusiness', newBusiness).then(res => {
-            alert(res.data)
-            console.log(res.data)
-            dispatch(addProfessional(res.data.Business));
-            navigate("/Index")
-        }).catch(err => console.log(err))
+
+        if (newBusiness.businessPhone.length !== 10
+            && newBusiness.businessID !== ""
+            && newBusiness.businessName !== ""
+            && newBusiness.businessOwnerName !== ""
+            && newBusiness.businessEmail !== ""
+            && newBusiness.businessPhone !== ""
+            && newBusiness.businessAddress !== ""
+            && newBusiness.businesspassword !== ""
+            && newBusiness.confirmPassword !== ""
+        ) {
+            if (
+                newBusiness.businesspassword !== newBusiness.confirmPassword
+            ) {
+                handleShowErrorAlertPass()
+
+
+            } else {
+
+                axios.post('http://localhost:3030/business/CreateBusiness', newBusiness).then(res => {
+                    if (res.data === 'the bussines allredy exist' || res.data === "password") {
+                        handleShowErrorAlertExist()
+
+                    }
+                    else {
+
+                        dispatch(addProfessional(res.data.Business));
+                        navigate("/Index")
+                    }
+                }).catch(err => console.log(err))
+            }
+        }
+        else {
+            handleShowErrorAlert()
+
+        }
 
     }
 
@@ -73,9 +118,64 @@ export default connect()(function ProfessionalSignUp(props) {
         <>
             <div style={{ fontFamily: "'Varela Round', sans-serif" }}>
                 <div>
-                    <h1 style={{ textAlign: 'center' }}>הרשמה לעסקים</h1>
+                    <h1 style={{ textAlign: 'center', marginTop: '10%' }}>הרשמה לעסקים</h1>
                 </div>
                 <div className=" row border col-xl-6 col-sm-10 col-8">
+
+                    <Modal show={showErrorAlert} onHide={handleCloseErrorAlert} >
+
+                        <Modal.Body className='alertModal'>
+                            <CancelIcon sx={{ color: "#cb2121cc", fontSize: '106px' }} />
+                            <br></br>
+
+                            <h3 style={{ direction: 'rtl' }}>שגיאה!</h3>
+                            <h5>  יש למלא את כל הפרטים</h5>
+
+                            <Button variant="primary" className='btn'
+                                style={{ alignItems: 'center', marginTop: '3% ', marginLeft: 0, marginRight: 0 }}
+                                onClick={handleCloseErrorAlert}>
+                                סגור
+                            </Button>
+
+                        </Modal.Body>
+                    </Modal>
+
+                    <Modal show={showErrorAlertPass} onHide={handleCloseErrorAlertPass} >
+
+                        <Modal.Body className='alertModal'>
+                            <CancelIcon sx={{ color: "#cb2121cc", fontSize: '106px' }} />
+                            <br></br>
+
+                            <h3 style={{ direction: 'rtl' }}>שגיאה!</h3>
+                            <h5>  הסימאות אינן זהות</h5>
+
+                            <Button variant="primary" className='btn'
+                                style={{ alignItems: 'center', marginTop: '3% ', marginLeft: 0, marginRight: 0 }}
+                                onClick={handleCloseErrorAlertPass}>
+                                סגור
+                            </Button>
+
+                        </Modal.Body>
+                    </Modal>
+
+                    <Modal show={showErrorAlertExist} onHide={handleCloseErrorAlertExist} >
+
+                        <Modal.Body className='alertModal'>
+                            <CancelIcon sx={{ color: "#cb2121cc", fontSize: '106px' }} />
+                            <br></br>
+
+                            <h3 style={{ direction: 'rtl' }}>שגיאה!</h3>
+                            <h5>  המשתמש קיים במערכת</h5>
+
+                            <Button variant="primary" className='btn'
+                                style={{ alignItems: 'center', marginTop: '3% ', marginLeft: 0, marginRight: 0 }}
+                                onClick={handleCloseErrorAlertExist}>
+                                סגור
+                            </Button>
+
+                        </Modal.Body>
+                    </Modal>
+
                     <div>
                         <FloatingLabel
                             className="mb-3 "
@@ -114,23 +214,18 @@ export default connect()(function ProfessionalSignUp(props) {
                                 placeholder="BusinessID" />
                         </FloatingLabel>
 
-                        <div style={{ display: 'flex' }}>
-                            <FloatingLabel
-                                className="mb-3"
-                                style={{ width: '686px' }}
-                                controlId="floatingInputAddress"
-                                label=" כתובת העסק" >
 
-                                <Form.Control
-                                    ref={ProAddressRef}
-                                    type="Text"
-                                    placeholder="BusinessAddress" />
-                            </FloatingLabel>
+                        <FloatingLabel
+                            className="mb-3"
+                            controlId="floatingInputAddress"
+                            label=" כתובת העסק" >
 
+                            <Form.Control
+                                ref={ProAddressRef}
+                                type="Text"
+                                placeholder="BusinessAddress" />
+                        </FloatingLabel>
 
-
-
-                        </div>
                         {/* phone */}
                         <FloatingLabel
                             className="mb-3"
@@ -177,6 +272,7 @@ export default connect()(function ProfessionalSignUp(props) {
                             label=" אימות סיסמה">
 
                             <Form.Control
+                                ref={ProConPassRef}
                                 type="password"
                                 placeholder="Password Authentication" />
 
@@ -189,7 +285,8 @@ export default connect()(function ProfessionalSignUp(props) {
 
                             <MultiSelect
                                 className='form'
-                                style={{ direction: 'rtl' }}
+
+                                style={{ direction: 'rtl', hight: '40px' }}
                                 options={options}
                                 value={selected}
                                 onChange={setSelected}
@@ -201,53 +298,13 @@ export default connect()(function ProfessionalSignUp(props) {
                         </FloatingLabel>
 
 
-                        <h1>???</h1>
-                        <Form.Group controlId="formFile">
-                            {/* <Form.Label>Default file input example</Form.Label> */}
-                            <FloatingLabel
-                                className="mb-3"
-                                style={{ 'direction': 'rtl' }}
-                                controlId="floatingInputFile"
-                                label="תעודת כשרות" >
-                                <Form.Control
-                                    style={{ 'hight': '40px' }}
 
-                                    type="file"
-                                    placeholder="name@example.com" />
-                            </FloatingLabel>
-                        </Form.Group>
 
-                        <Form.Group controlId="formFile">
-                            {/* <Form.Label>Default file input example</Form.Label> */}
-                            <FloatingLabel
-                                className="mb-3"
-                                style={{ 'direction': 'rtl' }}
-                                controlId="floatingInputFile"
-                                label="לוגו" >
-                                <Form.Control
-                                    type="file"
-                                    placeholder="name@example.com" />
-                            </FloatingLabel>
-                        </Form.Group>
-
-                        {/* <Form.Group controlId="formFile">
-                            {/* <Form.Label>Default file input example</Form.Label> 
-                            <FloatingLabel
-                                className="mb-3"
-                                style={{ 'direction': 'rtl' }}
-                                controlId="floatingInputFile"
-                                label="אישור משרד הבריאות" >
-                                <Form.Control
-                                    type="file"
-                                    placeholder="name@example.com" />
-                            </FloatingLabel>
-                        </Form.Group> */}
-
-                        <Button value="ProfessionalSignUpPart1" variant="outline" onClick={gotoIndex} className="btn">המשך</Button>
+                        <Button value="ProfessionalSignUpPart1" variant="outline" onClick={gotoIndex} className="btn">הרשמה</Button>
 
                     </div>
                 </div>
             </div>
         </>
     )
-}) 
+})

@@ -19,3 +19,30 @@
 .mb-3{
     direction: rtl;
 }
+.css-acap47-MuiAlert-message{
+    margin-right: 2%;
+}
+.css-9xtpry-MuiStack-root{
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    justify-content: center;
+    width: 100%;
+}
+.css-xilmwd-MuiPaper-root-MuiAlert-root {
+    margin-right: 2%;
+     direction: rtl;
+     width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    border-color: #ff00005a;
+    border-width: initial;
+    border-style: solid;
+
+
+}
+.css-xilmwd-MuiPaper-root-MuiAlert-root {
+   
+}

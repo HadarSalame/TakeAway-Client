@@ -4,3 +4,8 @@
 .MuiFormGroup-root .css-dmmspl-MuiFormGroup-root{
     display: flex !important;
 }
+.alertModal{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}

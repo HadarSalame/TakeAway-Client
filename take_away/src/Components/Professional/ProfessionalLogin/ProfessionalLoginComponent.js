@@ -1,17 +1,16 @@
 import React, { useRef, useState } from 'react';
 import './ProfessionalLoginCSS.css'
-import { Button, InputGroup, FormControl, FloatingLabel, Form, Select } from 'react-bootstrap';
-import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
+import { Button, InputGroup, FormControl, FloatingLabel, Form, Select ,Modal} from 'react-bootstrap';
+
 // import ForgetPass from '../../ForgetPassWord/ForgetPassComponent';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
-import Alert from '@mui/material/Alert';
-import AlertTitle from '@mui/material/AlertTitle';
-import Stack from '@mui/material/Stack';
+import CancelIcon from '@mui/icons-material/Cancel';
+
 
 
 import { connect } from 'react-redux';
-import {addProfessional, signhoutClient} from '../../../Redux/Actions/actions'
+import { addProfessional, signhoutClient } from '../../../Redux/Actions/actions'
 
 
 //למצוא את הניתוב של ForgetPass
@@ -19,14 +18,16 @@ import {addProfessional, signhoutClient} from '../../../Redux/Actions/actions'
 
 
 
-export default connect()(  function ProfessionalLogin(props) {
-   
-    const {dispatch } = props
-   
+export default connect()(function ProfessionalLogin(props) {
+
+    const { dispatch } = props
+
     let ProEmailRef = useRef()
     let ProPassRef = useRef()
-    // let ProIdRef = useRef()
-    const [showAlert, setShowAlert] = useState(false)
+ 
+    const [showErrorAlert, setShowErrorAlert] = useState(false)
+    const handleCloseErrorAlert = () => setShowErrorAlert(false);
+    const handleShowErrorAlert = () => setShowErrorAlert(true);
 
     let navigate = useNavigate();
 
@@ -35,13 +36,14 @@ export default connect()(  function ProfessionalLogin(props) {
         axios.get(`http://localhost:3030/business/BusinessLogin/${ProEmailRef.current.value}/${ProPassRef.current.value}`).then((res) => {
             console.log(res.data);
             if (res.data === 'undefined') {
-                setShowAlert(true)
+                handleShowErrorAlert()
+
             }
             else {
-                setShowAlert(false)
+        
                 dispatch(addProfessional(res.data));
                 dispatch(signhoutClient());
-                navigate('/Index')
+                navigate('/PPAComponent')
             }
 
 
@@ -53,18 +55,30 @@ export default connect()(  function ProfessionalLogin(props) {
     return (
 
         <>
-            <div style={{ fontFamily: "'Varela Round', sans-serif" }}>
+            <div style={{ fontFamily: "'Varela Round', sans-serif", marginTop: '10%' }}>
 
                 <div className=" row" >
-                    <h1 style={{ textAlign: 'center' }}>התחברות לעסקים</h1>
+                    <h1 style={{ textAlign: 'center' }}>התחברות לבעל עסק</h1>
                     <div className='border col-xl-6 col-sm-10 col-8'>
-                        {/* //איך להפעיל את השגיאה כאן */}
-                        <Stack sx={{ width: '100%',margin:'2%' }} spacing={2} >
-                            <Alert severity="error" hidden={!showAlert}>
-                                <AlertTitle>!שגיאה</AlertTitle>
-                                אחד מהפרטים שהוזנו אינו תקין
-                            </Alert>
-                        </Stack>
+
+                        <Modal show={showErrorAlert} onHide={handleCloseErrorAlert} >
+
+                            <Modal.Body className='alertModal'>
+                                <CancelIcon sx={{ color: "#cb2121cc", fontSize: '106px' }} />
+                                <br></br>
+
+                                <h3 style={{ direction: 'rtl' }}>שגיאה!</h3>
+                                <h5> אחד הפרטים אינו תקין</h5>
+
+                                <Button variant="primary" className='btn'
+                                    style={{ alignItems: 'center', marginTop: '3% ', marginLeft: 0, marginRight: 0 }}
+                                    onClick={handleCloseErrorAlert}>
+                                    סגור
+                                </Button>
+
+                            </Modal.Body>
+                        </Modal>
+
                         <div>
                             <FloatingLabel
                                 className="mb-3 "
@@ -107,7 +121,7 @@ export default connect()(  function ProfessionalLogin(props) {
 
                             <div className="FP">
 
-                                <Link to='/ForgetPass'>שכחתי סיסמה</Link>
+                                {/* <Link to='/ForgetPass'>שכחתי סיסמה</Link> */}
 
 
                             </div>

@@ -13,6 +13,8 @@ import Tab from '@mui/material/Tab';
 import 'antd/dist/antd.css';
 import { InputNumber, TimePicker } from 'antd';
 import moment from 'moment';
+import StarsIcon from '@mui/icons-material/Stars';
+import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 
 
 import axios from "axios";
@@ -34,6 +36,8 @@ import SpeedDialAction from '@mui/material/SpeedDialAction';
 // import Disposable from '../../Disposable/DisposableComponent';
 import Waitresses from '../../Waitresses/WaitressesComponent';
 import { addToOrder } from '../../../Redux/Actions/actions';
+import ShowOrder from '../../ShowOrder/ShowOrderComponent';
+
 
 
 
@@ -48,17 +52,7 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps)(function PAComponent(props) {
     const { ord, clt, bid, dispatch } = props;
-
-
-    const [currentClt, setCurrentClt] = useState(clt)
-
-    const changeCurrentClt = (fieldName, fieldValue) => {
-        console.log('ji');
-        console.log(currentClt);
-        setCurrentClt({ ...currentClt, [fieldName]: fieldValue })
-    }
-
-
+    console.log('lllllllll', clt);
     const handleSave = () => {
         console.log(currentClt);
     }
@@ -74,17 +68,69 @@ export default connect(mapStateToProps)(function PAComponent(props) {
 
     const [Allbusiness, setAllbusiness] = useState()
 
-    const [isShow, setIsShow] = React.useState(false);
+    const [isShow, setIsShow] = useState(false);
+
+    const [isOrderShow, setIsOrderShow] = useState();
+    const [IdCurrent, setIdCurrent] = useState();
+
+    function OrderModal(id) {
+        setIdCurrent(id)
+        setIsOrderShow(true)
+
+
+    }
+    function closeOrderModal() {
+        setIsOrderShow(false)
+
+
+    }
+
+
     let navigate = useNavigate();
+
+
     //עסקים
     const [busSelected, setBusSelected] = useState([])
     const [businessList, setbusinessList] = useState([])
 
     let temp = []
+    const [AllBids, setAllBids] = useState()
+    const [sourceBids, setSourceBids] = useState()
+    const [minPrice, setMinPrice] = useState()
+    const [showFilter, setShowFilter] = useState(false)
 
 
     //כשרויות
     const [selected, setSelected] = useState([]);
+    const changeSelected = (options) => {
+        setSelected(options)
+        if (!options.length) {
+            setAllBids(sourceBids)
+            setMinPrice(Math.min(...sourceBids.map(e => e.price)))
+            return
+        }
+        const bids = [...sourceBids]
+        let filterBids = []
+        bids.map(b => {
+            let bidKosher = b.business.businessKosher
+            // לשנות קוד
+            let flag = false
+            for (let i = 0; i < options.length && !flag; i++) {
+                if (bidKosher.includes(options[i].label)) {
+                    flag = true
+                }
+            }
+            flag && filterBids.push(b)
+
+        }
+
+        )
+        const prices = filterBids.map(e => e.price)
+        setMinPrice(Math.min(...prices))
+        setAllBids(filterBids)
+        console.log(filterBids);
+    }
+
     const options = [
         { label: "העדה החרדית", value: "1" },
         { label: "בד''צ בית יוסף", value: "2" },
@@ -114,41 +160,19 @@ export default connect(mapStateToProps)(function PAComponent(props) {
     };
 
     //חד פעמי
-    function DisposableFun() {
-        setIsShow(true)
-        //  navigate("/Disposable")
-    }
-    function closeModal() {
-        setIsShow(false)
-    }
-
-    //מלצור
-    const [isWaitrsShow, setIsWaitrsShow] = React.useState(false);
-
-    function WaitressesFun() {
-        setIsWaitrsShow(true)
-
-    }
-    function closeWaitressesModal() {
-        setIsWaitrsShow(false)
-    }
-
 
 
 
 
     //אפשרויות נוספות
-    const actions = [
-        { icon: <RestaurantIcon onClick={DisposableFun} />, name: 'חד פעמי' },
-        { icon: <RoomServiceIcon onClick={WaitressesFun} />, name: 'מלצרות' },
+    // const actions = [
+    //     { icon: <RestaurantIcon onClick={DisposableFun} />, name: 'חד פעמי' },
+    //     { icon: <RoomServiceIcon onClick={WaitressesFun} />, name: 'מלצרות' },
 
 
-    ];
+    // ];
 
 
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
 
     //סיכום פרטים
     const [show2, setShowdetails] = useState(false);
@@ -164,13 +188,6 @@ export default connect(mapStateToProps)(function PAComponent(props) {
     const [show1, setShow1] = useState(false);
     const handleClose1 = () => setShow1(false);
     const handleShow1 = () => setShow1(true);
-
-    //שעות
-
-    const format = 'HH:mm';
-    function onChangetime(time, timeString) {
-        console.log(time, timeString);
-    }
 
 
     //שליפת עסקים
@@ -194,8 +211,9 @@ export default connect(mapStateToProps)(function PAComponent(props) {
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
-    };
 
+    };
+    console.log('hhhh', AllBids);
 
     //שליפת ההזמנות של אותו לקוח
     const [AllClaintOrders, setAllClaintOrders] = useState()
@@ -212,45 +230,98 @@ export default connect(mapStateToProps)(function PAComponent(props) {
         }
     }, [])
 
-    const [AllBids, setAllBids] = useState()
+
+    const [close, setClose] = useState()
+    const handleMessegeClose = () => { setClose(false); };
+    const handleMessegeShow = () => setClose(true);
 
     // אישור הצעה
     const closeBid = (id) => {
-        axios.put(`http://localhost:3030/bid/updatBidsById/${id}`)
+        axios.put(`http://localhost:3030/bid/updatBidsById/${id}`).then((res) =>
+            handleMessegeShow()
+        )
     }
+
+
     //   שליפת הצעות
+
+    let price = 0;
     function getbidsByOrder(or) {
         console.log(or);
         axios.get(`http://localhost:3030/bid/getbidsByOrder/${or}`).then((res) => {
             if (res.data && res.data.length) {
                 setAllBids(res.data)
+                setSourceBids(res.data)
+                setMinPrice(Math.min(...res.data.map(e => e.price)))
             }
             else {
                 setAllBids([])
             }
         })
+        setShowFilter(true)
+    }
+
+
+    const [ProDetails, setProDetails] = useState();
+    const [proId, setProId] = useState()
+
+    //צפייה בפרטי העסק
+    function ShowProDetails(b) {
+        console.log(b);
+        setProId(b)
+        setProDetails(true)
+    }
+    function CloseProDetails() {
+        setProDetails(false)
+    }
+
+
+
+    const [showAlert, setShowAlert] = useState(false);
+    const handleCloseAlert = () => setShowAlert(false);
+    const handleShowAlert = () => setShowAlert(true);
+
+    //מחיקת הזמנה
+    function DeleteOrder(or) {
+        console.log(or + "   or");
+        axios.delete(`http://localhost:3030/order/DeleteOrderById/${or}`).then((res) => {
+            if (res.data === 'delete') {
+                setShowAlert(true)
+                handleShowAlert()
+                console.log('delete');
+            }
+            else {
+                console.log('cant delete')
+            }
+        })
+
     }
 
 
     //update
+    const [currentClt, setCurrentClt] = useState(clt)
 
-    //איך אפשר לעדכן רק חצי אובייקט
+    const [showUpdate, setShowUpdate] = useState(false);
+    const handleCloseUpdate = () => setShowUpdate(false);
+    const handleShowUpdate = () => setShowUpdate(true);
 
-    let UpFirstNameRef = useRef();
-    let UpLastNameRef = useRef();
-    let UpPhoneRef = useRef();
-    let UpEmailRef = useRef();
-    let UpPassRef = useRef();
 
-    let upClaint = {
+    const changeCurrentClt = (fieldName, fieldValue) => {
+        console.log("Name" + fieldName);
+        console.log("Value" + fieldValue);
 
+        console.log(currentClt);
+        setCurrentClt({ ...currentClt, [fieldName]: fieldValue })
     }
 
-    // //update 
-    // axios.get('http://localhost:3030/Claint/UpdateClaint', upClaint).then(res => {
-    //     console.log(res.data)
-    //     dispatch(updateUser(upClaint));
-    // }).catch(err => console.log(err))
+    function UpdateClt() {
+        console.log("currectClt   " + currentClt);
+        axios.put(`http://localhost:3030/claint/UpdateClaint/${currentClt._id}`, currentClt).then(res => {
+            console.log(res.data)
+            dispatch(updateUser(currentClt))
+            handleCloseUpdate()
+        }).catch(err => console.log(err))
+    }
 
     //open Order
     // const [showOrder,setShowOrder]=
@@ -259,132 +330,35 @@ export default connect(mapStateToProps)(function PAComponent(props) {
         <>{clt.claintFirstName !== undefined ?
             <div className='row' style={{ fontFamily: "'Varela Round', sans-serif" }}>
                 <h1 style={{ textAlign: 'center' }}>אזור אישי</h1>
-                <div className="border col-xl-6 col-sm-10 col-8 PA" style={{ display: "inline-flex" }}>
-                    {/* כפתורים:
-1. עדכון פרטים אישים
- 2. עדכון התפריט שמכיל הוספה והסרה מהתפריט
- 3. הצעות שהתקבלו שכולל כפתורים של השוואה בין ההצעות ואפשרות להזמין את ההצעות
-  4ץדואר נכנס      */}
-                    <div className='menu' style={{ width: "50%" }}>
+                <div className="border col-xl-6 col-sm-10 col-8 " style={{ justifyContent: 'center', display: 'flex' }}>
+                    <div style={{ width: "75%" }}>
 
-                        <div >
-                            <div>
+                        <Modal show={showAlert} onHide={handleCloseAlert}>
 
-                                <h5 style={{ direction: 'rtl' }}>הסטורית הזמנות</h5>
-                                <div>
-                                    {AllClaintOrders && AllClaintOrders.length && AllClaintOrders.map((or) =>
-                                        <>
-                                            <div style={{ display: 'flex', alignItems: 'center', direction: 'rtl', flexDirection: 'row', margin: 0, alignItems: 'flex-end' }} className='b'>
-                                                <div style={{ cursor: "pointer" }} onClick={() => getbidsByOrder(or._id)}>
-                                                    <p>
-                                                        מספר הזמנה:{or._id}
-                                                    </p>
-                                                    <p>
-                                                        תאריך אירוע:{or.eventDate}
-                                                    </p>
-                                                    <p>
-                                                        סטטוס:{or.StatusOrder ? "סגור" : "פתוח"}
-                                                    </p>
-                                                </div>
-                                                <div className='end'>
-                                                    <Button className='btn bidbtn' >פירוט הזמנה</Button>
-                                                </div>
+                            <Modal.Body className='alertModal'>
+                                <h1 style={{ direction: 'rtl' }}>ההזמנה נמחקה בהצלחה!</h1>
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button variant="primary" className='btn' onClick={handleCloseAlert}>
+                                    סגור
+                                </Button>
+                            </Modal.Footer>
+                        </Modal>
 
-                                            </div>
-                                        </>
-                                    )
-                                    }
-                                </div>
-
-                                {/* //סינון כשרות. */}
-                                <h5 style={{ direction: 'rtl', marginTop: '18%' }}> סינון הצעות</h5>
-                                <MultiSelect
-                                    className='fillter'
-                                    options={businessList}
-                                    value={busSelected}
-                                    onChange={setBusSelected}
-                                    labelledBy="kosher"
-                                    valueRenderer={customValueRenderer}
-                                    ref={BusRef}
-                                >
-                                </MultiSelect>
-
-                                {/*סינון מחיר מקסימאלי */}
-                                <FloatingLabel
-                                    className="mb-3 fillter"
-                                    controlId="floatingMaxPrice"
-                                    label="מחיר מקסימלי ">
-
-                                    <Form.Control
-                                        type="text"
-                                        style={{ height: '30px', display: 'flex', alignItems: 'center' }}
-                                        placeholder="businessName" />
-                                </FloatingLabel>
-
-
-                                {/**מספר הצעה */}
-                                {/* <Select aria-label='מחיר מקסימאלי'>
-                            </Select> */}
-                            </div>
-
-
-
-                            <div style={{ marginTop: '18%' }}>
-                                {/* איך להפוך את זה ללולאה שתשלוף לי את כל ההצעות? */}
-                                <h5 style={{ direction: 'rtl' }}>הצעות שהתקבלו</h5>
-                                <br></br>
-                                <div>
-
-
-                                    {AllBids && AllBids.length > 0 && AllBids.map((b) =>
-                                        <>
-                                            <div style={{ display: 'flex', alignItems: 'center', direction: 'rtl', flexDirection: 'row', margin: 0, alignItems: 'flex-end' }}
-                                                className='b'>
-                                                <div>
-                                                    <p>
-                                                        מאת:{b.business}
-                                                    </p>
-                                                    <p>
-                                                        סכום:{b.price}
-                                                    </p>
-                                                    <p>
-                                                        סטטוס:{b.status ? "סגור" : "פתוח"}
-                                                    </p>
-                                                </div>
-                                                <div className='end'>
-                                                    <Button className='btn bidbtn' onClick={() => closeBid(b._id)}>אישור הצעה</Button>
-                                                </div>
-
-                                            </div>
-                                        </>
-                                    )
-                                    }
-                                </div>
-                                {AllBids?.length === 0 && <div>אין הצעות להזמנה זו</div>}
-
-
-                            </div>
-
-
-                        </div>
-                        <br></br>
-
-                    </div>
-                    <div className='option' style={{ width: "50%" }}>
-
-                        <div className='details' style={{ fontSize: '13px' }}>
-
-                            <h5 style={{ direction: 'rtl' }}>פרטי לקוחות</h5>
-
-                            <p>שם: {" " + clt.claintFirstName + " " + clt.claintLastName}</p>
-                            <p>E-mail: {" " + clt.claintEmail}</p>
-                            <p>טלפון: {" " + clt.claintPhone}</p>
-                        </div>
                         <div>
-                            <Button variant="outline" className='btn btnPA' style={{ width: '170px' }} onClick={handleShow}>עדכון פרטים אישיים</Button>
+                            <h3 style={{ margin: "3%", textAlign: 'center' }}>פרטים אישיים</h3>
+                            <div className='bDtails' >
+                                <div style={{ direction: 'rtl', right: 0, flexDirection: 'column', display: 'flex', marginLeft: '82%' }}>
+                                    <p>שם: {" " + clt.claintFirstName + " " + clt.claintLastName}</p>
+                                    <p>מייל: {" " + clt.claintEmail}</p>
+                                    <p>טלפון: {" " + clt.claintPhone}</p>
+                                    <Button variant="outline" className='btn btnPA' style={{ width: '170px' }} onClick={handleShowUpdate}>עדכון פרטים אישיים</Button>
+
+                                </div>
+                            </div>
 
                             {/* הודעת עדכון פרטים */}
-                            <Modal show={show} onHide={handleClose}>
+                            <Modal show={showUpdate} onHide={handleCloseUpdate}>
                                 <Modal.Header closeButton>
                                     <Modal.Title style={{ textAlign: 'center' }}>עדכון פרטים</Modal.Title>
                                 </Modal.Header>
@@ -412,7 +386,7 @@ export default connect(mapStateToProps)(function PAComponent(props) {
 
                                             <Form.Control
                                                 type="Text"
-                                                placeholder="lastName" 
+                                                placeholder="lastName"
                                                 value={currentClt.claintLastName}
                                                 onChange={(e) => changeCurrentClt("claintLastName", e.target.value)} />
                                         </FloatingLabel>
@@ -426,23 +400,9 @@ export default connect(mapStateToProps)(function PAComponent(props) {
 
                                             <Form.Control
                                                 type="phone"
-                                                placeholder="phone" 
+                                                placeholder="phone"
                                                 value={currentClt.claintPhone}
                                                 onChange={(e) => changeCurrentClt("claintPhone", e.target.value)} />
-                                        </FloatingLabel>
-
-                                        {/* email */}
-                                        <FloatingLabel
-                                            className="mb-3"
-                                            style={{ 'direction': 'rtl' }}
-                                            controlId="floatingInputEmail"
-                                            label="E-mail" >
-
-                                            <Form.Control
-                                                type="email"
-                                                placeholder="name@example.com" 
-                                                value={currentClt.claintEmail}
-                                                onChange={(e) => changeCurrentClt("claintEmail", e.target.value)} />
                                         </FloatingLabel>
 
                                         {/* password */}
@@ -454,7 +414,7 @@ export default connect(mapStateToProps)(function PAComponent(props) {
 
                                             <Form.Control
                                                 type="password"
-                                                placeholder="Password" 
+                                                placeholder="Password"
                                                 value={currentClt.password}
                                                 onChange={(e) => changeCurrentClt("password", e.target.value)} />
 
@@ -470,167 +430,218 @@ export default connect(mapStateToProps)(function PAComponent(props) {
 
                                             <Form.Control
                                                 type="password"
-                                                placeholder="Password Authentication" 
-                                                value={currentClt.claintLastName}
+                                                placeholder="Password Authentication"
+                                                value={currentClt.confirmPassword}
                                                 onChange={(e) => changeCurrentClt("claintLastName", e.target.value)} />
                                         </FloatingLabel>
                                     </Form>
                                 </Modal.Body>
                                 <Modal.Footer>
 
-                                    <Button variant="secondary" className='btn' onClick={handleClose}>
+                                    <Button variant="secondary" className='btn' onClick={handleCloseUpdate}>
                                         ביטול
                                     </Button>
-                                    <Button variant="primary" className='btn' onClick={handleSave}>
-                                        שמור שינויים
+                                    <Button variant="primary" className='btn' onClick={UpdateClt}>
+                                        עדכון
                                     </Button>
                                 </Modal.Footer>
                             </Modal>
-
-
-
-                            <Modal show={show2} onHide={CloseDetails}>
-                                <Modal.Header>
-                                    <Modal.Title>סיכום הזמנה</Modal.Title>
-                                </Modal.Header>
-
-                                <Modal.Body>
-                                    <Form>
-                                        {/* //פירוט התפריט - כולל את התפריט עצמו,מילצור,חד פעמי */}
-                                        {/* //תאריך הארוע */}
-                                        <div style={{ display: 'flex', marginBottom: '3%' }}>
-                                            <Form>
-                                                <Form.Group controlId="datePicker" className='forms'  >
-                                                    <Form.Label>תאריך</Form.Label>
-
-                                                    <Form.Control type="date" name="datePicker" placeholder="Date of Birth" className='' value={(e) => console.log(e.target.value)} ref={DateRef} />
-                                                </Form.Group>
-                                            </Form>
-                                            <Form>
-                                                {/* //שעה  */}
-                                                <Form.Group className='forms'>
-                                                    <Form.Label>שעת האירוע</Form.Label>
-                                                    <TimePicker defaultValue={moment('12:00', format)} format={format} style={{ width: "230px", height: "38px" }} onChange={onChangetime} ref={hourRef} />
-                                                </Form.Group>
-                                            </Form>
-                                        </div>
-                                        {/* multy select */}
-                                        <div style={{ display: 'flex', marginTop: '5%' }}>
-                                            <Form>
-                                                <Form.Label style={{ direction: 'rtl', width: "466px" }}>כשרות</Form.Label>
-                                                <Form.Group>
-
-                                                    <MultiSelect
-                                                        style={{ direction: 'rtl', height: '38px' }}
-                                                        options={options}
-                                                        value={selected}
-                                                        onChange={setSelected}
-                                                        labelledBy="kosher"
-                                                        valueRenderer={customValueRendererKosher}
-                                                        ref={kosheRef}
-                                                    />
-                                                </Form.Group>
-                                            </Form>
-                                        </div>
-
-                                        <div style={{ display: 'flex', marginTop: '2%' }}>
-                                            <Form>
-                                                <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                                                    <Form.Label>מספר מוזמנים</Form.Label>
-                                                    <Form.Control type='number' rows={1} style={{ width: '466px' }} ref={invitedRef} />
-                                                </Form.Group>
-                                            </Form>
-                                        </div>
-
-                                        <div style={{ display: 'flex', marginTop: '2%' }}>
-                                            <Form>
-                                                {/* //מיקום הארוע */}
-                                                <Form.Label style={{ direction: 'rtl', textAlign: 'right' }}>בחר עסק</Form.Label>
-                                                {/* <Form.Select aria-label="Default select example" className='forms' rows={1} style={{ width: '466px' }}>
-                                                    <>
-                                                        {Allbusiness && Allbusiness.length && Allbusiness.map((item) =>
-                                                            <option key={item}>{item.businessName} </option>)
-                                                        }
-                                                    </>
-
-                                                </Form.Select> */}
-
-
-                                                //איך להכניס את מערך העסקים לתוך המולטי סלקט וגם לערוך עליו סינון
-                                                <MultiSelect
-                                                    style={{ direction: 'rtl', height: '38px' }}
-                                                    options={businessList}
-                                                    value={busSelected}
-                                                    onChange={setBusSelected}
-                                                    labelledBy="kosher"
-                                                    valueRenderer={customValueRenderer}
-                                                    ref={BusRef}
-                                                >
-                                                    <>
-                                                        {/* {Allbusiness && Allbusiness.length && Allbusiness.map((item) =>
-                                                            <>
-                                                            
-                                                            { console.log(item)}
-                                                                <option key={item}>{item.businessName} </option>
-                                                            </>)
-                                                        } */}
-                                                    </>
-                                                </MultiSelect>
-
-
-
-                                            </Form>
-                                        </div>
-
-
-                                        <div style={{ display: 'flex', marginTop: '2%' }}>
-
-                                            <Form>
-                                                <Form.Label>מיקום האירוע</Form.Label>
-                                                <Form.Control rows={1} style={{ width: '466px' }} ></Form.Control>
-                                            </Form>
-                                        </div>
-                                        {/* //העסקים שאליהם נשלחות ההצעות */}
-
-                                        <div style={{ display: 'flex', marginTop: '2%' }}>
-                                            {/* //הערות */}
-                                            <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                                                <Form.Label>הערות</Form.Label>
-                                                <Form.Control as="textarea" rows={1} style={{ width: '466px' }} />
-                                            </Form.Group>
-                                            {/* //כפתור עדכון והסרה מהתפריט */}
-                                        </div>
-
-                                    </Form>
-                                </Modal.Body>
-                                <Modal.Footer>
-
-                                    <Button variant="secondary" className='btn' onClick={CloseDetails}>
-                                        ביטול
-                                    </Button>
-                                    <Button variant="primary" className='btn' onClick={CloseDetails}>
-                                        שלח/י הצעה
-                                    </Button>
-                                </Modal.Footer>
-
-                            </Modal>
-                            {/* 
-                            {isShow && <Disposable show={isShow} setShow={closeModal} />}
-                            {isWaitrsShow && <Waitresses show={isWaitrsShow} setShow={closeWaitressesModal} />} */}
-
-
 
                         </div>
-                        <div>
+
+                        {/* חלק 2 */}
+
+                        <h3 style={{ margin: "3%" }}>היסטוריה</h3>
+                        <div className='bbids' style={{ marginLeft: 0 }}>
+                            <div className='send' >
+
+                                <Modal show={close} onHide={handleMessegeShow}>
+                                    <Modal.Body className='alertModal'>
+                                        <SentimentSatisfiedAltIcon sx={{ color: "green", fontSize: '106px' }} />
+                                        <br></br>
+
+                                        <h3 style={{ direction: 'rtl' }}>מזל טוב!</h3>
+                                        <h5> ההזמנה אושרה בהצלחה</h5>
+                                  
+                                        <Button variant="secondary" className='btn' onClick={handleMessegeClose}>
+                                            סגור
+                                        </Button>
+                                    </Modal.Body>
+                                </Modal>
+
+                                <h5>הזמנות </h5>
+                                {AllClaintOrders && AllClaintOrders.length && AllClaintOrders.map((or, index) =>
+                                    <>
+                                        <div key={index} style={{ display: 'flex', AlignItems: 'center', direction: 'rtl', flexDirection: 'row', margin: 0, alignItems: 'flex-end' }} className='showb'>
+                                            <div style={{ cursor: "pointer" }} onClick={() => getbidsByOrder(or._id)}>
+                                                <p>
+                                                    מספר הזמנה:{or._id}
+                                                </p>
+                                                <p>
+                                                    תאריך אירוע:{new Date(or.eventDate).toLocaleDateString()}
+                                                </p>
+                                                <p>
+                                                    סטטוס:{or.StatusOrder ? "סגור" : "פתוח"}
+                                                </p>
+                                            </div>
+                                            <div className='end'>
+
+                                                <Button className='btn bidbtn' onClick={() => { OrderModal(or._id) }}>פירוט הזמנה</Button>
+                                            </div>
+
+                                        </div>
+                                    </>
+                                )
+                                }
+                                {isOrderShow && <ShowOrder show={isOrderShow} setShow={closeOrderModal} orderId={IdCurrent} />}
+
+
+
+                            </div>
+
+                            <div style={{ display: showFilter ? 'flex' : 'none', flexDirection: "column", width: ' 100%' }} >
+                                <h5 style={{ direction: 'rtl', marginBottom: '10%' }}>הצעות שהתקבלו</h5>
+                                <h5 style={{ direction: 'rtl' }}> סינון הצעות</h5>
+                                <div>
+                                    <MultiSelect
+                                        className='fillter'
+                                        options={options}
+                                        value={selected}
+                                        onChange={changeSelected}
+                                        labelledBy="kosher"
+                                        valueRenderer={customValueRendererKosher}
+                                        hasSelectAll={false}
+
+                                    // ref={BusRef}
+                                    >
+                                    </MultiSelect>
+
+
+                                </div>
+
+
+                                <div>
+                                    {AllBids && AllBids.length > 0 && AllBids.map((b, index) =>
+                                        <>
+
+                                            <div key={index} style={{ display: 'flex', AlignItems: 'center', direction: 'rtl', flexDirection: 'row', margin: 0, alignItems: 'flex-end' }}
+                                                className='showb'>
+
+                                                <div>
+                                                    <p>
+                                                        מאת:{b['business']['businessName']}
+                                                    </p>
+                                                    <p>כשרות: {" " + b.business.businessKosher.map(b => b + ", ")}</p>
+
+                                                    <p>
+                                                        סכום:{b.price}
+                                                    </p>
+                                                    <p>
+                                                        סטטוס:{b.status ? "סגור" : "פתוח"}
+                                                    </p>
+                                                    <p>{b.price === minPrice &&
+                                                        <>
+                                                            <div>
+                                                                <StarsIcon sx={{ color: '#2e7d32' }} />
+                                                                <h6 style={{ color: '#2e7d32' }}>ההצעה המשתלמת ביותר</h6>
+
+                                                            </div>
+                                                        </>
+                                                    }</p>
+                                                </div>
+                                                {b.status ?
+                                                    <>
+                                                        <div className='end'>
+                                                            <Button className='btn bidbtn' onClick={() => ShowProDetails(b._id)} >פרטי העסק</Button>
+                                                        </div>
+                                                        <Modal show={ProDetails} onHide={ShowProDetails} >
+                                                            <Modal.Header>
+                                                                <Modal.Title style={{ direction: 'rtl' }}>
+                                                                    פרטי הלקוח
+                                                                </Modal.Title>
+                                                            </Modal.Header>
+                                                            <Modal.Body>
+                                                                <p>שם העסק:{b['business']['businessName']} </p>
+                                                                <p>טלפון:{b['business']['businessPhone']} </p>
+                                                                <p>כתובת:{b['business']['businessAddress']} </p>
+                                                                <p>מייל:{b['business']['businessEmail']} </p>
+                                                                {/* <p>כשרות:{b.businessKosher.map(b => b + ", ")}</p> */}
+                                                            </Modal.Body>
+                                                            <Modal.Footer>
+                                                                <Button variant="primary" className='btn' onClick={CloseProDetails}>
+                                                                    סגור
+                                                                </Button>
+                                                            </Modal.Footer>
+                                                        </Modal>
+                                                    </>
+                                                    :
+                                                    <>
+                                                        <div className='end'>
+                                                            <Button className='btn bidbtn' onClick={() => closeBid(b._id)}>אישור הצעה</Button>
+                                                        </div>
+                                                    </>}
+
+
+                                            </div>
+                                        </>
+                                    )
+                                    }
+                                </div>
+                                {AllBids?.length === 0 && <div style={{ direction: 'rtl', marginTop: '2%' }}>אין הצעות להזמנה זו</div>}
+
+
+                            </div>
+
+
 
                         </div>
 
                     </div>
 
 
+
+
+
+
+
+
+
+
+
+                    <div>
+
+
+
+                        <div >
+
+                            <div  >
+                                <div>
+
+
+
+                                    <div>
+
+
+                                    </div>
+
+                                    {/* //סינון כשרות. */}
+
+                                </div>
+
+
+
+
+
+                            </div>
+                            <br></br>
+
+                        </div>
+
+                    </div>
                 </div>
-            </div >
+            </div>
             : ''}
+
         </>
     )
 })

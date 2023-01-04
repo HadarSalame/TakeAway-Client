@@ -3,8 +3,11 @@ import axios from 'axios';
 import './MenuCSS.css';
 import { useState, useEffect, } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Checkbox, FormGroup, FormControlLabel, } from '@mui/material';
-import { Button, FloatingLabel, Form } from 'react-bootstrap';
+import { Checkbox, FormGroup, FormControlLabel } from '@mui/material';
+import { Button, FloatingLabel, Form, Modal } from 'react-bootstrap';
+
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CancelIcon from '@mui/icons-material/Cancel';
 import moment from 'moment';
 
 import { connect } from 'react-redux';
@@ -53,7 +56,22 @@ export default connect(mapStateToProps)(function Menu(props) {
 
     const [selectedPortion, setSelectedPortion] = useState([])
 
-  let navigate = useNavigate();
+    const [showErrorAlert, setShowErrorAlert] = useState(false)
+    const handleCloseErrorAlert = () => setShowErrorAlert(false);
+    const handleShowErrorAlert = () => setShowErrorAlert(true);
+
+    const [show, setShow] = useState(false);
+    const handleCloseAlert = () => { setShow(false); navigate('/PAComponent') };
+    const handleShowAlert = () => setShow(true);
+
+
+    let navigate = useNavigate();
+
+    // function handleCloseAlert() {
+    //     setShow(false);
+    //     navigate("/PAComponent")
+
+    // }
 
     function CreateanOrder() {
         // var por=document.getElementsByClassName("portion")
@@ -75,15 +93,19 @@ export default connect(mapStateToProps)(function Menu(props) {
             StatusOrder: 'false'
 
         }
-        console.log(newOrder.eventDate);
-        console.log(newOrder)
-        axios.post('http://localhost:3030/order/CreateOrder', newOrder).then(res => {
-            alert(res.data)
-            console.log(res.data)
-            dispatch(addToOrder(res.data.Create));
-            navigate("/Index")
-        }).catch(err => console.log(err))
 
+
+        if (newOrder.eventDate !== '' && newOrder.eventAddress !== '' && newOrder.numInvited !== '') {
+            axios.post('http://localhost:3030/order/CreateOrder', newOrder).then(res => {
+                handleShowAlert()
+                dispatch(addToOrder(res.data.Create));
+                // navigate("/PAComponent")
+            }).catch(err => console.log(err))
+        }
+        else {
+            handleShowErrorAlert()
+
+        }
     }
 
 
@@ -98,14 +120,14 @@ export default connect(mapStateToProps)(function Menu(props) {
 
         // console.log(items);
         temp = selectedPortion;
-        var itemdup = selectedPortion.find(i => i._id == items._id);
+        var itemdup = selectedPortion.find(i => i._id === items._id);
         //    console.log(itemdup);
-        if (itemdup == undefined) {
+        if (itemdup === undefined) {
             temp.push(items)
             setSelectedPortion(temp)
         }
         else {
-            temp = selectedPortion.filter(i => i._id != items._id);
+            temp = selectedPortion.filter(i => i._id !== items._id);
             console.log("temp");
             console.log(temp);
 
@@ -124,8 +146,53 @@ export default connect(mapStateToProps)(function Menu(props) {
                 <h1 style={{ textAlign: 'center' }}>יצירת הזמנה</h1>
                 <div className="border col-xl-6 col-sm-10 col-8 PA" style={{ display: "inline-flex", flexDirection: "column" }}>
                     <div>
+                        {/* <Stack sx={{ width: '100%', margin: '2%' }} spacing={2} >
+                            <Alert severity="error" hidden={!showAlert}>
+                                <AlertTitle>שגיאה!</AlertTitle>
+                                יש למלא את כל הפרטים
+                            </Alert>
+                        </Stack> */}
+
+                        <Modal show={show} onHide={handleCloseAlert} >
+
+                            <Modal.Body className='alertModal'>
+                                <CheckCircleIcon sx={{ color: "#f7d520", fontSize: '106px' }} />
+                                <br></br>
+
+                                <h3 style={{ direction: 'rtl' }}>ההזמנה נשלחה בהצלחה!</h3>
+
+                                <Button variant="primary" className='btn'
+                                    style={{ alignItems: 'center', marginTop: '3% ', marginLeft: 0, marginRight: 0 }}
+                                    onClick={handleCloseAlert}>
+                                    סגור
+                                </Button>
+                            </Modal.Body>
+                        </Modal>
+
+
+                        <Modal show={showErrorAlert} onHide={handleCloseErrorAlert}>
+
+                            <Modal.Body className='alertModal' >
+                                <CancelIcon sx={{ color: "#cb2121cc", fontSize: '106px' }} />
+                                <br></br>
+
+                                <h3 style={{ direction: 'rtl' }}>שגיאה!</h3>
+                                <h5> יש למלא את כל הפרטים</h5>
+
+                                <Button variant="primary" className='btn'
+                                    style={{ alignItems: 'center', marginTop: '3% ', marginLeft: 0, marginRight: 0 }}
+                                    onClick={handleCloseErrorAlert}>
+                                    סגור
+                                </Button>
+
+                            </Modal.Body>
+
+
+
+                        </Modal>
                         <>
-                            {Category && Category.length && Category.map((cats) =>
+
+                            {Category && Category.length && Category.map((cats, index) =>
 
                                 //איך אפשר לתת שם לכל קטגוריה אם אפשר להכניס רק משהו אחד בכלmap
                                 <FormGroup style={{
@@ -136,18 +203,20 @@ export default connect(mapStateToProps)(function Menu(props) {
                                     marginRight: 0
 
                                 }}>
-                                    <div>
+                                    <div key={index}>
                                         <h3>{cats.categoryName}</h3>
-                                        <h1></h1>
+
                                     </div>
 
                                     {Dose && Dose.length && Dose.map((items) =>
                                         // <div onClick={check} key={items._id}></div>
 
-                                        items.categoryID == cats._id ?
-                                            <FormControlLabel control={<Checkbox className="portion" style={{ color: '#f7d520' }} onClick={() => savePoration(items)} />} label={items.portionName}
-                                                name={items.portionName} data={items.Category} style={{ display: 'flex', borderColor: 'green' }} labelPlacement="start" />
-                                            : null
+                                        items.categoryID === cats._id ? <>
+                                            <div >
+                                                <br></br>
+                                                <FormControlLabel control={<Checkbox className="portion" style={{ color: '#f7d520' }} onClick={() => savePoration(items)} />} label={items.portionName}
+                                                    name={items.portionName} data={items.Category} style={{ display: 'flex', borderColor: 'green' }} labelPlacement="start" />
+                                            </div> </> : null
 
                                     )
                                     }
@@ -172,6 +241,7 @@ export default connect(mapStateToProps)(function Menu(props) {
                             <Form.Control
                                 ref={numInvitedRef}
                                 type="number"
+                                min={10}
                                 placeholder="number" />
                         </FloatingLabel>
 
@@ -191,9 +261,11 @@ export default connect(mapStateToProps)(function Menu(props) {
                             className="mb-3 "
                             style={{ 'direction': 'rtl', width: '220.4px' }}
                             controlId="floatingInputAddress"
-                            label="תאריך לשנות" >
+                            label="תאריך" >
 
                             <Form.Control
+
+                                min={new Date().toISOString().split("T")[0]}
                                 ref={eventDateRef}
                                 type="date"
                                 placeholder="text" />

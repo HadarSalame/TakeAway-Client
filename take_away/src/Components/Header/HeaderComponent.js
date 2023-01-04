@@ -75,7 +75,7 @@ export default connect(mapStateToProps)(function Header(props) {
   function signhout() {
     dispatch(signhoutClient())
     dispatch(signhoutProfessional())
-    navigate("/Index")
+    navigate("/NoLogin")
 
 
   }
@@ -86,28 +86,35 @@ export default connect(mapStateToProps)(function Header(props) {
         <div className='col-xl-12 col-sm-10 col-8'>
           <div style={{ display: 'inline-flex', marginLeft: '3%', width: '3%' }}>
             {loginB == true || loginClient == true ? <>
-<div className='out'>
-              <Button className='btn' onClick={signhout}>התנתקות</Button>
-              {loginB == true ? <p> {B.businessName}</p> :
-                <p> {clt.claintFirstName + " " + clt.claintLastName}</p>}
-                </div>
+              <div className='out'>
+                <Button className='btn' onClick={signhout}>התנתקות</Button>
+                {loginB == true ? <p> {B.businessName}</p> :
+                  <p> {clt.claintFirstName + " " + clt.claintLastName}</p>}
+              </div>
             </>
-              : <><NavDropdown title="התחברות" id="navbarScrollingDropdownLogin" className='log btn'>
-                <NavDropdown.Item onClick={gotoUserLogin} >התחברות למשתמש</NavDropdown.Item>
-                <NavDropdown.Item onClick={gotoProfessionalLogin}>התחברות לבעל עסק</NavDropdown.Item>
-              </NavDropdown>
+              : ' '
+              // <><NavDropdown title="התחברות" id="navbarScrollingDropdownLogin" className='log btn'>
+              //   <NavDropdown.Item onClick={gotoUserLogin} >התחברות למשתמש</NavDropdown.Item>
+              //   <NavDropdown.Item onClick={gotoProfessionalLogin}>התחברות לבעל עסק</NavDropdown.Item>
+              // </NavDropdown>
 
 
-                <NavDropdown title="הרשמה" id="navbarScrollingDropdownSignUp" className='log btn '>
-                  <NavDropdown.Item onClick={gotoUserSignUp} >הרשמה למשתמש</NavDropdown.Item>
-                  <NavDropdown.Item onClick={gotoProfessionalSignUp}>הרשמה לבעל עסק</NavDropdown.Item>
-                </NavDropdown></>
+              //   <NavDropdown title="הרשמה" id="navbarScrollingDropdownSignUp" className='log btn '>
+              //     <NavDropdown.Item onClick={gotoUserSignUp} >הרשמה למשתמש</NavDropdown.Item>
+              //     <NavDropdown.Item onClick={gotoProfessionalSignUp}>הרשמה לבעל עסק</NavDropdown.Item>
+              //   </NavDropdown></>
             }
           </div>
           <div>
-            <img src={Logo} className='Logo ' onClick={gotoIndex}></img>
-          </div>
-          <Navbar bg="#e9ab01" variant="dark" className='headerCss' >
+           { (!loginB && !loginClient) ?
+            <>
+              <img src={Logo} className='indexlogo ' onClick={gotoIndex}></img>
+              <Navbar bg="#e9ab01" variant="dark" className='headerCss' style={{marginTop:"11%"}} ></Navbar>
+            </> : <>
+              <img src={Logo} className='Logo ' onClick={gotoIndex}></img>
+            </>}
+             </div>
+          {(loginClient || loginB) && <Navbar bg="#e9ab01" variant="dark" className='headerCss' >
             <Container >
 
               <div style={{ marginRight: "10%" }}>
@@ -121,13 +128,13 @@ export default connect(mapStateToProps)(function Header(props) {
                   {!loginClient ? <Nav.Link onClick={gotoBusinessPage} className='opt' > הזמנות לתמחור בתי עסק</Nav.Link> : ""}
                   <Nav.Link onClick={gotoInfoPage} className='opt'>עלינו</Nav.Link>
 
-                  <i className="material-icons">&#xe8b6;</i>
+                  {/* <i className="material-icons">&#xe8b6;</i> */}
 
 
                 </Nav>
               </div>
             </Container>
-          </Navbar>
+          </Navbar>}
         </div>
       </div>
       <br />

@@ -2,25 +2,13 @@ import React, { useState, useEffect } from 'react';
 import './ProfessionalPACSS.css'
 import { Button, InputGroup, FormControl, FloatingLabel, Form, Select, Modal } from 'react-bootstrap';
 import { BrowserRouter, Link, Route, Routes, Accordion, Card } from 'react-router-dom'
+import { MultiSelect } from "react-multi-select-component";
 import ForgetPass from '../../ForgetPassWord/ForgetPassComponent';
 import { useNavigate } from 'react-router-dom';
 import 'react-calendar/dist/Calendar.css';
-import Chat from '../../Actions/Chat';
+import ShowOrder from '../../ShowOrder/ShowOrderComponent';
 import axios from "axios";
-import Timin from '../../../Images/Logos/Timin.jpg';
-import Cook from '../../../Images/Logos/Cook.jpeg'
-
-import moment from 'moment';
-
-import { Calendar } from 'react-calendar';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import Divider from '@mui/material/Divider';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Avatar from '@mui/material/Avatar';
-import Typography from '@mui/material/Typography';
-
+import MarkEmailReadIcon from '@mui/icons-material/MarkEmailRead';
 import { connect } from 'react-redux';
 import { updateProfessional } from '../../../Redux/Actions/actions'
 
@@ -38,13 +26,7 @@ export default connect(mapStateToProps)(function ProfessionalPA(props) {
 
     const { bus, dispatch } = props
 
-    const [currentBus, setCurrentBus] = useState(bus)
 
-    const changeCurrentBus = (fieldName, fieldValue) => {
-        console.log('ji');
-        console.log(currentBus);
-        setCurrentBus({ ...currentBus, [fieldName]: fieldValue })
-    }
 
 
     //פונקצית לוח שנה
@@ -68,31 +50,68 @@ export default connect(mapStateToProps)(function ProfessionalPA(props) {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    //chat
-    const [isChatShow, setIsChatShow] = React.useState(false);
-    let navigate = useNavigate();
-    function Chatfunc() {
-        setIsChatShow('true');
+    //ordershow
+    const [isOrderShow, setIsOrderShow] = useState();
+    const [IdCurrent, setIdCurrent] = useState();
+    function OrderModal(id) {
+        setIdCurrent(id)
+        setIsOrderShow(true, IdCurrent)
+
+
+    }
+    function closeOrderModal() {
+        setIsOrderShow(false)
+
+
     }
 
-    function closeChatModal() {
-        setIsChatShow(false)
-    }
+    const [selected, setSelected] = useState([]);
+    const options = [
+        { label: "העדה החרדית", value: "1" },
+        { label: "בד''צ בית יוסף", value: "2" },
+        { label: "הרב לנדא", value: "3" },
+        { label: "הרב אברהם רובין", value: "4" },
+        { label: "יורה דעה-הרב שלמה מחפוד", value: "5" },
+        { label: "בד''צ מחזיקי הדת", value: "6" },
+        { label: "בד''צ שארית ישראל", value: "7" },
+        { label: "איגוד הרבנים", value: "8" },
+        { label: "רבני צהר", value: "9" },
+        { label: "רבנות פתח תקווה", value: "10" },
+        { label: "רבנות נתניה", value: "11" }
+
+
+
+    ];
+
+    const customValueRenderer = (selected, _options) => {
+        return selected.length
+            ? selected.map(({ label }) => "✔️ " + label)
+            : "בחר כשרות";
+    };
 
     //update
-    function updateBus() {
-        let upBus = {
 
-        }
-        axios.get('http://localhost:3030/business/UpdateBus', upBus).then(res => {
+    const [currentBus, setCurrentBus] = useState(bus)
+
+    const changeCurrentBus = (fieldName, fieldValue) => {
+        console.log('ji');
+        console.log(currentBus);
+        setCurrentBus({ ...currentBus, [fieldName]: fieldValue })
+    }
+    function updateBus() {
+
+        axios.put(`http://localhost:3030/business/UpdateBusiness/${currentBus._id}`, currentBus).then(res => {
             console.log(res.data)
-            dispatch(updateProfessional(upBus));
+            dispatch(updateProfessional(currentBus));
             handleClose()
         }).catch(err => console.log(err))
+
     }
 
     //get bids by business
     const [AllBusinessBids, setAllBusinessBids] = useState()
+    const [AllCloseOrders, setAllCloseOrders] = useState()
+
     useEffect(() => {
         console.log(bus, "AllBusinessBids")
         axios.get(`http://localhost:3030/bid/getbidsByBusiness/${bus._id}`).then((res) => {
@@ -103,172 +122,239 @@ export default connect(mapStateToProps)(function ProfessionalPA(props) {
             }
         })
     }, [])
+    useEffect(() => {
+        if (!AllCloseOrders?.length) return
+        axios.post(`http://localhost:3030/bid/setShowBids`, AllCloseOrders.map(b => b._id)).then((res) => {
 
+        })
+    }, [AllCloseOrders])
 
     //get close orders
-    const [AllCloseOrders, setAllCloseOrders] = useState()
+    console.log(bus.businessKosher);
+
+    //delete bids
+
+    const [showAlert, setShowAlert] = useState(false);
+    const handleCloseAlert = () => setShowAlert(false);
+    const handleShowAlert = () => setShowAlert(true);
+
+    function DeleteBid(bid) {
+        axios.delete(`http://localhost:3030/bid/DeleteBidById/${bid}`).then((res) => {
+            if (res.data === 'delete') {
+                console.log('delete');
+                setShowAlert(true)
+                handleShowAlert()
+            }
+            else {
+                console.log('cant delete')
+            }
+        })
+
+    }
+
+    const [ClaintDetails, setClaitDetails] = useState();
+    const [proId, setProId] = useState()
+
+    //צפייה בפרטי העסק
+    function ShowClaintDetails(b) {
+        console.log(b);
+        setProId(b)
+        setClaitDetails(true)
+    }
+    function CloseClaintDetails() {
+        setClaitDetails(false)
+    }
+
 
     return (
         <>
             <div className='row ' style={{ fontFamily: "'Varela Round', sans-serif" }}>
-                <h1 style={{ textAlign: "center" }}>אזור אישי לבעלי עסק</h1>
-                <div className='border col-xl-6 col-sm-10 col-8' style={{ display: 'flex' }}>
+                <h1 style={{ textAlign: "center" }}>אזור אישי לעסקים</h1>
+                <div className='border col-xl-6 col-sm-10 col-8' style={{ justifyContent: 'center', display: 'flex' }}>
                     <div >
-                        {/* <Calendar
-                            value={dateState}
-                            
-                            onChange={changeDate}
-                            className='calender'
 
-                        />
-                        <p >Current selected date is <b>{moment(dateState).format('MMMM Do YYYY')}</b></p> */}
+                        <Modal show={showAlert} onHide={handleCloseAlert}>
 
-                        {/* logo  לוגו של בעל העסק*/}
-                        <img src={Cook} className='blogo'></img>
-
-
-
-                    </div>
-                    <div style={{ direction: 'rtl', marginLeft: 'auto' }}>
-                        <div>
-                            <p>שם העסק: {bus.businessName}</p>
-                            <p>שם בעל העסק: {bus.businessOwnerName}</p>
-                            <p>טלפון: {bus.businessPhone}</p>
-                            <p>Email:  {bus.businessEmail}</p>
-                            <p>כתובת: {bus.businessAddress}</p>
-                            למה לא מופיע?
-
-                            <p>כשרות: {bus.businessKosher}</p>
-
-                        </div>
-
-                        {/* <Calendar onChange={onChange} value={value} className='calender' /> */}
-                        <Button onClick={handleShow} style={{ marginRight: 0, width: ' max-content' }}>עדכון פרטי העסק</Button>
-
-                        <Modal show={show} onHide={handleClose}>
-                            <Modal.Header closeButton>
-                                <Modal.Title style={{ textAlign: 'center' }}>עדכון פרטים</Modal.Title>
-                            </Modal.Header>
-                            <Modal.Body>
-                                <Form>
-                                    <FloatingLabel
-                                        className="mb-3 "
-                                        style={{ 'direction': 'rtl' }}
-                                        controlId="floatingInputName"
-                                        label="שם העסק" >
-
-                                        <Form.Control
-                                            type="Text"
-                                            placeholder="businessName"
-                                            value={currentBus.businessName}
-                                            onChange={(e) => changeCurrentBus("businessName", e.target.value)} />
-                                    </FloatingLabel>
-
-                                    <FloatingLabel
-                                        className="mb-3 "
-                                        style={{ 'direction': 'rtl' }}
-                                        controlId="floatingInputName"
-                                        label="שם בעל העסק" >
-
-                                        <Form.Control
-                                            type="Text"
-                                            placeholder="BusinessOwnerName"
-                                            value={currentBus.businessOwnerName}
-                                            onChange={(e) => changeCurrentBus("businessOwnerName", e.target.value)}  />
-                                    </FloatingLabel>
-
-                                    <div style={{ display: 'flex' }}>
-                                        <FloatingLabel
-                                            className="mb-3 form "
-                                            style={{ width: '590px' }}
-                                            controlId="floatingInputId"
-                                            label=" כתובת העסק" >
-
-                                            <Form.Control
-                                                type="Text"
-                                                placeholder="BusinessAddress"
-                                                value={currentBus.businessAddress}
-                                                onChange={(e) => changeCurrentBus("businessAddress", e.target.value)}  />
-                                        </FloatingLabel>
-
-                                    </div>
-                                    {/* phone */}
-                                    <FloatingLabel
-                                        className="mb-3"
-                                        controlId="floatingInputPhone"
-                                        label="טלפון" >
-
-                                        <Form.Control
-                                            type="phone"
-                                            placeholder="businessPhone" 
-                                            value={currentBus.businessPhone}
-                                            onChange={(e) => changeCurrentBus("businessPhone", e.target.value)} />
-                                    </FloatingLabel>
-
-                                    <FloatingLabel
-                                        className="mb-3"
-                                        style={{ 'direction': 'rtl' }}
-                                        controlId="floatingInputEmail"
-                                        label="E-mail" >
-
-                                        <Form.Control
-                                            type="email"
-                                            placeholder="name@example.com"
-                                            value={currentBus.businessEmail}
-                                            onChange={(e) => changeCurrentBus("businessEmail", e.target.value)}  />
-                                    </FloatingLabel>
-                                    
-                                    {/* password */}
-                                    <FloatingLabel
-                                        className="mb-3"
-                                        style={{ 'direction': 'rtl' }}
-                                        controlId="floatingPassword"
-                                        label="סיסמה">
-
-                                        <Form.Control
-                                            type="password"
-                                            placeholder="Password"
-                                            value={currentBus.businesspassword}
-                                            onChange={(e) => changeCurrentBus("businesspassword", e.target.value)}  />
-
-                                    </FloatingLabel>
-
-                                    {/* Password Authentication */}
-                                    <FloatingLabel
-                                        className="mb-3"
-                                        // style={{ 'direction': 'rtl' }}
-                                        controlId="floatingPasswordAuthentication"
-                                        label=" אימות סיסמה">
-
-                                        <Form.Control
-                                            type="password"
-                                            placeholder="Password Authentication" />
-
-                                    </FloatingLabel>
-                                </Form>
-                                
+                            <Modal.Body className='alertModal'>
+                                <h1 style={{ direction: 'rtl' }}>ההצעה נמחקה בהצלחה!</h1>
                             </Modal.Body>
-                            <Modal.Footer style={{ flexWrap: "nowrap" }}>
-
-                                <Button variant="secondary" className='btn' onClick={handleClose}>
-                                    ביטול
-                                </Button>
-                                <Button variant="primary" className='btn' onClick={updateBus}>
-                                    עדכון
+                            <Modal.Footer>
+                                <Button variant="primary" className='btn' onClick={handleCloseAlert}>
+                                    סגור
                                 </Button>
                             </Modal.Footer>
-
                         </Modal>
-                        <h3>היסטוריה</h3>
-                        <div>
-                            <div>
+
+                        <h3 style={{ margin: "3%" }}>פרטי העסק</h3>
+                        <div className='bDtails'>
+                            <div >
+
+                                {/* logo  לוגו של בעל העסק
+                                <img src={Cook} className='blogo'></img> */}
+
+
+
+                            </div>
+
+                            <div style={{ direction: 'rtl', marginLeft: 'auto', right: 0 }}>
+                                <div>
+                                    <p>שם העסק: {" " + bus.businessName}</p>
+                                    <p>שם בעל העסק: {" " + bus.businessOwnerName}</p>
+                                    <p>טלפון: {" " + bus.businessPhone}</p>
+                                    <p>מייל:  {" " + bus.businessEmail}</p>
+                                    <p>כתובת: {" " + bus.businessAddress}</p>
+
+                                    <p>כשרות: {" " + bus.businessKosher.map(b => b + ", ")}</p>
+
+                                </div>
+
+                                {/* <Calendar onChange={onChange} value={value} className='calender' /> */}
+                                <Button onClick={handleShow} style={{ marginRight: 0, width: ' max-content' }}>עדכון פרטי העסק</Button>
+
+                                <Modal show={show} onHide={handleClose}>
+                                    <Modal.Header closeButton>
+                                        <Modal.Title style={{ textAlign: 'center' }}>עדכון פרטים</Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>
+                                        <Form>
+                                            <FloatingLabel
+                                                className="mb-3 "
+                                                style={{ 'direction': 'rtl' }}
+                                                controlId="floatingInputName"
+                                                label="שם העסק" >
+
+                                                <Form.Control
+                                                    type="Text"
+                                                    placeholder="businessName"
+                                                    value={currentBus.businessName}
+                                                    onChange={(e) => changeCurrentBus("businessName", e.target.value)} />
+                                            </FloatingLabel>
+
+                                            <FloatingLabel
+                                                className="mb-3 "
+                                                style={{ 'direction': 'rtl' }}
+                                                controlId="floatingInputName"
+                                                label="שם בעל העסק" >
+
+                                                <Form.Control
+                                                    type="Text"
+                                                    placeholder="BusinessOwnerName"
+                                                    value={currentBus.businessOwnerName}
+                                                    onChange={(e) => changeCurrentBus("businessOwnerName", e.target.value)} />
+                                            </FloatingLabel>
+
+                                            <div
+                                                style={{ display: 'flex' }}>
+                                                <FloatingLabel
+                                                    className="mb-3 form "
+                                                    style={{ width: '590px' }}
+                                                    controlId="floatingInputId"
+                                                    label=" כתובת העסק" >
+
+                                                    <Form.Control
+                                                        type="Text"
+                                                        placeholder="BusinessAddress"
+                                                        value={currentBus.businessAddress}
+                                                        onChange={(e) => changeCurrentBus("businessAddress", e.target.value)} />
+                                                </FloatingLabel>
+
+                                            </div>
+                                            {/* phone */}
+                                            <FloatingLabel
+                                                className="mb-3"
+                                                controlId="floatingInputPhone"
+                                                label="טלפון" >
+
+                                                <Form.Control
+                                                    type="phone"
+                                                    placeholder="businessPhone"
+                                                    value={currentBus.businessPhone}
+                                                    onChange={(e) => changeCurrentBus("businessPhone", e.target.value)} />
+                                            </FloatingLabel>
+
+                                            {/* kosher */}
+                                            {/* <FloatingLabel
+                                        className="mb-3 form"
+                                    >
+
+                                        <MultiSelect
+                                            className='form'
+                                            style={{ direction: 'rtl' }}
+                                            options={options}
+                                            value={selected}
+                                            onChange={setSelected}
+                                            labelledBy="kosher"
+                                            valueRenderer={customValueRenderer}
+
+
+                                        />
+                                    </FloatingLabel> */}
+
+                                            {/* password */}
+                                            <FloatingLabel
+                                                className="mb-3"
+                                                style={{ 'direction': 'rtl' }}
+                                                controlId="floatingPassword"
+                                                label="סיסמה">
+
+                                                <Form.Control
+                                                    type="password"
+                                                    placeholder="Password"
+                                                    value={currentBus.businesspassword}
+                                                    onChange={(e) => changeCurrentBus("businesspassword", e.target.value)} />
+
+                                            </FloatingLabel>
+
+                                            {/* Password Authentication */}
+                                            <FloatingLabel
+                                                className="mb-3"
+                                                // style={{ 'direction': 'rtl' }}
+                                                controlId="floatingPasswordAuthentication"
+                                                label=" אימות סיסמה">
+
+                                                <Form.Control
+                                                    type="password"
+                                                    placeholder="Password Authentication" />
+
+                                            </FloatingLabel>
+                                        </Form>
+
+                                    </Modal.Body>
+                                    <Modal.Footer style={{ flexWrap: "nowrap" }}>
+
+                                        <Button variant="secondary" className='btn' onClick={handleClose}>
+                                            ביטול
+                                        </Button>
+                                        <Button variant="primary" className='btn' onClick={updateBus}>
+                                            עדכון
+                                        </Button>
+                                    </Modal.Footer>
+
+                                </Modal>
+
+                            </div>
+                        </div>
+
+
+
+
+                        <h3 style={{ margin: '3%' }}>היסטוריה</h3>
+
+                        <div className='bbids'>
+                            <div className='send'>
                                 <h5>הצעות שנשלחו</h5>
-                                {AllBusinessBids && AllBusinessBids.length && AllBusinessBids.map((item) =>
+                                {AllBusinessBids && AllBusinessBids.length && AllBusinessBids.map((item, index) =>
                                     <>
-                                        <div style={{ display: 'flex', alignItems: 'center', direction: 'rtl', flexDirection: 'row', margin: 0, alignItems: 'flex-end' }} className='b'>
+                                        <div key={index} style={{ display: 'flex', alignItems: 'center', direction: 'rtl', flexDirection: 'row', margin: 0, alignItems: 'flex-end' }} className='showb'>
                                             <div >
                                                 <p>
                                                     מספר ההצעה:{item._id}
+                                                </p>
+                                                <p>
+                                                    {/* <p >ל: {item['order']['claintID']['claintFirstName']}</p> */}
+                                                </p>
+                                                <p>
+                                                    <p >מספר הזמנה:{item.order}</p>
                                                 </p>
 
                                                 <p>
@@ -279,39 +365,78 @@ export default connect(mapStateToProps)(function ProfessionalPA(props) {
                                                 </p>
                                             </div>
                                             <div className='end'>
-                                                <Button className='btn bidbtn'>פירוט הצעה</Button>
+
+                                                <Button className='btn bidbtn' onClick={() => { DeleteBid(item._id) }}>מחק הצעה</Button>
+                                                <Button className='btn bidbtn' onClick={() => { OrderModal(item.order) }}>פירוט הזמנה</Button>
                                             </div>
 
                                         </div>
                                     </>
                                 )}
+                                {isOrderShow && <ShowOrder show={isOrderShow} setShow={closeOrderModal} orderId={IdCurrent} />}
 
                             </div>
+
+
                             <div>
-                                <h5>הצעות שאושרו</h5>
-                                {AllCloseOrders && AllCloseOrders.length && AllCloseOrders.map((item) =>
+
+
+
+                                <h5 style={{ direction: 'rtl' }}>הצעות שאושרו</h5>
+                                {AllCloseOrders && AllCloseOrders.length && AllCloseOrders.map((item, index) =>
                                     <>
-                                        <div style={{ display: 'flex', alignItems: 'center', direction: 'rtl', flexDirection: 'row', margin: 0, alignItems: 'flex-end' }} className='b'>
+                                        <div key={index} style={{ display: 'flex', alignItems: 'center', direction: 'rtl', flexDirection: 'row', margin: 0, alignItems: 'flex-end' }} className='showb'>
                                             <div >
                                                 <p>
-                                                    מספר ההצעה:{item._id}
+                                                    מספר ההצעה:{" "+item._id}
                                                 </p>
                                                 <p>
-                                                    מספר הזמנה:{item.order}
+                                                    מספר הזמנה:{" "+item.order}
                                                 </p>
-                                                {item.order !== undefined ? <p >מאת: {item['order']['claintID']}</p> : ''}
+                                                {/* <p >מאת: {item["order"]["claintID"]['claintPhone']}</p> */}
                                                 <p>
-                                                    סטטוס:{item.status ? "אושר" : "פתוח"}
+                                                    סטטוס:{" "+item.status ? "אושר" : "פתוח"}
                                                 </p>
+                                                <p>{!item.isShow && <>
+                                                    <div style={{display:'flex'}}>
+                                                                <MarkEmailReadIcon color="#496bdb" />
+                                                                <h6 style={{ color: '#496bdb' }}>הזמנה חדשה  </h6>
 
+                                                            </div>
+                                                 </>}
+                                                 </p>
                                             </div>
                                             <div className='end'>
-                                                <Button className='btn bidbtn'>פירוט הצעה</Button>
+                                                <Button className='btn bidbtn' onClick={() => { ShowClaintDetails(item._id) }}>פרטי הלקוח</Button>
+
+                                                <Modal show={ClaintDetails} onHide={ShowClaintDetails} >
+                                                    <Modal.Header>
+                                                        <Modal.Title style={{direction:'rtl'}}>
+                                                            פרטי העסק
+                                                        </Modal.Title>
+                                                    </Modal.Header>
+                                                    <Modal.Body>
+                                                        {/* <p>שם הלקוח:{+" "+item['claintID']['claintFirstName']+" "+ item['claintID']['claintLastName']} </p> */}
+                                                        {/* <p>טלפון:{+" "+item['claintID']['claintPhone']} </p> */}
+                                                        {/* <p>מייל:{+" "+item['order']['claintID']} </p> */}
+                                                      
+                                                    </Modal.Body>
+                                                    <Modal.Footer>
+                                                        <Button variant="primary" className='btn' onClick={CloseClaintDetails}>
+                                                            סגור
+                                                        </Button>
+                                                    </Modal.Footer>
+                                                </Modal>
+
+
+                                                <Button className='btn bidbtn' onClick={() => { OrderModal(item.order) }}>פירוט הצעה</Button>
                                             </div>
 
                                         </div>
                                     </>
                                 )}
+                                {isOrderShow && <ShowOrder show={isOrderShow} setShow={closeOrderModal} orderId={IdCurrent} />}
+
                             </div>
                         </div>
                         {/* <br />

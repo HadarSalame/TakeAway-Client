@@ -167,6 +167,40 @@ i.material-icons {
 
 
 }
+.rmsc .dropdown-heading{
+    direction: ltr;
+}
+
+.showb {
+    direction: rtl;
+    margin: 20px;
+    margin-bottom: 25px;
+    border-bottom-color: black !important;
+    border-bottom-width: 2px !important;
+    border-bottom-style: solid !important;
+    display: flex;
+    flex-direction: column;
+    display: flex;
+    align-items: flex-end;
+    direction: rtl;
+    flex-direction: row;
+    margin: 0px;
+    justify-content: space-between;
+    /* width: min-content !important; */
+}
+
+.filterBids {
+    align-items: flex-end;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+
+}
+
+.modal-footer {
+    flex-wrap: nowrap;
+}
 
 .bidbtn {
     margin-left: 0px !important;

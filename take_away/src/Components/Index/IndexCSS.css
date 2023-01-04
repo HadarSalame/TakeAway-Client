@@ -1,28 +1,30 @@
-.img{
+.img {
     width: 300px;
     height: 300px;
-    margin:10px;
-    
-}
-
-.opens{
-width:55%;
-margin: 2%;
-height: 450px;
-margin-left: 23%;
-box-shadow: 5px 3px 10px #2c2c2c91,5px 3px 10px #2c2c2c91;
-border-radius: 1%;
-margin-right: 21%;
-
+    margin: 10px;
 
 }
-.btn:hover,.btn:active{
+
+.opens {
+    width: 55%;
+    margin: 2%;
+    height: 450px;
+    margin-left: 23%;
+    box-shadow: 5px 3px 10px #2c2c2c91, 5px 3px 10px #2c2c2c91;
+    border-radius: 1%;
+    margin-right: 21%;
+
+
+}
+
+.btn:hover,
+.btn:active {
     background-color: #f7d520 !important;
     border-color: #f7d520 !important;
-    
+
 }
 
-.st{
+.st {
     position: absolute;
     width: 15%;
     top: 560px;
@@ -34,3 +36,98 @@ margin-right: 21%;
     justify-content: center;
     align-items: center;
 }
+
+.carusel {
+    width: 100% !important;
+    height: auto;
+    /* margin-top: 22%; */
+    display: flex;
+
+
+}
+
+.carousel-item {
+    /* display: flex; */
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    /* width: 80%; */
+}
+
+.car {
+    margin-top: 20% !important;
+    width: 88%;
+    display: flex;
+    margin: 8%;
+    ;
+
+}
+
+.indexuser {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    align-content: center;
+    /* margin-right: 15%; */
+    width: 35%;
+}
+
+.openPart {
+    margin-top: 10%;
+    margin-bottom: 5%;
+    display: flex;
+    width: 106%;
+    flex-direction: row-reverse;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0;
+    background-color: #f7d520;
+}
+
+.openLine {
+    display: flex;
+    padding: 2%;
+    width: 60%;
+    direction: rtl;
+    flex-direction: column;
+    align-content: flex-start;
+    align-items: flex-start;
+    text-align: right;
+
+}
+
+h2 {
+    color: white !important;
+    font-size: 50px;
+    direction: rtl;
+
+}
+
+p {
+    /* color: white !important; */
+    font-size: 30px;
+    direction: rtl;
+}
+
+.col-xl-12 {
+    margin: 0;
+}
+
+.photo {
+    width: 100%;
+    height: 422px;
+}
+
+.jump {
+    color: #f7d520 !important;
+    background-color: white !important;
+
+
+}
+.jump:hover,.jump:active{
+    color: #f7d520 !important;
+    background-color: white !important;
+}
+

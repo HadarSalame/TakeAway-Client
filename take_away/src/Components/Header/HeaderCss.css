@@ -47,6 +47,16 @@
     margin-right: 15px;
     top:2%;
 }
+.indexlogo{
+    position: absolute;
+    width: 24%;
+    height: auto;
+    display: flex;
+    right: 37%;
+    left: 37%;
+    top:2%;
+    margin-bottom: 10%;
+}
 
 .opt {
     margin-right: 30px;
