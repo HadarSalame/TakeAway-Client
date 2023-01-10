@@ -217,6 +217,8 @@ export default connect(mapStateToProps)(function ProfessionalPA(props) {
                                     </Modal.Header>
                                     <Modal.Body>
                                         <Form>
+
+                                            
                                             <FloatingLabel
                                                 className="mb-3 "
                                                 style={{ 'direction': 'rtl' }}
