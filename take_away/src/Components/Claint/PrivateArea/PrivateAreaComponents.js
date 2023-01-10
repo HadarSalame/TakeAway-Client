@@ -462,7 +462,7 @@ export default connect(mapStateToProps)(function PAComponent(props) {
 
                                         <h3 style={{ direction: 'rtl' }}>מזל טוב!</h3>
                                         <h5> ההזמנה אושרה בהצלחה</h5>
-                                  
+
                                         <Button variant="secondary" className='btn' onClick={handleMessegeClose}>
                                             סגור
                                         </Button>
@@ -537,7 +537,7 @@ export default connect(mapStateToProps)(function PAComponent(props) {
                                                         סכום:{b.price}
                                                     </p>
                                                     <p>
-                                                        סטטוס:{b.status ? "סגור" : "פתוח"}
+                                                        סטטוס:{!b.isActive ? 'בוטל':b.status ? "סגור" : "פתוח"}
                                                     </p>
                                                     <p>{b.price === minPrice &&
                                                         <>
@@ -577,7 +577,7 @@ export default connect(mapStateToProps)(function PAComponent(props) {
                                                     :
                                                     <>
                                                         <div className='end'>
-                                                            <Button className='btn bidbtn' onClick={() => closeBid(b._id)}>אישור הצעה</Button>
+                                                            <Button className='btn bidbtn' disabled={!b.isActive} onClick={() => closeBid(b._id)}>אישור הצעה</Button>
                                                         </div>
                                                     </>}
 

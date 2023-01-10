@@ -139,14 +139,14 @@ export default connect(mapStateToProps)(function ProfessionalPA(props) {
     const handleShowAlert = () => setShowAlert(true);
 
     function DeleteBid(bid) {
-        axios.delete(`http://localhost:3030/bid/DeleteBidById/${bid}`).then((res) => {
-            if (res.data === 'delete') {
+        axios.post(`http://localhost:3030/bid/updateIsActiveBid/${bid}`).then((res) => {
+            if (res.data === 'updateIsActiveBid') {
                 console.log('delete');
                 setShowAlert(true)
                 handleShowAlert()
             }
             else {
-                console.log('cant delete')
+                console.log('cant updateIsActiveBid')
             }
         })
 
@@ -176,7 +176,7 @@ export default connect(mapStateToProps)(function ProfessionalPA(props) {
                         <Modal show={showAlert} onHide={handleCloseAlert}>
 
                             <Modal.Body className='alertModal'>
-                                <h1 style={{ direction: 'rtl' }}>ההצעה נמחקה בהצלחה!</h1>
+                                <h1 style={{ direction: 'rtl' }}>ההצעה בוטלה בהצלחה!</h1>
                             </Modal.Body>
                             <Modal.Footer>
                                 <Button variant="primary" className='btn' onClick={handleCloseAlert}>
@@ -218,7 +218,7 @@ export default connect(mapStateToProps)(function ProfessionalPA(props) {
                                     <Modal.Body>
                                         <Form>
 
-                                            
+
                                             <FloatingLabel
                                                 className="mb-3 "
                                                 style={{ 'direction': 'rtl' }}
@@ -353,14 +353,14 @@ export default connect(mapStateToProps)(function ProfessionalPA(props) {
                                                     מספר ההצעה:{item._id}
                                                 </p>
                                                 <p>
-                                                    {/* <p >ל: {item['order']['claintID']['claintFirstName']}</p> */}
+                                                    <p >ל: {item.order?.claintID?.claintFirstName}</p>
                                                 </p>
                                                 <p>
-                                                    <p >מספר הזמנה:{item.order}</p>
+                                                    <p >מספר הזמנה:{item.order?._id}</p>
                                                 </p>
 
                                                 <p>
-                                                    סטטוס:{item.status ? "אושר" : "פתוח"}
+                                                סטטוס:{!item.isActive ? 'בוטל':item.status ? "סגור" : "פתוח"}
                                                 </p>
                                                 <p>
                                                     סכום:{item.price}
@@ -368,8 +368,8 @@ export default connect(mapStateToProps)(function ProfessionalPA(props) {
                                             </div>
                                             <div className='end'>
 
-                                                <Button className='btn bidbtn' onClick={() => { DeleteBid(item._id) }}>מחק הצעה</Button>
-                                                <Button className='btn bidbtn' onClick={() => { OrderModal(item.order) }}>פירוט הזמנה</Button>
+                                                <Button className='btn bidbtn' disabled={!item.isActive} onClick={() => { DeleteBid(item._id) }}>בטל הצעה</Button>
+                                                <Button className='btn bidbtn' disabled={!item.isActive} onClick={() => { OrderModal(item.order) }}>פירוט הזמנה</Button>
                                             </div>
 
                                         </div>
@@ -393,9 +393,9 @@ export default connect(mapStateToProps)(function ProfessionalPA(props) {
                                                     מספר ההצעה:{" "+item._id}
                                                 </p>
                                                 <p>
-                                                    מספר הזמנה:{" "+item.order}
+                                                    מספר הזמנה:{" "+item.order?._id}
                                                 </p>
-                                                {/* <p >מאת: {item["order"]["claintID"]['claintPhone']}</p> */}
+                                                        <p>שם הלקוח:{+" "+item.order?.claintID?.claintFirstName+" "+ item.order?.claintID?.claintLastName} </p>
                                                 <p>
                                                     סטטוס:{" "+item.status ? "אושר" : "פתוח"}
                                                 </p>
@@ -414,14 +414,13 @@ export default connect(mapStateToProps)(function ProfessionalPA(props) {
                                                 <Modal show={ClaintDetails} onHide={ShowClaintDetails} >
                                                     <Modal.Header>
                                                         <Modal.Title style={{direction:'rtl'}}>
-                                                            פרטי העסק
+                                                            פרטי הלקוח
                                                         </Modal.Title>
                                                     </Modal.Header>
                                                     <Modal.Body>
-                                                        {/* <p>שם הלקוח:{+" "+item['claintID']['claintFirstName']+" "+ item['claintID']['claintLastName']} </p> */}
-                                                        {/* <p>טלפון:{+" "+item['claintID']['claintPhone']} </p> */}
-                                                        {/* <p>מייל:{+" "+item['order']['claintID']} </p> */}
-                                                      
+                                                        <p>שם הלקוח:{+" "+item.order?.claintID?.claintFirstName+" "+ item.order?.claintID?.claintLastName} </p>
+                                                        <p>טלפון:{+" "+item.order?.claintID?.claintPhone} </p>
+                                                        <p>מייל:{+" "+item.order?.claintID?.claintEmail} </p>  
                                                     </Modal.Body>
                                                     <Modal.Footer>
                                                         <Button variant="primary" className='btn' onClick={CloseClaintDetails}>
