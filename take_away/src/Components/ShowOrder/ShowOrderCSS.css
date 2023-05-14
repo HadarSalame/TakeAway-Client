@@ -1,0 +1,6 @@
+.modal-header{
+    flex-direction: row-reverse;
+}
+.tit{
+    direction: rtl !important;
+}

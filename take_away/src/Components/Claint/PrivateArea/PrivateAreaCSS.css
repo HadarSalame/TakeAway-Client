@@ -1,0 +1,216 @@
+.menu {
+    display: inline-block;
+    margin-right: 5%;
+    margin-left: 4%;
+}
+
+.option {
+    /* display: inline-grid; */
+    margin: 2%;
+    direction: rtl;
+}
+
+/* .PA{
+    display: inline-flex;
+    margin-left: 26%;
+} */
+.btn {
+
+    color: #fff;
+    background-color: #f7d520;
+    border-color: #f7d520;
+    color: black;
+    margin: 20px;
+    height: fit-content;
+    width: max-content !important;
+
+}
+
+.btn:hover {
+    color: #fff;
+}
+
+.btn-primary {
+    color: rgb(0, 0, 0);
+    background-color: #f7d520 !important;
+    border-color: #f7d520 !important;
+}
+
+.btn-secondary {
+    color: rgb(0, 0, 0);
+    background-color: #f7d520 !important;
+    border-color: #f7d520 !important;
+}
+
+.form-check-input:checked {
+    background-color: #f7d520 !important;
+    border-color: #f7d520 !important;
+}
+
+.form-check-input {
+    color: #f7d520 !important;
+    border: 1px solid #f7d520 !important;
+}
+
+
+.navs {
+    background-color: #f7d520;
+    color: #000000;
+    border-color: #f7d520;
+
+}
+
+.navs1 {
+    display: inline;
+}
+
+.navs:hover {
+    color: #ffffff;
+}
+
+.details {
+    text-align: right;
+    direction: rtl;
+    font-size: 10px;
+    right: 0%;
+}
+
+.forms {
+    width: 230px;
+    margin: 5px;
+    height: 38px;
+    margin-left: 0%;
+}
+
+.form-control.b:hover {
+    position: absolute;
+    right: 2px;
+    width: 2.26ex;
+    border-color: rgba(0, 0, 0, 0.1);
+    border-style: solid;
+    text-align: center;
+    cursor: default;
+    transition: all 0.1s ease 0s;
+    background: rgba(0, 0, 0, 0.1);
+    box-shadow: rgb(0 0 0 / 10%) -1px -1px 3px inset, rgb(255 255 255 / 70%) 1px 1px 3px inset;
+    top: 2px;
+    bottom: 50%;
+    border-radius: 2px 2px 0px 0px;
+    border-width: 1px 1px 0px;
+    height: 19px;
+    background-color: aquamarine;
+}
+
+.btnPA {
+    margin: 0px;
+    margin-top: 10%;
+    display: flex;
+    width: 123px;
+    text-align: center;
+}
+
+i.material-icons {
+    color: #ffffff;
+    background-color: #f7d520;
+    border-radius: 50%;
+    font-size: 40px;
+}
+
+.more_vert {
+    background-color: #ffffff;
+    border-color: #ffffff;
+    margin: 0 !important;
+}
+
+.more_vert:hover {
+    background-color: #ffffff !important;
+    border-color: #ffffff !important;
+    margin: 0 !important;
+}
+
+.css-1dyuqpd {
+    height: 80px !important;
+    direction: ltr !important;
+    width: 70px;
+}
+
+.filter {
+    /* display: flex;
+    /* color: #fff; */
+    /* border-color: #000000;
+    font-size: 30px;
+    margin: 1%;  */
+
+
+}
+
+.rmsc .dropdown-heading {
+    height: 30px !important;
+}
+
+.rmsc .gray {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.fillter {
+    margin-top: 2% !important;
+    margin-bottom: 4% !important;
+    height: 30px !important;
+    direction: rtl !important;
+}
+
+.end {
+    direction: ltr;
+    margin-top: 0;
+    flex-direction: row;
+
+
+}
+.rmsc .dropdown-heading{
+    direction: ltr;
+}
+
+.showb {
+    direction: rtl;
+    margin: 20px;
+    margin-bottom: 25px;
+    border-bottom-color: black !important;
+    border-bottom-width: 2px !important;
+    border-bottom-style: solid !important;
+    display: flex;
+    flex-direction: column;
+    display: flex;
+    align-items: flex-end;
+    direction: rtl;
+    flex-direction: row;
+    margin: 0px;
+    justify-content: space-between;
+    /* width: min-content !important; */
+}
+
+.filterBids {
+    align-items: flex-end;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+
+}
+
+.modal-footer {
+    flex-wrap: nowrap;
+}
+
+.bidbtn {
+    margin-left: 0px !important;
+    font-size: 11px;
+    font-weight: 650;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    width: 90px;
+    text-align: center;
+    margin-top: 0;
+
+}

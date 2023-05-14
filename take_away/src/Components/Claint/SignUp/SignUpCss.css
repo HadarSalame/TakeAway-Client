@@ -1,0 +1,48 @@
+.border{
+    border-color: #f7d520;
+    /* width: 40%; */
+    border-width: 15px;
+    height: auto;
+    /* box-shadow: 2px 2px 2px #918f85; */
+    border-radius: 5%;
+    /*
+    padding-right: 40px;
+    padding-left: 40px; */
+    margin-right: auto;
+    margin-left: auto;
+    padding: 20px;
+}
+
+.custom-control-label{
+    text-align: right;
+}
+.mb-3{
+    direction: rtl;
+}
+.css-acap47-MuiAlert-message{
+    margin-right: 2%;
+}
+.css-9xtpry-MuiStack-root{
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    justify-content: center;
+    width: 100%;
+}
+.css-xilmwd-MuiPaper-root-MuiAlert-root {
+    margin-right: 2%;
+     direction: rtl;
+     width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    border-color: #ff00005a;
+    border-width: initial;
+    border-style: solid;
+
+
+}
+.css-xilmwd-MuiPaper-root-MuiAlert-root {
+   
+}

@@ -1,0 +1,85 @@
+.input {
+    border-color: black;
+    width: 30px;
+    height: 7px;
+
+}
+.css-xilmwd-MuiPaper-root-MuiAlert-root{
+    width:96%
+}
+
+/* .form-floating>label{
+    position: absolute;
+    top: 0;
+    height: 100%;
+    padding: 1rem 0.75rem;
+    pointer-events: none;
+    border: 1px solid transparent;
+    transform-origin: 0 0;
+    transition: opacity .1s ease-in-out,transform .1s ease-in-out;
+    direction: rtl;
+    right: 1%; 
+} */
+
+.border {
+    border-color: #f7d520;
+    width: 80%;
+    border-width: 15px;
+    height: auto;
+    box-shadow: 2px 2px 2px #918f85;
+    border-radius: 5%;
+    /*
+    padding-right: 40px;
+    padding-left: 40px; */
+    margin-right: auto;
+    margin-left: auto;
+    padding-top: 40px;
+
+
+}
+
+.btn {
+    color: #fff !important;
+    background-color: #f7d520 !important;
+    width: max-content !important;
+    border-color: #f7d520 !important;
+    color: black !important;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    height: fit-content;
+    text-align: center !important;
+    margin-left: 45%;
+}
+.alertModal{
+    align-items: center !important;
+    display: flex;
+    flex-direction: column !important;
+}
+
+.btn:hover {
+    color: #fff;
+}
+
+.a {
+    width: 200px;
+    direction: rtl;
+
+
+}
+
+.ForgetPassword {
+    font-size: 13.5px;
+    ;
+    text-align: left;
+    margin-top: 5px;
+}
+
+.FP {
+    direction: ltr;
+    text-align: left;
+
+}
+
+.FP:hover {
+    text-decoration: none;
+}
