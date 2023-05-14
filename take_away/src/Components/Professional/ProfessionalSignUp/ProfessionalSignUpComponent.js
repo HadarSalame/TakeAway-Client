@@ -46,7 +46,6 @@ export default connect()(function ProfessionalSignUp(props) {
     let ProEmailRef = useRef()
     let ProPassRef = useRef()
     let ProConPassRef = useRef();
-    let ProIdRef = useRef()
     //איך זה עובד עם קבצים??
 
     const [showErrorAlert, setShowErrorAlert] = useState(false)
@@ -65,7 +64,6 @@ export default connect()(function ProfessionalSignUp(props) {
     function gotoIndex() {
         console.log(selected);
         let newBusiness = {
-            businessID: ProIdRef.current.value,
             businessName: ProNameRef.current.value,
             businessOwnerName: OwnerProNameRef.current.value,
             businessPhone: ProPhoneRef.current.value,
@@ -76,7 +74,7 @@ export default connect()(function ProfessionalSignUp(props) {
             businessKosher: selected.map(s => s.label),
         }
 
-        if (newBusiness.businessPhone.length !== 10
+        if (newBusiness.businessPhone.length === 10
             && newBusiness.businessID !== ""
             && newBusiness.businessName !== ""
             && newBusiness.businessOwnerName !== ""
@@ -102,7 +100,7 @@ export default connect()(function ProfessionalSignUp(props) {
                     else {
 
                         dispatch(addProfessional(res.data.Business));
-                        navigate("/Index")
+                        navigate("/PPAComponent")
                     }
                 }).catch(err => console.log(err))
             }
@@ -201,19 +199,6 @@ export default connect()(function ProfessionalSignUp(props) {
                                 placeholder="BusinessOwnerName" />
 
                         </FloatingLabel>
-
-                        <FloatingLabel
-                            className="mb-3 "
-                            style={{ 'direction': 'rtl' }}
-                            controlId="floatingInputId"
-                            label="מספר העסק" >
-
-                            <Form.Control
-                                ref={ProIdRef}
-                                type="Text"
-                                placeholder="BusinessID" />
-                        </FloatingLabel>
-
 
                         <FloatingLabel
                             className="mb-3"

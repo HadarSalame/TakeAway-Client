@@ -49,16 +49,17 @@ export default connect(mapStateToProps)(function Order(Props) {
       <div>
         <Modal show={show} onHide={handleOrderShow}>
           <Modal.Header>
-            <Modal.Title style={{ textAlign: 'center' }}> פירוט ההזמנה</Modal.Title>
+            <Modal.Title style={{ direction: 'rtl' }}> פירוט ההזמנה</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             {order ?
               <div style={{ direction: 'rtl' }}>
 
-                <h3>תפריט</h3>
+                
                 <p>מיקום:{" "+order.eventAddress}</p>
                 <p>כמות מוזמנים:{" "+order.numInvited}</p>
                 <br></br>
+                <h4 className='tit'>תפריט</h4>
                 {order.portion !== null ? order.portion.map(item => <>
                   <div>
                     <p > {item['portionName']}</p>

@@ -138,10 +138,10 @@ export default connect(mapStateToProps)(function ProfessionalPA(props) {
     const handleCloseAlert = () => setShowAlert(false);
     const handleShowAlert = () => setShowAlert(true);
 
-    function DeleteBid(bid) {
-        axios.post(`http://localhost:3030/bid/updateIsActiveBid/${bid}`).then((res) => {
+    function DeleteBid(id) {
+        axios.post(`http://localhost:3030/bid/updateIsActiveBid/${id}`).then((res) => {
             if (res.data === 'updateIsActiveBid') {
-                console.log('delete');
+                console.log('false');
                 setShowAlert(true)
                 handleShowAlert()
             }
@@ -212,7 +212,7 @@ export default connect(mapStateToProps)(function ProfessionalPA(props) {
                                 <Button onClick={handleShow} style={{ marginRight: 0, width: ' max-content' }}>עדכון פרטי העסק</Button>
 
                                 <Modal show={show} onHide={handleClose}>
-                                    <Modal.Header closeButton>
+                                    <Modal.Header >
                                         <Modal.Title style={{ textAlign: 'center' }}>עדכון פרטים</Modal.Title>
                                     </Modal.Header>
                                     <Modal.Body>
@@ -350,20 +350,21 @@ export default connect(mapStateToProps)(function ProfessionalPA(props) {
                                         <div key={index} style={{ display: 'flex', alignItems: 'center', direction: 'rtl', flexDirection: 'row', margin: 0, alignItems: 'flex-end' }} className='showb'>
                                             <div >
                                                 <p>
-                                                    מספר ההצעה:{item._id}
+                                                    מספר ההצעה:{" "+item._id}
                                                 </p>
                                                 <p>
-                                                    <p >ל: {item.order?.claintID?.claintFirstName}</p>
+                                                    <p >ל: {" "+item.order.claintID?.claintFirstName+" "+ item.order?.claintID?.claintLastName}</p>
                                                 </p>
                                                 <p>
-                                                    <p >מספר הזמנה:{item.order?._id}</p>
+                                                    <p >מספר הזמנה:{" "+item.order?._id}</p>
                                                 </p>
 
                                                 <p>
                                                 סטטוס:{!item.isActive ? 'בוטל':item.status ? "סגור" : "פתוח"}
+                                    
                                                 </p>
                                                 <p>
-                                                    סכום:{item.price}
+                                                    סכום:{" "+item.price}
                                                 </p>
                                             </div>
                                             <div className='end'>

@@ -357,9 +357,9 @@ export default connect(mapStateToProps)(function PAComponent(props) {
                                 </div>
                             </div>
 
-                            {/* הודעת עדכון פרטים */}
+                            {/* הודעת  פרטים */}
                             <Modal show={showUpdate} onHide={handleCloseUpdate}>
-                                <Modal.Header closeButton>
+                                <Modal.Header >
                                     <Modal.Title style={{ textAlign: 'center' }}>עדכון פרטים</Modal.Title>
                                 </Modal.Header>
                                 <Modal.Body>

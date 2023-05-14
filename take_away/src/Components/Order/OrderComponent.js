@@ -69,7 +69,7 @@ export default connect(mapStateToProps)(function Order(Props) {
         let newBid = {
 
             price: refPrice.current.value,
-            marks: refMarks.current.value,
+            // marks: refMarks.current.value,
             business: bus._id,
             order: order._id,
             status: false
@@ -174,7 +174,7 @@ export default connect(mapStateToProps)(function Order(Props) {
                                 </div>
 
                                 <br></br>
-                                <div>
+                                {/* <div>
                                     <h5>הערות</h5>
                                     <FloatingLabel
                                         className="mb-3 "
@@ -189,7 +189,7 @@ export default connect(mapStateToProps)(function Order(Props) {
 
 
                                     </FloatingLabel>
-                                </div>
+                                </div> */}
 
 
                             </div> : <></>}

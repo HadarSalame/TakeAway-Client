@@ -48,7 +48,7 @@ export default connect()(function SignUp(props) {
             confirmPassword: conPassRef.current.value
 
         }
-        if (newClaint.claintPhone.length !== 10
+        if (newClaint.claintPhone.length === 10
             && newClaint.claintFirstName !== ""
             && newClaint.claintLastName !== ""
             && newClaint.claintPhone !== ""
